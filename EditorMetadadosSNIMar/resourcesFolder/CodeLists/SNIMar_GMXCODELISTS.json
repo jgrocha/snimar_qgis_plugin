@@ -1,0 +1,1282 @@
+{
+  "LanguageCode": {
+    "por": {
+      "en": "por",
+      "description": "Portugu\u00eas",
+      "pt": "Portugu\u00eas"
+    },
+    "eng": {
+      "en": "eng",
+      "description": "Ingl\u00eas",
+      "pt": "Ingl\u00eas"
+    }
+  },
+  "ServiceType": {
+    "invoke": {
+      "en": "invoke",
+      "description": " Servi\u00e7o que permite definir dados de entrada e de sa\u00edda previstos pelo geoservi\u00e7o ou uma cadeia de servi\u00e7os que combina v\u00e1rios servi\u00e7os. Tamb\u00e9m permite a cadeia de servi\u00e7os",
+      "pt": " Servi\u00e7o de Invoca\u00e7\u00e3o de Servi\u00e7os de Dados Geogr\u00e1ficos"
+    },
+    "other": {
+      "en": "other",
+      "description": " Servi\u00e7o Outros tipos de servi\u00e7o",
+      "pt": " Outro"
+    },
+    "download": {
+      "en": "download",
+      "description": " Servi\u00e7o que permite copiar CDG, ou partes dos CDG, para descarregamento ou acesso directo",
+      "pt": " Servi\u00e7o de Descarregamento"
+    },
+    "discovery": {
+      "en": "discovery",
+      "description": " Servi\u00e7os que possibilitam a pesquisa de recursos baseada no conte\u00fado dos metadados correspondentes e avisualiza\u00e7\u00e3o dos metadados",
+      "pt": " Servi\u00e7o de Pesquisa"
+    },
+    "transformation": {
+      "en": "transformation",
+      "description": " Servi\u00e7o que transforma CDG com o objectivo de os tornar interoper\u00e1veis",
+      "pt": " Servi\u00e7o de Transforma\u00e7\u00e3o"
+    },
+    "view": {
+      "en": "view",
+      "description": " Servi\u00e7o que possibilita, no m\u00ednimo, a visualiza\u00e7\u00e3o, a navega\u00e7\u00e3o, aproxima\u00e7\u00e3o e afastamento, movimenta\u00e7\u00e3o em todas as direc\u00e7\u00f5es e cruzamento de CDG, assim como a disponibiliza\u00e7\u00e3o da legenda e metadados",
+      "pt": " Servi\u00e7o de Visualiza\u00e7\u00e3o"
+    }
+  },
+  "CI_RoleCode": {
+    "originator": {
+      "en": "originator",
+      "description": "Entidade produtora dos recursos",
+      "pt": "Produtor"
+    },
+    "publisher": {
+      "en": "publisher",
+      "description": "Entidade que publicou os recursos",
+      "pt": "Editor"
+    },
+    "pointOfContact": {
+      "en": "pointOfContact",
+      "description": "Entidade / pessoa contact\u00e1vel para obten\u00e7\u00e3o dos recursos ou de informa\u00e7\u00e3oo sobre os recursos",
+      "pt": "Contacto"
+    },
+    "author": {
+      "en": "author",
+      "description": "Entidade respons\u00e1vel pela autoria dos recursos",
+      "pt": "Autor"
+    },
+    "custodian": {
+      "en": "custodian",
+      "description": "Entidade respons\u00e1vel pela tutela dos dados e pela manuten\u00e7\u00e3o dos recursos",
+      "pt": "Tutor"
+    },
+    "resourceProvider": {
+      "en": "resourceProvider",
+      "description": "Entidade que fornece os recursos",
+      "pt": "Fornecedor"
+    },
+    "principalInvestigator": {
+      "en": "principalInvestigator",
+      "description": "Entidade de n\u00edvel hier\u00e1rquico superior respons\u00e1vel pela recolha da informa\u00e7\u00e3o e orienta\u00e7\u00e3o da investiga\u00e7\u00e3o",
+      "pt": "Investigador Principal"
+    },
+    "user": {
+      "en": "user",
+      "description": "Entidade que utilizada os recursos",
+      "pt": "Utilizador"
+    },
+    "owner": {
+      "en": "owner",
+      "description": "Entidade detentora dos direitos de propriedade sobre os recursos",
+      "pt": "Detentor"
+    },
+    "processor": {
+      "en": "processor",
+      "description": "Entidade / pessoa que participou em algum processo conducente \u00e0 modifica\u00e7\u00e3o dos recursos",
+      "pt": "Contacto do Processo"
+    }
+  },
+  "MD_ScopeCode": {
+    "series": {
+      "en": "series",
+      "description": "A informa\u00e7\u00e3o \u00e9 aplic\u00e1vel a uma s\u00e9rie ou colec\u00e7\u00e3o de dados",
+      "pt": "S\u00e9rie"
+    },
+    "service": {
+      "en": "service",
+      "description": "A informa\u00e7\u00e3o \u00e9 aplic\u00e1vel \u00e0 capacidade que uma entidade fornecedora disponibiliza a uma entidade cliente atrav\u00e9s de um conjunto de interfaces que define um dado comportamento",
+      "pt": "Servi\u00e7o"
+    },
+    "dataset": {
+      "en": "dataset",
+      "description": "A informa\u00e7\u00e3o \u00e9 aplic\u00e1vel a um conjunto de dados geogr\u00e1ficos",
+      "pt": "Conjunto de Dados Geogr\u00e1ficos"
+    }
+  },
+  "ServiceClassification": {
+    "humanFeatureGeneralizationEditor": {
+      "en": "humanFeatureGeneralizationEditor",
+      "description": "Servi\u00e7o cliente que permite ao utilizador modificar as caracter\u00edsticas cartogr\u00e1ficas de um elemento geogr\u00e1fico ou colec\u00e7\u00e3o de elementos geogr\u00e1ficos simplificando a sua visualiza\u00e7\u00e3o, mas mantendo simultaneamente as suas componentes relevantes \u2014 o equivalente espacial de simplifica\u00e7\u00e3o",
+      "pt": "109. Editor de generaliza\u00e7\u00e3o de elementos geogr\u00e1ficos"
+    },
+    "thematicReducedResolutionGenerationService": {
+      "en": "thematicReducedResolutionGenerationService",
+      "description": "Servi\u00e7o que permite diminuir a resolu\u00e7\u00e3o de uma imagem",
+      "pt": "509. Servi\u00e7o de redu\u00e7\u00e3o de resolu\u00e7\u00e3o"
+    },
+    "infoRegistryService": {
+      "en": "infoRegistryService",
+      "description": "Servi\u00e7o que permite o acesso a reposit\u00f3rios de metadados sobre tipos",
+      "pt": "208. Servi\u00e7o de registo"
+    },
+    "infoFeatureAccessService": {
+      "en": "infoFeatureAccessService",
+      "description": "Servi\u00e7o que permite ao cliente o acesso e a gest\u00e3o de um reposit\u00f3rio de elementos geogr\u00e1ficos",
+      "pt": "201. Servi\u00e7o de acesso a elementos geogr\u00e1ficos"
+    },
+    "temporalReferenceSystemTransformationService": {
+      "en": "temporalReferenceSystemTransformationService",
+      "description": "Servi\u00e7o que permite modificar os valores das ocorr\u00eancias temporais de um sistema de refer\u00eancia temporal para outro sistema de refer\u00eancia temporal",
+      "pt": "601. Servi\u00e7o de transforma\u00e7\u00e3o do sistema de refer\u00eancia temporal"
+    },
+    "spatialSubsettingService": {
+      "en": "spatialSubsettingService",
+      "description": "Servi\u00e7o que extrai dados de uma fonte numa regi\u00e3o espacial cont\u00ednua com base na localiza\u00e7\u00e3o geogr\u00e1fica ou em coordenadas rectangulares",
+      "pt": "409. Servi\u00e7o de defini\u00e7\u00e3o de subconjuntos"
+    },
+    "infoProductAccessService": {
+      "en": "infoProductAccessService",
+      "description": "Servi\u00e7o que permite o acesso e gest\u00e3o de um reposit\u00f3rio de produtos geogr\u00e1ficos",
+      "pt": "205. Servi\u00e7o de acesso a produtos"
+    },
+    "spatialOrthorectificationService": {
+      "en": "spatialOrthorectificationService",
+      "description": "Um servi\u00e7o de rectifica\u00e7\u00e3o que corrige as deforma\u00e7\u00f5es devidas ao \u00e2ngulo de obten\u00e7\u00e3o da imagem e os desvios da imagem decorrentes do relevo",
+      "pt": "406. Servi\u00e7o de ortorrectifica\u00e7\u00e3o"
+    },
+    "metadataProcessingService": {
+      "en": "metadataProcessingService",
+      "description": "Servi\u00e7os de processamento geogr\u00e1fico \u2013 metadados",
+      "pt": "700. Servi\u00e7os de processamento geogr\u00e1fico \u2013 metadados"
+    },
+    "temporalProximityAnalysisService": {
+      "en": "temporalProximityAnalysisService",
+      "description": "A partir de um determinado intervalo de tempo ou evento, este servi\u00e7o encontra todos os objectos com um determinado conjunto de atributos que est\u00e3o localizados dentro de um intervalo definido pelo utilizador em rela\u00e7\u00e3o ao referido intervalo ou evento",
+      "pt": "604. Servi\u00e7o de an\u00e1lise de proximidade temporal"
+    },
+    "spatialImageGeometryModelConversionService": {
+      "en": "spatialImageGeometryModelConversionService",
+      "description": "Servi\u00e7o que permite converter modelos geom\u00e9tricos dos sensores num modelo geom\u00e9trico de sensores diferente, mas equivalente",
+      "pt": "408. Servi\u00e7o de convers\u00e3o de modelos geom\u00e9tricos das imagens"
+    },
+    "thematicObjectDetectionService": {
+      "en": "thematicObjectDetectionService",
+      "description": "Servi\u00e7o que permite identificar objectos do mundo real numa imagem",
+      "pt": "514. Servi\u00e7o de detec\u00e7\u00e3o de objectos"
+    },
+    "spatialRouteDeterminationService": {
+      "en": "spatialRouteDeterminationService",
+      "description": "Servi\u00e7o que determina o trajecto \u00f3ptimo entre dois pontos especificados com base nos par\u00e2metros de entrada e nas propriedades contidas na colec\u00e7\u00e3o de elementos geogr\u00e1ficos",
+      "pt": "416. Servi\u00e7o de determina\u00e7\u00e3o do itiner\u00e1rio"
+    },
+    "humanChainDefinitionEditor": {
+      "en": "humanChainDefinitionEditor",
+      "description": "Servi\u00e7o que permite ao utilizador interagir com um servi\u00e7o de defini\u00e7\u00e3o de cadeias",
+      "pt": "105. Editor da defini\u00e7\u00e3o de cadeias"
+    },
+    "metadataStatisticalCalculationService": {
+      "en": "metadataStatisticalCalculationService",
+      "description": "Servi\u00e7o que permite calcular as estat\u00edsticas de um conjunto de dados",
+      "pt": "701. Servi\u00e7o de c\u00e1lculo estat\u00edstico"
+    },
+    "thematicGeoparsingService": {
+      "en": "thematicGeoparsingService",
+      "description": "Servi\u00e7o que permite procurar em documentos textuais refer\u00eancias a locais, como top\u00f3nimos, endere\u00e7os, c\u00f3digos postais, etc., para fins de prepara\u00e7\u00e3o da passagem para um servi\u00e7o de geocodifica\u00e7\u00e3o",
+      "pt": "515. Servi\u00e7o de geoidentifica\u00e7\u00e3o"
+    },
+    "spatialCoverageVectorConversionService": {
+      "en": "spatialCoverageVectorConversionService",
+      "description": "Servi\u00e7o que permite mudar a representa\u00e7\u00e3o espacial de um sistema de cobertura para um sistema vectorial, ou viceversa",
+      "pt": "403. Servi\u00e7o de convers\u00e3o cobertura/vector"
+    },
+    "thematicMultibandImageManipulationService": {
+      "en": "thematicMultibandImageManipulationService",
+      "description": "Servi\u00e7os que permitem modificar uma imagem utilizando as suas v\u00e1rias bandas",
+      "pt": "513. Servi\u00e7os de manipula\u00e7\u00e3o de imagens multibandas"
+    },
+    "spatialProcessingService": {
+      "en": "spatialProcessingService",
+      "description": "Servi\u00e7os de processamento geogr\u00e1fico \u2014 elementos espaciais",
+      "pt": "400. Servi\u00e7os de processamento geogr\u00e1fico \u2014 elementos espaciais"
+    },
+    "thematicGeocodingService": {
+      "en": "thematicGeocodingService",
+      "description": "Servi\u00e7o que permite complementar refer\u00eancias textuais baseadas na localiza\u00e7\u00e3o com coordenadas geogr\u00e1ficas (ou outra refer\u00eancia espacial)",
+      "pt": "516. Servi\u00e7o de geocodifica\u00e7\u00e3o"
+    },
+    "humanCatalogueViewer": {
+      "en": "humanCatalogueViewer",
+      "description": "Servi\u00e7o cliente que permite ao utilizador interagir com um cat\u00e1logo para localizar, navegar e gerir metadados sobre dados geogr\u00e1ficos ou servi\u00e7os geogr\u00e1ficos",
+      "pt": "101. Visualizador de cat\u00e1logo"
+    },
+    "comGeographicCompressionService": {
+      "en": "comGeographicCompressionService",
+      "description": "Servi\u00e7o que permite converter partes espaciais de uma colec\u00e7\u00e3o de elementos geogr\u00e1ficos para formato comprimido, e vice-versa.",
+      "pt": "803. Servi\u00e7o de compress\u00e3o geogr\u00e1fica"
+    },
+    "thematicImageProcessingService": {
+      "en": "thematicImageProcessingService",
+      "description": "Servi\u00e7o que permite modificar os valores dos atributos tem\u00e1ticos de uma imagem utilizando uma fun\u00e7\u00e3o matem\u00e1tica",
+      "pt": "508. Servi\u00e7o de processamento de imagens"
+    },
+    "infoCoverageAccessService": {
+      "en": "infoCoverageAccessService",
+      "description": "Servi\u00e7o que permite ao cliente o acesso e gest\u00e3o de um reposit\u00f3rio de coberturas",
+      "pt": "203. Servi\u00e7o de acesso a coberturas"
+    },
+    "comMessagingService": {
+      "en": "comMessagingService",
+      "description": "Servi\u00e7o que permite simultaneamente a v\u00e1rios utilizadores visualizar e comentar colec\u00e7\u00f5es de elementos geogr\u00e1ficos e solicitar revis\u00f5es das mesmas.",
+      "pt": "805. Servi\u00e7o de transmiss\u00e3o de mensagens"
+    },
+    "chainDefinitionService": {
+      "en": "chainDefinitionService",
+      "description": "Servi\u00e7o que permite definir uma cadeia e faz\u00ea-la executar pelo servi\u00e7o de fluxo de trabalho",
+      "pt": "301. Servi\u00e7o de defini\u00e7\u00e3o de cadeia"
+    },
+    "thematicSubsettingService": {
+      "en": "thematicSubsettingService",
+      "description": "Servi\u00e7o que permite extrair dados a partir de uma fonte baseada em valores de par\u00e2metros",
+      "pt": "504. Servi\u00e7o de defini\u00e7\u00e3o de subconjuntos"
+    },
+    "temporalSamplingService": {
+      "en": "temporalSamplingService",
+      "description": "Servi\u00e7o que permite extrair dados de uma fonte por meio de um sistema de amostragem coerente baseado em valores de localiza\u00e7\u00e3o temporal",
+      "pt": "603. Servi\u00e7o de amostragem"
+    },
+    "humanInteractionService": {
+      "en": "humanInteractionService",
+      "description": "Servi\u00e7os geogr\u00e1ficos com interac\u00e7\u00e3o humana",
+      "pt": "100. Servi\u00e7os geogr\u00e1ficos com interac\u00e7\u00e3o humana"
+    },
+    "taskManagementService": {
+      "en": "taskManagementService",
+      "description": "Servi\u00e7os de gest\u00e3o do fluxo de trabalho/tarefas geogr\u00e1ficas",
+      "pt": "300. Servi\u00e7os de gest\u00e3o do fluxo de trabalho/tarefas geogr\u00e1ficas"
+    },
+    "spatialFeatureManipulationService": {
+      "en": "spatialFeatureManipulationService",
+      "description": "Estes servi\u00e7os permitem inserir um elemento geogr\u00e1fico noutro elemento geogr\u00e1fico, imagem ou outro conjunto de dados ou conjunto de coordenadas, com correc\u00e7\u00e3o dos desvios translacionais relativos, das diferen\u00e7as rotacionais, das diferen\u00e7as de escala e das diferen\u00e7as de perspectiva. Permitem verificar que todos os elementos geogr\u00e1ficos da colec\u00e7\u00e3o de elementos geogr\u00e1ficos s\u00e3o topologicamente coerentes de acordo com as regras topol\u00f3gicas da colec\u00e7\u00e3o de elementos e identifica e/ou corrige eventuais inconsist\u00eancias detectadas",
+      "pt": "413. Servi\u00e7os de manipula\u00e7\u00e3o de elementos geogr\u00e1ficos"
+    },
+    "infoOrderHandlingService": {
+      "en": "infoOrderHandlingService",
+      "description": "Servi\u00e7o que permite ao cliente encomendar produtos de um fornecedor",
+      "pt": "210. Servi\u00e7o de gest\u00e3o de encomendas"
+    },
+    "humanGeographicViewer": {
+      "en": "humanGeographicViewer",
+      "description": "Servi\u00e7o cliente que permite ao utilizador visualizar uma ou mais colec\u00e7\u00f5es de elementos geogr\u00e1ficos ou coberturas",
+      "pt": "102. Visualizador geogr\u00e1fico"
+    },
+    "thematicFeatureGeneralizationService": {
+      "en": "thematicFeatureGeneralizationService",
+      "description": "Servi\u00e7o que generaliza os tipos de elementos geogr\u00e1ficos numa colec\u00e7\u00e3o de elementos geogr\u00e1ficos para aumentar a efic\u00e1cia da comunica\u00e7\u00e3o mediante a neutraliza\u00e7\u00e3o dos efeitos indesej\u00e1veis da redu\u00e7\u00e3o de dados",
+      "pt": "503. Servi\u00e7o de generaliza\u00e7\u00e3o de elementos geogr\u00e1ficos"
+    },
+    "spatialPositioningService": {
+      "en": "spatialPositioningService",
+      "description": "Servi\u00e7o fornecido por um dispositivo de localiza\u00e7\u00e3o que permite utilizar, obter e interpretar sem ambiguidades as informa\u00e7\u00f5es relativas \u00e0 localiza\u00e7\u00e3o e que determina se os resultados satisfazem os requisitos de utiliza\u00e7\u00e3o",
+      "pt": "417. Servi\u00e7o de localiza\u00e7\u00e3o"
+    },
+    "thematicGeographicInformationExtractionService": {
+      "en": "thematicGeographicInformationExtractionService",
+      "description": "Servi\u00e7os que permitem a extrac\u00e7\u00e3o de elementos geogr\u00e1ficos e de informa\u00e7\u00f5es sobre o terreno a partir de imagens rasterizadas ou provenientes de sensores remotos",
+      "pt": "507. Servi\u00e7os de extrac\u00e7\u00e3o de informa\u00e7\u00e3o geogr\u00e1fica"
+    },
+    "thematicImageManipulationService": {
+      "en": "thematicImageManipulationService",
+      "description": "Servi\u00e7os que permitem manipular os dados das imagens: modifica\u00e7\u00e3o dos valores de cor e contraste, aplica\u00e7\u00e3o de v\u00e1rios filtros, manipula\u00e7\u00e3o da resolu\u00e7\u00e3o da imagem, elimina\u00e7\u00e3o de ru\u00eddo, elimina\u00e7\u00e3o do efeito de \u00abstriping\u00bb, correc\u00e7\u00f5es radiom\u00e9tricas sistem\u00e1ticas, atenua\u00e7\u00e3o atmosf\u00e9rica, modifica\u00e7\u00f5es na ilumina\u00e7\u00e3o da imagem, etc",
+      "pt": "510. Servi\u00e7os de manipula\u00e7\u00e3o de imagens"
+    },
+    "comTransferService": {
+      "en": "comTransferService",
+      "description": "Servi\u00e7o que permite executar um ou mais protocolos de transfer\u00eancia, a fim de transferir dados entre sistemas deinforma\u00e7\u00e3o distribu\u00eddos atrav\u00e9s de meios de comunica\u00e7\u00e3o fora de linha ou em linha.",
+      "pt": "802. Servi\u00e7o de transfer\u00eancia"
+    },
+    "comRemoteFileAndExecutableManagement": {
+      "en": "comRemoteFileAndExecutableManagement",
+      "description": "Servi\u00e7o que permite o acesso a um sistema secund\u00e1rio de armazenamento de elementos geogr\u00e1ficos como se este fosse um recurso local do cliente.",
+      "pt": "806. Gest\u00e3o remota de ficheiros e de execut\u00e1veis"
+    },
+    "spatialFeatureGeneralizationService": {
+      "en": "spatialFeatureGeneralizationService",
+      "description": "Servi\u00e7o que reduz a varia\u00e7\u00e3o espacial numa colec\u00e7\u00e3o de elementos geogr\u00e1ficos a fim de aumentar a efic\u00e1cia da comunica\u00e7\u00e3o mediante a neutraliza\u00e7\u00e3o dos efeitos indesej\u00e1veis da redu\u00e7\u00e3o de dados",
+      "pt": "415. Servi\u00e7o de generaliza\u00e7\u00e3o de elementos geogr\u00e1ficos"
+    },
+    "infoSensorDescriptionService": {
+      "en": "infoSensorDescriptionService",
+      "description": "Servi\u00e7o que fornece a descri\u00e7\u00e3o de um sensor de cobertura, incluindo a localiza\u00e7\u00e3o e orienta\u00e7\u00e3o do sensor, bem como as caracter\u00edsticas geom\u00e9tricas, din\u00e2micas e radiom\u00e9tricas do sensor, para fins de geoprocessamento",
+      "pt": "204. Servi\u00e7o de descri\u00e7\u00e3o de sensores"
+    },
+    "spatialTilingChangeService": {
+      "en": "spatialTilingChangeService",
+      "description": "Servi\u00e7o que permite modificar o seccionamento dos dados geogr\u00e1ficos",
+      "pt": "411. Servi\u00e7o de modifica\u00e7\u00e3o do seccionamento"
+    },
+    "thematicChangeDetectionService": {
+      "en": "thematicChangeDetectionService",
+      "description": "Servi\u00e7o que permite encontrar diferen\u00e7as entre dois conjuntos de dados que representam a mesma zona geogr\u00e1fica em momentos diferentes",
+      "pt": "506. Servi\u00e7o de detec\u00e7\u00e3o de altera\u00e7\u00f5es"
+    },
+    "subscriptionService": {
+      "en": "subscriptionService",
+      "description": "Servi\u00e7o que permite aos clientes inscreverem-se para serem informados de eventos",
+      "pt": "303. Servi\u00e7o de assinatura"
+    },
+    "thematicImageUnderstandingService": {
+      "en": "thematicImageUnderstandingService",
+      "description": "Servi\u00e7os que permitem a detec\u00e7\u00e3o autom\u00e1tica de altera\u00e7\u00f5es entre imagens, o c\u00e1lculo de diferen\u00e7as entre imagens coregistadas, a an\u00e1lise e visualiza\u00e7\u00e3o da signific\u00e2ncia estat\u00edstica da diferen\u00e7a entre imagens e o c\u00e1lculo de diferen\u00e7as entre imagens baseado em \u00e1reas e modelos",
+      "pt": "511. Servi\u00e7os de compreens\u00e3o de imagens"
+    },
+    "spatialCoordinateConversionService": {
+      "en": "spatialCoordinateConversionService",
+      "description": "Servi\u00e7o que permite modificar as coordenadas de um sistema de coordenadas para um outro sistema de coordenadas relacionado com o mesmo datum",
+      "pt": "401. Servi\u00e7o de convers\u00e3o de coordenadas"
+    },
+    "thematicProcessingService": {
+      "en": "thematicProcessingService",
+      "description": "Servi\u00e7os de processamento geogr\u00e1fico \u2014 elementos tem\u00e1ticos",
+      "pt": "500. Servi\u00e7os de processamento geogr\u00e1fico \u2014 elementos tem\u00e1ticos"
+    },
+    "spatialProximityAnalysisService": {
+      "en": "spatialProximityAnalysisService",
+      "description": "A partir de uma determinada localiza\u00e7\u00e3o ou elemento geogr\u00e1fico, este servi\u00e7o encontra todos os objectos com um determinado conjunto de atributos que est\u00e3o localizados a uma dist\u00e2ncia definida pelo utilizador relativamente \u00e0 localiza\u00e7\u00e3o ou ao elemento geogr\u00e1fico",
+      "pt": "418. Servi\u00e7o de an\u00e1lise de proximidade"
+    },
+    "humanGeographicSpreadsheetViewer": {
+      "en": "humanGeographicSpreadsheetViewer",
+      "description": "Servi\u00e7o cliente que permite ao utilizador interagir com m\u00faltiplos objectos de dados e solicitar c\u00e1lculos semelhantes a uma folha de c\u00e1lculo aritm\u00e9tica, mas alargada a dados geogr\u00e1ficos",
+      "pt": "103. Visualiza\u00e7\u00e3o de folhas de c\u00e1lculo geogr\u00e1ficas"
+    },
+    "thematicImageSynthesisService": {
+      "en": "thematicImageSynthesisService",
+      "description": "Servi\u00e7os que permitem criar ou transformar imagens utilizando modelos espaciais em computador, transforma\u00e7\u00f5es de perspectiva e manipula\u00e7\u00f5es de caracter\u00edsticas da imagem para melhorar a sua visualiza\u00e7\u00e3o e resolu\u00e7\u00e3o e/ou reduzir os efeitos da cobertura de nuvens ou da neblina",
+      "pt": "512. Servi\u00e7os de s\u00edntese de imagens"
+    },
+    "spatialSensorGeometryModelAdjustmentService": {
+      "en": "spatialSensorGeometryModelAdjustmentService",
+      "description": "Servi\u00e7o que permite ajustar os modelos geom\u00e9tricos dos sensores a fim de melhorar a correspond\u00eancia da imagem com outras imagens e/ou posi\u00e7\u00f5es no solo conhecidas",
+      "pt": "407. Servi\u00e7o de ajustamento do modelo geom\u00e9trico dos sensores"
+    },
+    "comGeographicFormatConversionService": {
+      "en": "comGeographicFormatConversionService",
+      "description": "Servi\u00e7o que permite a convers\u00e3o de um formato de dados geogr\u00e1ficos para outro.",
+      "pt": "804. Servi\u00e7o de convers\u00e3o de formato geogr\u00e1fico"
+    },
+    "humanServiceEditor": {
+      "en": "humanServiceEditor",
+      "description": "Servi\u00e7o cliente que permite ao utilizador controlar servi\u00e7os de processamento geogr\u00e1fico",
+      "pt": "104. Editor do servi\u00e7o"
+    },
+    "spatialSamplingService": {
+      "en": "spatialSamplingService",
+      "description": "Servi\u00e7o que extrai dados de uma fonte utilizando um sistema de amostragem coerente com base na localiza\u00e7\u00e3o geogr\u00e1fica ou em coordenadas rectangulares",
+      "pt": "410. Servi\u00e7o de amostragem"
+    },
+    "spatialDimensionMeasurementService": {
+      "en": "spatialDimensionMeasurementService",
+      "description": "Servi\u00e7o que calcula as dimens\u00f5es de objectos vis\u00edveis numa imagem ou noutros dados geogr\u00e1ficos",
+      "pt": "412. Servi\u00e7o de medi\u00e7\u00e3o das dimens\u00f5es"
+    },
+    "spatialFeatureMatchingService": {
+      "en": "spatialFeatureMatchingService",
+      "description": "Servi\u00e7o que determina quais s\u00e3o os elementos geogr\u00e1ficos ou partes de elementos geogr\u00e1ficos provenientes de m\u00faltiplas fontes de dados que representam a mesma entidade do mundo real, como acontece na coincid\u00eancia de limites (\u00abedge matching\u00bb) e na fus\u00e3o parcial de elementos geogr\u00e1ficos (\u00ablimited conflation\u00bb)",
+      "pt": "414. Servi\u00e7o de correspond\u00eancia de elementos geogr\u00e1ficos"
+    },
+    "comService": {
+      "en": "comService",
+      "description": "",
+      "pt": "800. Servi\u00e7os de comunica\u00e7\u00e3o geogr\u00e1fica"
+    },
+    "metadataGeographicAnnotationService": {
+      "en": "metadataGeographicAnnotationService",
+      "description": "Servi\u00e7os que permitem acrescentar informa\u00e7\u00e3o auxiliar a uma imagem ou elemento geogr\u00e1fico numa colec\u00e7\u00e3o de elementos geogr\u00e1ficos.",
+      "pt": "702. Servi\u00e7os de anota\u00e7\u00e3o geogr\u00e1fica"
+    },
+    "spatialCoordinateTransformationService": {
+      "en": "spatialCoordinateTransformationService",
+      "description": "Servi\u00e7o que permite modificar as coordenadas de um sistema de refer\u00eancia de coordenadas baseado num datum para um sistema de refer\u00eancia de coordenadas baseado num segundo datum",
+      "pt": "402. Servi\u00e7o de transforma\u00e7\u00e3o de coordenadas"
+    },
+    "humanGeographicDataStructureViewer": {
+      "en": "humanGeographicDataStructureViewer",
+      "description": "Servi\u00e7o cliente que permite ao utilizador aceder a parte do conjunto de dados para ver a respectiva estrutura interna",
+      "pt": "110. Visualizador da estrutura dos dados geogr\u00e1ficos"
+    },
+    "comEncodingService": {
+      "en": "comEncodingService",
+      "description": "Servi\u00e7o que permite a execu\u00e7\u00e3o de uma regra de codifica\u00e7\u00e3o e proporciona uma interface para a funcionalidade decodifica\u00e7\u00e3o e de descodifica\u00e7\u00e3o.",
+      "pt": "801. Servi\u00e7o de codifica\u00e7\u00e3o"
+    },
+    "thematicSpatialCountingService": {
+      "en": "thematicSpatialCountingService",
+      "description": "Servi\u00e7o que permite contar os elementos geogr\u00e1ficos",
+      "pt": "505. Servi\u00e7o de contagem geogr\u00e1fica"
+    },
+    "infoStandingOrderService": {
+      "en": "infoStandingOrderService",
+      "description": "Servi\u00e7o de gest\u00e3o de encomendas que permite ao utilizador solicitar que um produto sobre uma zona geogr\u00e1fica seja difundido logo que ficar dispon\u00edvel",
+      "pt": "211. Servi\u00e7o de encomendas pendentes"
+    },
+    "temporalSubsettingService": {
+      "en": "temporalSubsettingService",
+      "description": "Servi\u00e7o que permite extrair dados de uma fonte num intervalo cont\u00ednuo com base em valores de posi\u00e7\u00e3o temporal",
+      "pt": "602. Servi\u00e7o de defini\u00e7\u00e3o de subconjuntos"
+    },
+    "spatialRectificationService": {
+      "en": "spatialRectificationService",
+      "description": "Servi\u00e7o que permite transformar uma imagem numa projec\u00e7\u00e3o paralela perpendicular e, por conseguinte, com uma escala constante",
+      "pt": "405. Servi\u00e7o de rectifica\u00e7\u00e3o"
+    },
+    "infoMapAccessService": {
+      "en": "infoMapAccessService",
+      "description": "Servi\u00e7o que permite ao cliente o acesso a representa\u00e7\u00f5es gr\u00e1ficas dos dados geogr\u00e1ficos, ou seja, imagens de dados geogr\u00e1ficos",
+      "pt": "202. Servi\u00e7o de acesso a mapas"
+    },
+    "infoManagementService": {
+      "en": "infoManagementService",
+      "description": "Servi\u00e7o de gest\u00e3o de informa\u00e7\u00e3o/modelos geogr\u00e1ficos",
+      "pt": "200. Servi\u00e7o de gest\u00e3o de informa\u00e7\u00e3o/modelos geogr\u00e1ficos"
+    },
+    "temporalProcessingService": {
+      "en": "temporalProcessingService",
+      "description": "",
+      "pt": "600. Servi\u00e7os de processamento geogr\u00e1fico \u2014 elementos temporais"
+    },
+    "humanGeographicFeatureEditor": {
+      "en": "humanGeographicFeatureEditor",
+      "description": "Visualizador geogr\u00e1fico que permite ao utilizador interagir com os dados relativos aos elementos geogr\u00e1ficos",
+      "pt": "107. Editor de elementos geogr\u00e1ficos"
+    },
+    "spatialImageCoordinateConversionService": {
+      "en": "spatialImageCoordinateConversionService",
+      "description": "Um servi\u00e7o de transforma\u00e7\u00e3o de coordenadas ou de convers\u00e3o de coordenadas que permite modificar o sistema de refer\u00eancia de coordenadas de uma imagem",
+      "pt": "404. Servi\u00e7o de convers\u00e3o de coordenadas de imagens"
+    },
+    "humanWorkflowEnactmentManager": {
+      "en": "humanWorkflowEnactmentManager",
+      "description": "Servi\u00e7o que permite ao utilizador interagir com um servi\u00e7o de fluxo de trabalho",
+      "pt": "106. Gestor do fluxo de trabalho"
+    },
+    "infoCatalogueService": {
+      "en": "infoCatalogueService",
+      "description": "Servi\u00e7o que oferece servi\u00e7os de pesquisa e gest\u00e3o num reposit\u00f3rio de metadados sobre ocorr\u00eancias",
+      "pt": "207. Servi\u00e7o de cat\u00e1logo"
+    },
+    "thematicGoparameterCalculationService": {
+      "en": "thematicGoparameterCalculationService",
+      "description": "Servi\u00e7o que permite obter resultados quantitativos centrados em aplica\u00e7\u00f5es que n\u00e3o podem ser obtidos a partir dos pr\u00f3prios dados em bruto",
+      "pt": "501. Servi\u00e7o de c\u00e1lculo de geopar\u00e2metros"
+    },
+    "humanGeographicSymbolEditor": {
+      "en": "humanGeographicSymbolEditor",
+      "description": "Servi\u00e7o cliente que permite ao utilizador seleccionar e gerir bibliotecas de s\u00edmbolos",
+      "pt": "108. Editor de s\u00edmbolos geogr\u00e1ficos"
+    },
+    "thematicClassificationService": {
+      "en": "thematicClassificationService",
+      "description": "Servi\u00e7o que classifica regi\u00f5es de dados geogr\u00e1ficos com base em atributos tem\u00e1ticos",
+      "pt": "502. Servi\u00e7o de classifica\u00e7\u00e3o tem\u00e1tica"
+    },
+    "infoFeatureTypeService": {
+      "en": "infoFeatureTypeService",
+      "description": "Servi\u00e7o que permite ao cliente o acesso e gest\u00e3o de um reposit\u00f3rio de defini\u00e7\u00f5es de tipos de elementos geogr\u00e1ficos",
+      "pt": "206. Servi\u00e7o de tipos de elementos geogr\u00e1ficos"
+    },
+    "infoGazetteerService": {
+      "en": "infoGazetteerService",
+      "description": "Servi\u00e7o que permite o acesso a um direct\u00f3rio de ocorr\u00eancias de uma ou v\u00e1rias classes de fen\u00f3menos do mundo real com alguma informa\u00e7\u00e3o relativa \u00e0 posi\u00e7\u00e3o",
+      "pt": "209. Servi\u00e7o de repert\u00f3rio"
+    },
+    "workflowEnactmentService": {
+      "en": "workflowEnactmentService",
+      "description": "O servi\u00e7o de fluxo de trabalho interpreta uma cadeia e controla a instancia\u00e7\u00e3o de servi\u00e7os e a sequencia\u00e7\u00e3o de actividades",
+      "pt": "302. Servi\u00e7o de fluxo de trabalho"
+    }
+  },
+  "CI_OnLineFunctionCode": {
+    "download": {
+      "en": "download",
+      "description": "Instru\u00e7\u00f5es online para transfer\u00eancia de dados de um suporte ou sistema de armazenamento para outro",
+      "pt": "Descarregamento"
+    },
+    "information": {
+      "en": "information",
+      "description": "Informa\u00e7\u00e3o online sobre o recurso",
+      "pt": "Informa\u00e7\u00e3o"
+    },
+    "offlineAccess": {
+      "en": "offlineAccess",
+      "description": "Instru\u00e7\u00f5es online para solicitar o CDG ao distribuidor",
+      "pt": "Acesso Offline"
+    },
+    "search": {
+      "en": "search",
+      "description": "Interface de pesquisa online para obten\u00e7\u00e3o de informa\u00e7\u00f5es sobre o CDG",
+      "pt": "Pesquisa"
+    },
+    "order": {
+      "en": "order",
+      "description": "Instru\u00e7\u00f5es online para encomendar o CDG",
+      "pt": "Encomenda"
+    }
+  },
+  "MD_KeywordTypeCode": {
+    "Topon\u00edmia": {
+      "en": "place",
+      "description": "A palavra-chave identifica um local ou localidade",
+      "pt": "Topon\u00edmia"
+    },
+    "Temporal": {
+      "en": "temporal",
+      "description": "A palavra-chave identifica um per\u00edodo de tempo ou uma \u00e9poca relacionada com o conjunto de dados geogr\u00e1ficos",
+      "pt": "Temporal"
+    },
+    "Estrato": {
+      "en": "stratum",
+      "description": "A palavra-chave identifica uma camada ou estrato de subst\u00e2ncias depositadas ou um n\u00edvel dentro de um sistema ordenado",
+      "pt": "Estrato"
+    },
+    "Disciplina": {
+      "en": "discipline",
+      "description": "A palavra-chave identifica uma \u00e1rea de conhecimento especializado",
+      "pt": "Disciplina"
+    },
+    "Tema": {
+      "en": "theme",
+      "description": "A palavra-chave identifica um particular assunto ou topico",
+      "pt": "Tema"
+    }
+  },
+  "MD_ProgressCode": {
+    "underDevelopment": {
+      "en": "underDevelopment",
+      "description": "Os dados est\u00e3o atualmente em processo de cria\u00e7\u00e3o",
+      "pt": "Em desenvolvimento"
+    },
+    "completed": {
+      "en": "completed",
+      "description": "A produ\u00e7\u00e3o dos dados foi conclu\u00edda",
+      "pt": "Conclu\u00eddo"
+    },
+    "required": {
+      "en": "required",
+      "description": "Os dados necessitam de actualiza\u00e7\u00e3o",
+      "pt": "Necessita de atualiza\u00e7\u00e3o"
+    },
+    "obsolete": {
+      "en": "obsolete",
+      "description": "Os dados j\u00e1 n\u00e3o s\u00e3o relevantes",
+      "pt": "Obsoleto"
+    },
+    "onGoing": {
+      "en": "onGoing",
+      "description": "Os dados s\u00e3o actualizados continuamente",
+      "pt": "Cont\u00ednuo"
+    },
+    "planned": {
+      "en": "planned",
+      "description": "Foi estabelecida uma data fixa na qual os dados s\u00e3o actualizados",
+      "pt": "Planeado"
+    },
+    "historicalArchive": {
+      "en": "historicalArchive",
+      "description": "Os dados foram armazenados numa infraestrutura de armazenamento offline",
+      "pt": "Arquivado"
+    }
+  },
+  "MD_TopicCategoryCode": {
+    "intelligenceMilitary": {
+      "en": "intelligenceMilitary",
+      "description": "Bases, estruturas e actividades militares. Exemplos: campos de treino, transportes militares, quart\u00e9is, casernas",
+      "pt": "Informa\u00e7\u00e3o Militar"
+    },
+    "environment": {
+      "en": "environment",
+      "description": "Recursos ambientais, protec\u00e7\u00e3o e conserva\u00e7\u00e3o da natureza. Exemplos: polui\u00e7\u00e3o, armazenamento e tratamento de res\u00edduos, avalia\u00e7\u00e3o de impactes ambientais, monitoriza\u00e7\u00e3o do risco ambiental, reservas naturais, paisagem",
+      "pt": "Ambiente"
+    },
+    "geoscientificInformation": {
+      "en": "geoscientificInformation",
+      "description": "Informa\u00e7\u00e3o relativa \u00e0s ci\u00eancias da terra. Exemplos: aspectos processos geof\u00edsicos, geologia, minerais, sismicidade, actividade vulc\u00e2nica, derrocadas, informa\u00e7\u00e3o gravim\u00e9trica, solos, permafrost, hidrogeologia e eros\u00e3o",
+      "pt": "Geoci\u00eancias"
+    },
+    "elevation": {
+      "en": "elevation",
+      "description": "Eleva\u00e7\u00e3o abaixo ou acima do n\u00edvel do mar. Exemplos: altitude, batimetria, modelos digitais do terreno, declives e produtos derivados",
+      "pt": "Altimetria Batimetria"
+    },
+    "utilitiesCommunication": {
+      "en": "utilitiesCommunication",
+      "description": "Infra-estruturas e servi\u00e7os de energia, \u00e1gua, saneamento e comunica\u00e7\u00f5es. Exemplos: fontes de energia hidr\u00edca, termal, solar ou nuclear. Purifica\u00e7\u00e3o da \u00e1gua e distribui\u00e7\u00e3o, cadastro de esgotos, distribui\u00e7\u00e3o do g\u00e1s e electricidade, redes de telecomunica\u00e7\u00f5es e dados",
+      "pt": "Infra-estruturas de comunica\u00e7\u00e3o"
+    },
+    "structure": {
+      "en": "structure",
+      "description": "Constru\u00e7\u00e3o desenvolvida pelo homem. Exemplos: edif\u00edcios, museus, igrejas, f\u00e1bricas, habita\u00e7\u00e3o, monumentos, lojas",
+      "pt": "Patrim\u00f3nio Edificado"
+    },
+    "oceans": {
+      "en": "oceans",
+      "description": "Entidades e caracter\u00edsticas dos corpos de \u00e1gua salgada (excluindo \u00e1guas interiores). Exemplos: mar\u00e9s, ondula\u00e7\u00e3o e vagas, informa\u00e7\u00e3o costeira, recifes e baixios",
+      "pt": "Oceanos"
+    },
+    "planningCadastre": {
+      "en": "planningCadastre",
+      "description": "Informa\u00e7\u00e3o destinada ao planeamento do uso do territ\u00f3rio. Exemplos: mapas de uso do solo, mapas de zonamento, levantamentos cadastrais, registo predial e r\u00fastico",
+      "pt": "Planeamento e Cadastro"
+    },
+    "inlandWaters": {
+      "en": "inlandWaters",
+      "description": "Entidades relativas a \u00e1guas interiores, sistemas de drenagem e suas caracter\u00edsticas. Exemplos: rios, glaciares, lagos salgados, planos de gest\u00e3o da \u00e1gua, diques, correntes, cheias, qualidade da \u00e1gua, aspectos hidrogr\u00e1ficos",
+      "pt": "\u00c1guas Interiores"
+    },
+    "boundaries": {
+      "en": "boundaries",
+      "description": "Limites legais do territ\u00f3rio. Exemplos: fronteiras administrativas e pol\u00edticas",
+      "pt": "Limites Administrativos"
+    },
+    "society": {
+      "en": "society",
+      "description": "Caracter\u00edsticas sociais e culturais. Exemplos: resid\u00eancias e estabelecimentos, antropologia, arqueologia, educa\u00e7\u00e3o, cren\u00e7as tradicionais, h\u00e1bitos e costumes, dados demogr\u00e1ficos, \u00e1reas e actividades recreacionais, avalia\u00e7\u00e3o de impactos sociais, crime e justi\u00e7a, informa\u00e7\u00e3o dos censos",
+      "pt": "Sociedade e Cultura"
+    },
+    "biota": {
+      "en": "biota",
+      "description": "Fauna e flora em habitat natural. Exemplos: vida selvagem, vegeta\u00e7\u00e3o, ci\u00eancias biol\u00f3gicas, ecologia, desertos, vida marinha, zonas h\u00famidas, habitat",
+      "pt": "Bi\u00f3topos"
+    },
+    "health": {
+      "en": "health",
+      "description": "Sa\u00fade, servi\u00e7os de sa\u00fade, ecologia humana e seguran\u00e7a. Exemplos: doen\u00e7as, factores condicionantes da sa\u00fade, higiene, abuso de subst\u00e2ncias, sa\u00fade f\u00edsica e mental, servi\u00e7os de sa\u00fade",
+      "pt": "Sa\u00fade"
+    },
+    "location": {
+      "en": "location",
+      "description": "Informa\u00e7\u00e3o e servi\u00e7os de localiza\u00e7\u00e3o. Exemplos: moradas, redes geod\u00e9sicas, pontos de controlo, zonas postais e servi\u00e7os, designa\u00e7\u00f5es de lugares",
+      "pt": "Localiza\u00e7\u00e3o"
+    },
+    "climatologyMeteorologyAtmosphere": {
+      "en": "climatologyMeteorologyAtmosphere",
+      "description": "Processos e fen\u00f3menos atmosf\u00e9ricos. Exemplos: nebulosidade, estado do tempo, clima, condi\u00e7\u00f5es atmosf\u00e9ricas, altera\u00e7\u00f5es clim\u00e1ticas, precipita\u00e7\u00e3o",
+      "pt": "Climatologia Atmosfera"
+    },
+    "transportation": {
+      "en": "transportation",
+      "description": "Meios e formas de desloca\u00e7\u00e3o de pessoas e/ou mercadorias. Exemplos: estradas, aeroportos, rotas de navega\u00e7\u00e3o, t\u00faneis, cartas n\u00e1uticas e aeron\u00e1uticas, localiza\u00e7\u00e3o de frotas de transporte, caminhos de ferro",
+      "pt": "Transportes"
+    },
+    "farming": {
+      "en": "farming",
+      "description": "Cria\u00e7\u00e3o de animais e/ou cultivo de esp\u00e9cies vegetais. Exemplos: agricultura, irriga\u00e7\u00e3o, aquacultura, planta\u00e7\u00f5es, pecu\u00e1ria, pestes e doen\u00e7as que afectam as colheitas e o gado",
+      "pt": "Agricultura Pesca e Pecu\u00e1ria"
+    },
+    "imageryBaseMapsEarthCover": {
+      "en": "imageryBaseMapsEarthCover",
+      "description": "Cartografia de base. Exemplos: mapas topogr\u00e1ficos, imagens de sat\u00e9lite, coberturas aero-fotogr\u00e1ficas",
+      "pt": "Cartografia de Base Coberturas A\u00e9reas Imagens Sat\u00e9lite"
+    },
+    "economy": {
+      "en": "economy",
+      "description": "Actividades econ\u00f3micas e emprego. Exemplos: produ\u00e7\u00e3o, emprego, rendimentos, com\u00e9rcio, ind\u00fastria, turismo e eco-turismo, florestas, pescas, ca\u00e7a para fins comerciais ou de subsist\u00eancia, explora\u00e7\u00e3o e extrac\u00e7\u00e3o de recursos minerais, petr\u00f3leo e g\u00e1s",
+      "pt": "Economia"
+    }
+  },
+  "MD_CharacterSetCode": {
+    "shiftJIS": {
+      "en": "shiftJIS",
+      "description": " C\u00f3digo de caracteres japon\u00eas utilizado em m\u00e1quinas baseadas no sistema operativo MS-DOS",
+      "pt": "shiftJIS"
+    },
+    "eucJP": {
+      "en": "eucJP",
+      "description": " C\u00f3digo de caracteres japon\u00eas utilizado em m\u00e1quinas baseadas no sistema operativo UNIX",
+      "pt": "eucJP"
+    },
+    "jis": {
+      "en": "jis",
+      "description": " C\u00f3digo de caracteres japon\u00eas utilizado para transmiss\u00f5es electr\u00f3nicas",
+      "pt": "jis"
+    },
+    "8859part3": {
+      "en": "8859part3",
+      "description": " C\u00f3digo de caracteres da Europa do Sul, latin-3",
+      "pt": "8859part3"
+    },
+    "8859part8": {
+      "en": "8859part8",
+      "description": " C\u00f3digo de caracteres hebraico",
+      "pt": "8859part8"
+    },
+    "8859part9": {
+      "en": "8859part9",
+      "description": " C\u00f3digo de caracteres turco, latin-5",
+      "pt": "8859part9"
+    },
+    "utf7": {
+      "en": "utf7",
+      "description": "Formato de transfer\u00eancia em c\u00f3digo de caracteres universal de comprimento vari\u00e1vel de 7 bits, baseado na norma ISO 10646",
+      "pt": "utf7"
+    },
+    "8859part2": {
+      "en": "8859part2",
+      "description": " C\u00f3digo de caracteres da Europa Central, latin-2",
+      "pt": "8859part2"
+    },
+    "utf8": {
+      "en": "utf8",
+      "description": "Formato de transfer\u00eancia em c\u00f3digo de caracteres universal de comprimento vari\u00e1vel de 8 bits, baseado na norma ISO 10646",
+      "pt": "utf8"
+    },
+    "8859part1": {
+      "en": "8859part1",
+      "description": "C\u00f3digo de caracteres da Europa Ocidental, latin-1",
+      "pt": "8859part1"
+    },
+    "8859part6": {
+      "en": "8859part6",
+      "description": " C\u00f3digo de caracteres \u00e1rabe",
+      "pt": "8859part6"
+    },
+    "8859part7": {
+      "en": "8859part7",
+      "description": " C\u00f3digo de caracteres grego",
+      "pt": "8859part7"
+    },
+    "8859part4": {
+      "en": "8859part4",
+      "description": "C\u00f3digo de caracteres da Europa do Norte, latin-4",
+      "pt": "8859part4"
+    },
+    "8859part5": {
+      "en": "8859part5",
+      "description": " C\u00f3digo de caracteres cir\u00edlico",
+      "pt": "8859part5"
+    },
+    "ebcdic": {
+      "en": "ebcdic",
+      "description": " C\u00f3digo de caracteres IBM para mainframes",
+      "pt": "ebcdic"
+    },
+    "ucs2": {
+      "en": "ucs2",
+      "description": "C\u00f3digo de caracteres universal de comprimento fixo de 16 bits, baseado na norma ISO 10646",
+      "pt": "ucs2"
+    },
+    "ucs4": {
+      "en": "ucs4",
+      "description": "C\u00f3digo de caracteres universal de comprimento fixo de 32 bits, baseado na norma ISO 10646",
+      "pt": "ucs4"
+    },
+    "usAscii": {
+      "en": "usAscii",
+      "description": " C\u00f3digo de caracteres ASCII, dos Estados Unidos da Am\u00e9rica (ISO 646 US)",
+      "pt": "usAscii"
+    },
+    "big5": {
+      "en": "big5",
+      "description": "C\u00f3digo de caracteres de Taiwan (Ilha Formosa)",
+      "pt": "big5"
+    },
+    "eucKR": {
+      "en": "eucKR",
+      "description": "C\u00f3digo de caracteres coreano",
+      "pt": "eucKR"
+    },
+    "8859part15": {
+      "en": "8859part15",
+      "description": " C\u00f3digo de caracteres latin-9",
+      "pt": "8859part15"
+    },
+    "8859part11": {
+      "en": "8859part11",
+      "description": " C\u00f3digo de caracteres tailand\u00eas 8859part14 C\u00f3digo de caracteres latin-8",
+      "pt": "8859part11"
+    },
+    "utf16": {
+      "en": "utf16",
+      "description": "Formato de transfer\u00eancia em c\u00f3digo de caracteres universal de comprimento vari\u00e1vel de 16 bits, baseado na norma ISO 10646",
+      "pt": "utf16"
+    }
+  },
+  "DCPCodeList": {
+    "XML": {
+      "en": "XML",
+      "description": "eXtensible Markup Language",
+      "pt": "XML"
+    },
+    "CORBA": {
+      "en": "CORBA",
+      "description": "Common Object Request Broker Architecture",
+      "pt": "CORBA"
+    },
+    "JAVA": {
+      "en": "JAVA",
+      "description": "Plataforma Java",
+      "pt": "JAVA"
+    },
+    "WebServices": {
+      "en": "WebServices",
+      "description": "Web based Services",
+      "pt": "WebServices"
+    },
+    "SQL": {
+      "en": "SQL",
+      "description": "Structured Query Language",
+      "pt": "SQL"
+    },
+    "COM": {
+      "en": "COM",
+      "description": "Component Object Model ",
+      "pt": "COM"
+    }
+  },
+  "DistanceUnits": {
+    "m": {
+      "en": "m",
+      "description": "Metros",
+      "pt": "Metros"
+    },
+    "rad": {
+      "en": "rad",
+      "description": "Radianos",
+      "pt": "Radianos"
+    },
+    "deg": {
+      "en": "deg",
+      "description": "Graus",
+      "pt": "Graus"
+    }
+  },
+  "MD_SpatialRepresentationTypeCode": {
+    "stereoModel": {
+      "en": "stereoModel",
+      "description": "Vista tridimensional formada pela intersec\u00e7\u00e3o de raios hom\u00f3logos resultantes de um par de imagens com sobreposi\u00e7\u00e3o",
+      "pt": "Modelo Estereosc\u00f3pico"
+    },
+    "tin": {
+      "en": "tin",
+      "description": "A informa\u00e7\u00e3o geogr\u00e1fica encontra-se representada de acordo com uma tecelagem irregular triangular (TIN)",
+      "pt": "TIN"
+    },
+    "vector": {
+      "en": "vector",
+      "description": "A informa\u00e7\u00e3o geogr\u00e1fica encontra-se representada de acordo com um modelo de dados vectorial",
+      "pt": "Vectorial"
+    },
+    "video": {
+      "en": "video",
+      "description": "Cena obtida de uma grava\u00e7\u00e3o de v\u00eddeo",
+      "pt": "V\u00eddeo"
+    },
+    "grid": {
+      "en": "grid",
+      "description": "A informa\u00e7\u00e3o geogr\u00e1fica encontra-se representada de acordo com um modelo de dados matricial",
+      "pt": "Matricial"
+    },
+    "textTable": {
+      "en": "textTable",
+      "description": "Informa\u00e7\u00e3o geogr\u00e1fica encontra-se codificada em formato textual ou tabular",
+      "pt": "Texto Tabela"
+    }
+  },
+  "MD_MaintenanceFrequencyCode": {
+    "fortnightly": {
+      "en": "fortnightly",
+      "description": "Os dados s\u00e3o actualizados de quinze em quinze dias",
+      "pt": "Quinzenal"
+    },
+    "irregular": {
+      "en": "irregular",
+      "description": "Os dados s\u00e3o actualizados em per\u00edodos irregulares",
+      "pt": "Irregular"
+    },
+    "notPlanned": {
+      "en": "notPlanned",
+      "description": "N\u00e3o existem planos para a actualiza\u00e7\u00e3o dos dados",
+      "pt": "N\u00e3o Planeada"
+    },
+    "monthly": {
+      "en": "monthly",
+      "description": "Os dados s\u00e3o actualizados todos os meses",
+      "pt": "Mensal"
+    },
+    "biannually": {
+      "en": "biannually",
+      "description": "Os dados s\u00e3o actualizados duas vezes por ano",
+      "pt": "Semestral"
+    },
+    "daily": {
+      "en": "daily",
+      "description": "Os dados t\u00eam actualiza\u00e7\u00e3o di\u00e1ria",
+      "pt": "Di\u00e1ria"
+    },
+    "asNeeded": {
+      "en": "asNeeded",
+      "description": "Os dados s\u00e3o actualizados conforme necess\u00e1rio",
+      "pt": "Conforme Necess\u00e1rio"
+    },
+    "annually": {
+      "en": "annually",
+      "description": "Os dados s\u00e3o actualizados uma vez por ano",
+      "pt": "Anual"
+    },
+    "quarterly": {
+      "en": "quarterly",
+      "description": "Os dados s\u00e3o actualizados de tr\u00eas em tr\u00eas meses",
+      "pt": "Trimestral"
+    },
+    "unknown": {
+      "en": "unknown",
+      "description": "A frequ\u00eancia de manuten\u00e7\u00e3o para os dados n\u00e3o \u00e9 conhecida",
+      "pt": "Desconhecida"
+    },
+    "continual": {
+      "en": "continual",
+      "description": "Os dados s\u00e3o repetida e frequentemente actualizados",
+      "pt": "Cont\u00ednua"
+    },
+    "weekly": {
+      "en": "weekly",
+      "description": "Os dados s\u00e3o actualizados todas as semanas",
+      "pt": "Semanal"
+    }
+  },
+  "MD_ClassificationCode": {
+    "unclassified": {
+      "en": "unclassified",
+      "description": "Dispon\u00edvel para divulga\u00e7\u00e3o geral",
+      "pt": "N\u00e3o Classificado"
+    },
+    "restricted": {
+      "en": "restricted",
+      "description": "N\u00e3o para divulga\u00e7\u00e3o geral",
+      "pt": "Restrito"
+    },
+    "secret": {
+      "en": "secret",
+      "description": "Mantido ou para ser mantido privado, desconhecido, ou oculto para todos a n\u00e3o ser um grupo seleto de pessoas",
+      "pt": "Secreto"
+    },
+    "topSecret": {
+      "en": "topSecret",
+      "description": "Do maior n\u00edvel de segredo",
+      "pt": "Altamente Secreto"
+    },
+    "confidential": {
+      "en": "confidential",
+      "description": "Dispon\u00edvel para algu\u00e9m a quem pode ser confiada informa\u00e7\u00e3o",
+      "pt": "Confidencial"
+    }
+  },
+  "MD_RestrictionCode": {
+    "patentPending": {
+      "en": "patentPending",
+      "description": "Informa\u00e7\u00e3o aguardando patente",
+      "pt": "Aguarda Patente"
+    },
+    "copyright": {
+      "en": "copyright",
+      "description": "Exist\u00eancia de um direito exclusivo de publica\u00e7\u00e3o, produ\u00e7\u00e3o ou venda dos direitos para um trabalho liter\u00e1rio, dram\u00e1tico, musical ou art\u00edstico, ou de um direito exclusivo de utiliza\u00e7\u00e3o por um per\u00edodo de tempo espec\u00edfico de uma marca comercial legalmente consignada por per\u00edodo de tempo espec\u00edfico a um autor, compositor, artista ou distribuidor",
+      "pt": "Direitos de Autor"
+    },
+    "license": {
+      "en": "license",
+      "description": "Exist\u00eancia de uma permiss\u00e3o formal para determinadas utiliza\u00e7\u00f5es do conjunto de dados geogr\u00e1ficos",
+      "pt": "Sujeito a Licenciamento"
+    },
+    "patent": {
+      "en": "patent",
+      "description": "Exist\u00eancia de uma concess\u00e3o governamental de exclusividade para produzir, vender, utilizar ou licenciar um invento ou descoberta",
+      "pt": "Patenteado"
+    },
+    "restricted": {
+      "en": "restricted",
+      "description": "Exist\u00eancia de restri\u00e7\u00f5es \u00e0 divulga\u00e7\u00e3o e distribui\u00e7\u00e3o do conjunto de dados geogr\u00e1ficos",
+      "pt": "Restrito"
+    },
+    "trademark": {
+      "en": "trademark",
+      "description": "Exist\u00eancia de uma designa\u00e7\u00e3o, sigla, s\u00edmbolo ou outro emblema identificador de um produto oficialmente registado e legalmente restringido para utiliza\u00e7\u00e3o do propriet\u00e1rio ou do fabricante",
+      "pt": "Marca Registada"
+    },
+    "intellectualPropertyRights": {
+      "en": "intellectualPropertyRights",
+      "description": "Exist\u00eancia de direito a benef\u00edcios financeiros e controlo da distribui\u00e7\u00e3o de bens n\u00e3o tang\u00edveis, resultantes de um processo criativo",
+      "pt": "Direitos de Propriedade Intelectual"
+    },
+    "otherRestrictions": {
+      "en": "otherRestrictions",
+      "description": "Exist\u00eancia de outras restri\u00e7\u00f5es n\u00e3o listadas",
+      "pt": "Outras Restri\u00e7\u00f5es"
+    }
+  },
+  "CouplingType": {
+    "mixed": {
+      "en": "mixed",
+      "description": " Se o servi\u00e7o opera com os recursos associados e outros externos",
+      "pt": "O servi\u00e7o opera com os conjuntos de dados geogr\u00e1ficos acoplados e outros externos"
+    },
+    "tight": {
+      "en": "tight",
+      "description": " Se o servi\u00e7o s\u00f3 opera sobre os recursos associados",
+      "pt": "O servi\u00e7o s\u00f3 opera sobre os recursos acoplados"
+    },
+    "loose": {
+      "en": "loose",
+      "description": " Se n\u00e3o tem recursos associados, e.g. CDG",
+      "pt": "N\u00e3o tem conjuntos de dados geogr\u00e1ficos associados"
+    }
+  },
+  "CI_DateTypeCode": {
+    "creation": {
+      "en": "creation",
+      "description": "A data identifica o momento da cria\u00e7\u00e3o de um recurso",
+      "pt": "Cria\u00e7\u00e3o"
+    },
+    "publication": {
+      "en": "publication",
+      "description": "A data identifica o momento da publica\u00e7\u00e3o de um recurso",
+      "pt": "Publica\u00e7\u00e3o"
+    },
+    "revision": {
+      "en": "revision",
+      "description": "A data identifica o momento da revis\u00e3o, melhoramento, avalia\u00e7\u00e3o ou reavalia\u00e7\u00e3o de um recurso",
+      "pt": "Revis\u00e3o"
+    }
+  },
+  "MD_KeywordTypeCodeSNIMar": {
+    "Estrato": {
+      "en": "stratum",
+      "description": "A palavra-chave identifica uma camada ou estrato de subst\u00e2ncias depositadas ou um n\u00edvel dentro de um sistema ordenado",
+      "pt": "Estrato"
+    },
+    "Disciplina": {
+      "en": "discipline",
+      "description": "A palavra-chave identifica uma \u00e1rea de conhecimento especializado",
+      "pt": "Disciplina"
+    },
+    "Temporal": {
+      "en": "temporal",
+      "description": "A palavra-chave identifica um per\u00edodo de tempo ou uma \u00e9poca relacionada com o conjunto de dados geogr\u00e1ficos",
+      "pt": "Temporal"
+    },
+    "Par\u00e2metro": {
+      "en": "parameter",
+      "description": "A palavra-chave identifica um fen\u00f3meno, vari\u00e1vel ou par\u00e2metro analisado ou descrito no recurso",
+      "pt": "Par\u00e2metro"
+    },
+    "Plataforma": {
+      "en": "platform",
+      "description": "A palavra-chave identifica um ve\u00edculo, objecto, estrutura ou organismo capaz de transportar ou suportar instrumentos e ferramentas de colheita de amostras f\u00edsicas, qu\u00edmicas, biol\u00f3gicas e geol\u00f3gicas",
+      "pt": "Plataforma"
+    },
+    "Instrumento": {
+      "en": "instrument",
+      "description": "A palavra-chave descreve ou categoriiza ferramentras ou utens\u00edlios de colheita de amostras ou de produ\u00e7\u00e3o de dados",
+      "pt": "Instrumento"
+    },
+    "Tema": {
+      "en": "theme",
+      "description": "A palavra-chave identifica um particular assunto ou topico",
+      "pt": "Tema"
+    },
+    "Taxonomia": {
+      "en": "taxon",
+      "description": "A palavra-chave identifica a taxonomia descrita no recurso",
+      "pt": "Taxonomia"
+    },
+    "Projeto": {
+      "en": "project",
+      "description": "A palavra-chave identifica o projecto ou contexto em que o recurso foi obtido ou criado",
+      "pt": "Projeto"
+    },
+    "Topon\u00edmia": {
+      "en": "place",
+      "description": "A palavra-chave identifica um local ou localidade",
+      "pt": "Topon\u00edmia"
+    }
+  },
+  "INSPIRE": {
+    "Coordinate reference systems": {
+      "en": "Coordinate reference systems",
+      "description": "Sistemas para referenciar de forma \u00fanica a informa\u00e7\u00e3o geogr\u00e1fica no espa\u00e7o sob a forma de um conjunto de coordenadas (x, y, z) e/ou latitude e longitude e altitude, com base num datum geod\u00e9sico horizontal e vertical.",
+      "pt": "Sistemas de refer\u00eancia"
+    },
+    "Atmospheric conditions": {
+      "en": "Atmospheric conditions",
+      "description": "Condi\u00e7\u00f5es f\u00edsicas da atmosfera. Inclui dados geogr\u00e1ficos baseados em medi\u00e7\u00f5es, em modelos ou numa combina\u00e7\u00e3o de ambos, bem como os s\u00edtios de medi\u00e7\u00e3o",
+      "pt": "Condi\u00e7\u00f5es atmosf\u00e9ricas"
+    },
+    "Production and industrial facilities ": {
+      "en": "Production and industrial facilities ",
+      "description": "Locais de produ\u00e7\u00e3o industrial, incluindo instala\u00e7\u00f5es abrangidas pela Directiva 96/61/CE do Conselho, de 24 de Setembro de 1996, relativa \u00e0 preven\u00e7\u00e3o e controlo integrados da polui\u00e7\u00e3o (1), e instala\u00e7\u00f5es de capta\u00e7\u00e3o de \u00e1gua, minas, locais de armazenagem",
+      "pt": "Instala\u00e7\u00f5es industriais e de produ\u00e7\u00e3o"
+    },
+    "Land cover": {
+      "en": "Land cover",
+      "description": "Cobertura f\u00edsica e biol\u00f3gica da superf\u00edcie terrestre, incluindo superf\u00edcies artificiais, zonas agr\u00edcolas, florestas, zonas naturais ou semi-naturais, zonas h\u00famidas, massas de \u00e1gua",
+      "pt": "Ocupa\u00e7\u00e3o do solo"
+    },
+    "Land use": {
+      "en": "Land use",
+      "description": "Caracteriza\u00e7\u00e3o do territ\u00f3rio de acordo com a dimens\u00e3o funcional ou finalidade s\u00f3cio-econ\u00f3mica planeada, presente e futura (por exemplo, residencial, industrial, comercial, agr\u00edcola, silv\u00edcola, recreativa)",
+      "pt": "Uso do solo"
+    },
+    "Oceanographic geographical features": {
+      "en": "Oceanographic geographical features",
+      "description": "Condi\u00e7\u00f5es f\u00edsicas dos oceanos (correntes, salinidade, altura das ondas, etc.)",
+      "pt": "Caracter\u00edsticas oceanogr\u00e1ficas"
+    },
+    "Buildings": {
+      "en": "Buildings",
+      "description": "Localiza\u00e7\u00e3o geogr\u00e1fica dos edif\u00edcios",
+      "pt": "Edif\u00edcios"
+    },
+    "Administrative units": {
+      "en": "Administrative units",
+      "description": "Unidades administrativas, zonas de divis\u00e3o sobre as quais os Estados-Membros possuam e/ou exer\u00e7am direitos jurisdicionais, para efeitos de governa\u00e7\u00e3o local, regional e nacional, separadas por fronteiras administrativas",
+      "pt": "Unidades administrativas"
+    },
+    "Elevation": {
+      "en": "Elevation",
+      "description": "Modelos digitais de terreno aplic\u00e1veis \u00e0s superf\u00edcies terrestre, gelada e oce\u00e2nica. Inclui a eleva\u00e7\u00e3o terrestre, a batimetria e a linha costeira",
+      "pt": "Altitude"
+    },
+    "Human health and safety": {
+      "en": "Human health and safety",
+      "description": "Distribui\u00e7\u00e3o geogr\u00e1fica da domin\u00e2ncia de patologias (alergias, cancros, doen\u00e7as respirat\u00f3rias, etc.), informa\u00e7\u00f5es que indiquem o efeito da qualidade do ambiente sobre a sa\u00fade (biomarcadores, decl\u00ednio da fertilidade, epidemias) ou sobre o bem-estar dos seres humanos (fadiga, tens\u00e3o, stress, etc.) de forma directa (polui\u00e7\u00e3o do ar, produtos qu\u00edmicos, empobrecimento da camada de ozono, ru\u00eddo, etc.) ou indirecta (alimenta\u00e7\u00e3o, organismos geneticamente modificados, etc.)",
+      "pt": "Sa\u00fade humana e seguran\u00e7a"
+    },
+    "Geology": {
+      "en": "Geology",
+      "description": "Geologia caracterizada de acordo com a composi\u00e7\u00e3o e a estrutura. Inclui a base rochosa, os aqu\u00edferos e a geomorfologia",
+      "pt": "Geologia"
+    },
+    "Transport networks": {
+      "en": "Transport networks",
+      "description": "Redes de transporte rodovi\u00e1rio, ferrovi\u00e1rio, a\u00e9reo e por via naveg\u00e1vel, e respectivas infra-estruturas. Inclui as liga\u00e7\u00f5es entre as diferentes redes. Inclui tamb\u00e9m a rede transeuropeia de transportes definida na Decis\u00e3o n.o 1692/96/CE do Parlamento Europeu e do Conselho, de 23 de Julho de 1996, sobre as orienta\u00e7\u00f5es comunit\u00e1rias para o desenvolvimento da rede transeuropeia de transportes (1), e as futuras revis\u00f5es dessa decis\u00e3o",
+      "pt": "Redes de transporte"
+    },
+    "Orthoimagery": {
+      "en": "Orthoimagery",
+      "description": "Imagens georeferenciadas da superf\u00edcie terrestre recolhidas por sat\u00e9lite ou sensores a\u00e9reos",
+      "pt": "Ortoimagens"
+    },
+    "Area management/restriction/regulation zones and reporting units": {
+      "en": "Area management/restriction/regulation zones and reporting units",
+      "description": "Zonas geridas, regulamentadas ou utilizadas para a comunica\u00e7\u00e3o de dados a n\u00edvel internacional, europeu, nacional, regional e local. Compreende aterros, zonas de acesso restrito em torno de nascentes de \u00e1gua pot\u00e1vel, zonas sens\u00edveis aos nitratos, vias naveg\u00e1veis regulamentadas no mar ou em \u00e1guas interiores de grandes dimens\u00f5es, zonas de descarga de res\u00edduos, zonas de ru\u00eddo condicionado, zonas autorizadas para efeitos de prospec\u00e7\u00e3o e extrac\u00e7\u00e3o mineira, bacias hidrogr\u00e1ficas, unidades de refer\u00eancia pertinentes e zonas abrangidas pela gest\u00e3o das zonas costeiras",
+      "pt": "Zonas de gest\u00e3o/restri\u00e7\u00e3o/regulamenta\u00e7\u00e3o e unidades de refer\u00eancia"
+    },
+    "Agricultural and aquaculture facilities": {
+      "en": "Agricultural and aquaculture facilities",
+      "description": "Agricultural and aquaculture facilities  Equipamento e instala\u00e7\u00f5es de explora\u00e7\u00f5es agr\u00edcolas e aqu\u00edcolas (incluindo sistemas de irriga\u00e7\u00e3o, estufas e viveiros, e est\u00e1bulos)",
+      "pt": "Instala\u00e7\u00f5es agr\u00edcolas e aqu\u00edcolas"
+    },
+    "Geographical grid systems": {
+      "en": "Geographical grid systems",
+      "description": "Quadr\u00edcula harmonizada multi-resolu\u00e7\u00e3o com um ponto de origem comum e localiza\u00e7\u00e3o e dimens\u00e3o normalizadas das c\u00e9lulas",
+      "pt": "Sistemas de quadr\u00edculas geogr\u00e1ficas"
+    },
+    "Statistical units": {
+      "en": "Statistical units",
+      "description": "Unidades para fins de divulga\u00e7\u00e3o ou utiliza\u00e7\u00e3o da informa\u00e7\u00e3o estat\u00edstica",
+      "pt": "Unidades estat\u00edsticas"
+    },
+    "Bio-geographical regions": {
+      "en": "Bio-geographical regions",
+      "description": "Zonas de condi\u00e7\u00f5es ecol\u00f3gicas relativamente homog\u00e9neas com caracter\u00edsticas comuns",
+      "pt": "Regi\u00f5es biogeogr\u00e1ficas"
+    },
+    "Geographical names": {
+      "en": "Geographical names",
+      "description": "Denomina\u00e7\u00f5es das zonas, regi\u00f5es, localidades, cidades, sub\u00farbios, pequenas cidades ou povoa\u00e7\u00f5es, ou de qualquer entidade geogr\u00e1fica ou topogr\u00e1fica de interesse p\u00fablico ou hist\u00f3rico",
+      "pt": "Topon\u00edmia"
+    },
+    "Habitats and biotopes": {
+      "en": "Habitats and biotopes",
+      "description": "Zonas geogr\u00e1ficas caracterizadas por condi\u00e7\u00f5es ecol\u00f3gicas, processos, estrutura e fun\u00e7\u00f5es (de apoio \u00e0s necessidades b\u00e1sicas) espec\u00edficos que constituem o suporte f\u00edsico dos organismos que nelas vivem. Inclui zonas terrestres e aqu\u00e1ticas, naturais ou semi-naturais, diferenciadas pelas suas caracter\u00edsticas geogr\u00e1ficas, abi\u00f3ticas e bi\u00f3ticas",
+      "pt": "Habitats e bi\u00f3topos"
+    },
+    "Energy resources": {
+      "en": "Energy resources",
+      "description": "Recursos energ\u00e9ticos, incluindo os de hidrocarbonetos, hidroel\u00e9ctricos, de bio-energias, de energia solar, e\u00f3lica, etc., incluindo, quando pertinente, informa\u00e7\u00e3o sobre as cotas de profundidade/altura do recurso",
+      "pt": "Recursos energ\u00e9ticos"
+    },
+    "Meteorological geographical features": {
+      "en": "Meteorological geographical features",
+      "description": "Condi\u00e7\u00f5es atmosf\u00e9ricas e sua medi\u00e7\u00e3o; precipita\u00e7\u00e3o, temperatura, vapotranspira\u00e7\u00e3o, velocidade e direc\u00e7\u00e3o do vento",
+      "pt": "Caracter\u00edsticas geometeorol\u00f3gicas"
+    },
+    "Population distribution and demography": {
+      "en": "Population distribution and demography",
+      "description": "Distribui\u00e7\u00e3o geogr\u00e1fica da popula\u00e7\u00e3o, incluindo caracter\u00edsticas demogr\u00e1ficas e n\u00edveis de actividade, agregada por quadr\u00edcula, regi\u00e3o, unidade administrativa ou outra unidade anal\u00edtica",
+      "pt": "Distribui\u00e7\u00e3o da popula\u00e7\u00e3o-demografia"
+    },
+    "Cadastral parcels": {
+      "en": "Cadastral parcels",
+      "description": "\u00c1reas definidas por registos cadastrais ou equivalentes",
+      "pt": "Parcelas cadastrais"
+    },
+    "Protected sites": {
+      "en": "Protected sites",
+      "description": "Zonas designadas ou geridas no \u00e2mbito de legisla\u00e7\u00e3o internacional, comunit\u00e1ria ou dos Estados-Membros para a prossecu\u00e7\u00e3o de objectivos espec\u00edficos de conserva\u00e7\u00e3o",
+      "pt": "S\u00edtios protegidos"
+    },
+    "Natural risk zones": {
+      "en": "Natural risk zones",
+      "description": "Zonas sens\u00edveis, caracterizadas de acordo com os riscos naturais (todos os fen\u00f3menos atmosf\u00e9ricos, hidrol\u00f3gicos, s\u00edsmicos, vulc\u00e2nicos e os inc\u00eandios que, pela sua localiza\u00e7\u00e3o, gravidade e frequ\u00eancia, possam afectar gravemente a sociedade), como sejam inunda\u00e7\u00f5es, deslizamentos de terras e subsid\u00eancias, avalanches, inc\u00eandios florestais, sismos, erup\u00e7\u00f5es vulc\u00e2nicas",
+      "pt": "Zonas de risco natural"
+    },
+    "Hydrography": {
+      "en": "Hydrography",
+      "description": "Elementos hidrogr\u00e1ficos, incluindo zonas marinhas e todas as outras massas de \u00e1gua e elementos com eles relacionados, incluindo bacias e sub-bacias hidrogr\u00e1ficas. Quando adequado, de acordo com as defini\u00e7\u00f5es da Directiva 2000/60/CE do Parlamento Europeu e do Conselho, de 23 de Outubro de 2000, que estabelece um quadro de ac\u00e7\u00e3o comunit\u00e1ria no dom\u00ednio da pol\u00edtica da \u00e1gua (2), e sob a forma de redes",
+      "pt": "Hidrografia"
+    },
+    "Addresses": {
+      "en": "Addresses",
+      "description": "Localiza\u00e7\u00e3o de propriedades com base em identificadores de endere\u00e7o, em regra, o nome da rua, o n\u00famero da porta e o c\u00f3digo postal",
+      "pt": "Endere\u00e7os"
+    },
+    "Environmental monitoring facilities": {
+      "en": "Environmental monitoring facilities",
+      "description": "A localiza\u00e7\u00e3o e funcionamento de instala\u00e7\u00f5es de monitoriza\u00e7\u00e3o do ambiente inclui a observa\u00e7\u00e3o e medi\u00e7\u00e3o de emiss\u00f5es, do estado das diferentes componentes ambientais e de outros par\u00e2metros dos ecossistemas (biodiversidade, condi\u00e7\u00f5es ecol\u00f3gicas da vegeta\u00e7\u00e3o, etc.) pelas autoridades p\u00fablicas ou por conta destas",
+      "pt": "Instala\u00e7\u00f5es de monitoriza\u00e7\u00e3o do ambiente"
+    },
+    "Mineral resources": {
+      "en": "Mineral resources",
+      "description": "Recursos minerais, incluindo min\u00e9rios met\u00e1licos, minerais industriais, etc., incluindo, quando pertinente, informa\u00e7\u00e3o sobre as cotas de profundidade/altura do recurso",
+      "pt": "Recursos minerais"
+    },
+    "Soil": {
+      "en": "Soil",
+      "description": "Solo e subsolo caracterizado de acordo com a profundidade, textura, estrutura e conte\u00fado das part\u00edculas e material org\u00e2nico, car\u00e1cter pedregoso, eros\u00e3o, eventualmente declive m\u00e9dio e capacidade estimada de armazenamento de \u00e1gua",
+      "pt": "Solo"
+    },
+    "Utility and governmental services": {
+      "en": "Utility and governmental services",
+      "description": "Inclui instala\u00e7\u00f5es e servi\u00e7os de utilidade p\u00fablica, como redes de esgotos, gest\u00e3o de res\u00edduos, fornecimento de energia, abastecimento de \u00e1gua, servi\u00e7os administrativos e sociais do Estado tais como administra\u00e7\u00f5es p\u00fablicas, instala\u00e7\u00f5es da protec\u00e7\u00e3o civil, escolas e hospitais",
+      "pt": "Servi\u00e7os de utilidade p\u00fablica e do Estado"
+    },
+    "Species distribution": {
+      "en": "Species distribution",
+      "description": "Distribui\u00e7\u00e3o geogr\u00e1fica da ocorr\u00eancia de esp\u00e9cies animais e vegetais agregadas por quadr\u00edcula, regi\u00e3o, unidade administrativa ou outra unidade anal\u00edtica",
+      "pt": "Distribui\u00e7\u00e3o das esp\u00e9cies"
+    },
+    "Sea regions": {
+      "en": "Sea regions",
+      "description": "Condi\u00e7\u00f5es f\u00edsicas dos mares e massas de \u00e1gua salinas divididas em regi\u00f5es e sub-regi\u00f5es com caracter\u00edsticas comuns",
+      "pt": "Regi\u00f5es marinhas"
+    }
+  }
+}

@@ -1,0 +1,147 @@
+# -*- coding=utf-8 -*-
+#############################################################################################################
+#                     _______  _______   __  .___________.  ______   .______                                #
+#                    |   ____||       \ |  | |           | /  __  \  |   _  \                               #
+#                    |  |__   |  .--.  ||  | `---|  |----`|  |  |  | |  |_)  |                              #
+#                    |   __|  |  |  |  ||  |     |  |     |  |  |  | |      /                               #
+#                    |  |____ |  '--'  ||  |     |  |     |  `--'  | |  |\  \----.                          #
+#                    |_______||_______/ |__|     |__|      \______/  | _| `._____|                          #
+#                                                                                                           #
+#  .___  ___.  _______ .___________.    ___       _______       ___       _______   ______        _______.  #
+#  |   \/   | |   ____||           |   /   \     |       \     /   \     |       \ /  __  \      /       |  #
+#  |  \  /  | |  |__   `---|  |----`  /  ^  \    |  .--.  |   /  ^  \    |  .--.  |  |  |  |    |   (----`  #
+#  |  |\/|  | |   __|      |  |      /  /_\  \   |  |  |  |  /  /_\  \   |  |  |  |  |  |  |     \   \      #
+#  |  |  |  | |  |____     |  |     /  _____  \  |  '--'  | /  _____  \  |  '--'  |  `--'  | .----)   |     #
+#  |__|  |__| |_______|    |__|    /__/     \__\ |_______/ /__/     \__\ |_______/ \______/  |_______/      #
+#                                                                                                           #
+#                     _______..__   __.  __  .___  ___.      ___      .______                               #
+#                    /       ||  \ |  | |  | |   \/   |     /   \     |   _  \                              #
+#                   |   (----`|   \|  | |  | |  \  /  |    /  ^  \    |  |_)  |                             #
+#                    \   \    |  . `  | |  | |  |\/|  |   /  /_\  \   |      /                              #
+#                .----)   |   |  |\   | |  | |  |  |  |  /  _____  \  |  |\  \----.                         #
+#                |_______/    |__| \__| |__| |__|  |__| /__/     \__\ | _| `._____|                         #
+#                                                                                                           #
+#                                                                                                           #
+#############################################################################################################
+
+##############################################################################
+#
+#  Title:   snimarMetadataEditorPluginEntryPoint.py
+#  Authors: Pedro Dias, Eduardo Castanho, Joana Teixeira
+#  Date:    2015-08-11T16:14:20
+#
+# ---------------------------------------------------------------------------
+#
+#  XML metadata editor plugin for QGIS developed for the SNIMar Project.
+#  Copyright (C) 2015  Eduardo Castanho, Pedro Dias, Joana Teixeira
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+###############################################################################
+import os.path
+import platform
+from PyQt4.QtGui import QIcon, QPixmap, QSplashScreen, QApplication, QSound
+
+from PyQt4 import QtCore as qcore
+from PyQt4 import QtGui as qgui
+from PyQt4.QtCore import  Qt
+import time
+
+import editorMetadadosSNIMar
+
+import resources
+
+
+class EditorMetadadosPluginEntryPoint(object):
+    """Main entrypoint for the QGIS EditorMetadadosSNIMar plugin."""
+
+    def __init__(self, iface):
+        self._name = 'Editor de Metadados SNIMar'
+        self._iface = iface
+        self.dialog = None
+
+
+    def initGui(self):
+        """Initialize the GUI machine"""
+        self.action = qgui.QAction(QIcon(":/resourcesFolder/icons/main_icon.png"), self._name, self._iface.mainWindow())
+        self.action.setObjectName('initialAction')
+        self.action.setWhatsThis('Editor de Metadados SNIMar')
+        self.action.setStatusTip('Editor de Metadados SNIMar')
+        qcore.QObject.connect(self.action, qcore.SIGNAL('triggered()'), self.run)
+        self._iface.addPluginToMenu('Editor de Metadados SNIMar', self.action)
+        self._iface.addToolBarIcon(self.action)
+
+    def unload(self):
+        """Unload the plugin"""
+        self._iface.removePluginMenu('Editor de Metadados SNIMar', self.action)
+        self._iface.removeToolBarIcon(self.action)
+        try:
+            os.remove(os.path.join(os.path.dirname(__file__), "userFiles/.meLock"))
+        except OSError:
+            pass
+
+    def run(self):
+        """Plugin initial run"""
+
+        if platform.system() == 'Linux':
+            try:
+                from lxml import etree
+            except ImportError:
+                message = qgui.QMessageBox()
+                message.setModal(True)
+                message.setWindowTitle(u'Módulo LXML Não Instalado')
+                message.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
+                message.setIcon(qgui.QMessageBox.Critical)
+                message.setInformativeText(u"<a href=\"http://lxml.de/installation.html\">Como instalar</a>")
+                message.setText(u"O plugin necessita do módulo Lxml instalado.")
+                message.addButton(u'Sair', qgui.QMessageBox.RejectRole)
+                message.exec_()
+                return
+
+        if os.path.exists(os.path.join(os.path.dirname(__file__), "userFiles/.meLock")):
+            message = qgui.QMessageBox()
+            message.setModal(True)
+            message.setWindowTitle(u'O Editor já se encontra a correr?')
+            message.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
+            message.setIcon(qgui.QMessageBox.Warning)
+            message.setText(u"Verifique,\npor favor, se já existe outra instância do Editor de Metadados SNIMar aberta.\n"
+                            u"Só é permitida uma instância para evitar conflitos.")
+            message.setInformativeText(u"Deseja continuar?")
+            message.addButton(u'Continuar', qgui.QMessageBox.AcceptRole)
+            message.addButton(u'Sair', qgui.QMessageBox.RejectRole)
+            ret = message.exec_()
+            if ret != qgui.QMessageBox.AcceptRole:
+                return
+
+        # Create and display the splash screen
+        splash_pix = QPixmap(":/resourcesFolder/splash.png")
+        splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+        splash.setMask(splash_pix.mask())
+        splash.showMessage("A Carregar...", alignment=Qt.AlignBottom | Qt.AlignHCenter, color=Qt.white)
+        splash.setWindowFlags(splash.windowFlags() | Qt.WindowStaysOnTopHint)
+        splash.show()
+
+        QApplication.processEvents()
+
+        start = time.time()
+        while time.time() < start + 2:
+            QApplication.processEvents()
+        splash.close()
+
+        f = open(os.path.join(os.path.dirname(__file__), "userFiles/.meLock"), "w")
+        f.close()
+        self.dialog = editorMetadadosSNIMar.EditorMetadadosSNIMar(self._iface, self)
+        self.dialog.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
+        self.dialog.show()
+

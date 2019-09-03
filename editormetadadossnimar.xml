@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<plugins>
+  <pyqgis_plugin name='EditorMetadadosSNIMar' version='2.1.0'>
+       <description><![CDATA[Plugin para a criação e edição de metadados segundo o perfil SNIMar]]></description>
+        <about><![CDATA[O Editor de Metadados SNIMar foi desenvolvido no âmbito do Projecto SNIMar com o objectivo de ser a ferramenta destinada à criação dos metadados em conformidade com o Perfil de Metadados SNIMar.]]></about>
+        <version>2.1.0</version>
+        <qgis_minimum_version>2.6.0</qgis_minimum_version>
+        <homepage>http://editor.snimar.pt/</homepage>
+        <file_name>EditorMetadadosSNIMar.2.1.0.zip</file_name>
+        <icon>../main_icon.png</icon>
+        <author_name><![CDATA[Main Developers: Pedro Dias, Eduardo Castanho;
+ Contributors: Joana Teixeira, Alexandre Neto]]></author_name>
+        <download_url>http://editor.snimar.pt/QgisPluginRepository/EditorMetadadosSNIMar.2.1.0.zip</download_url>
+        <uploaded_by><![CDATA[Team WP4-SNIMar]]></uploaded_by>
+        <create_date>2015-08-10T12:07:15.672750</create_date>
+        <update_date>2016-04-08T11:29:44</update_date>
+       <tags><![CDATA[Metadata,Metadados,SNIMar, EEAgrants, Governo Portugal]]></tags>
+       <experimental>False</experimental>
+  </pyqgis_plugin>
+</plugins>

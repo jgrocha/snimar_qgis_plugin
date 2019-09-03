@@ -1,0 +1,4 @@
+.idea
+*.pyc
+/Releases/
+/EditorMetadadosSNIMar/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/

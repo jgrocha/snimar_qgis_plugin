@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="http://editor.snimar.pt/snimar.xsl"?>
+<!-- Ficheiro editado com o Editor de Metadados SNIMar, versão {{ editor_version }}. Data: {{ editor_date }} -->
+<gmd:MD_Metadata xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:srv="http://www.isotc211.org/2005/srv">
+    {%- if identifier %}
+    <gmd:fileIdentifier>
+        <gco:CharacterString>{{ identifier }}</gco:CharacterString>
+    </gmd:fileIdentifier>
+    {%- endif %}
+    {%- if language %}
+    <gmd:language>
+        <gmd:LanguageCode codeSpace="ISO 639-2" codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="{{ language.term }}">{{ language.term_pt }}</gmd:LanguageCode>
+    </gmd:language>
+    {%- endif %}
+    {%- if charset %}
+    <gmd:characterSet>
+        <gmd:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="{{ charset }}">{{ charset }}</gmd:MD_CharacterSetCode>
+    </gmd:characterSet>
+    {%- endif %}
+    {%- if parentidentifier %}
+    <gmd:parentIdentifier>
+        <gco:CharacterString>{{ parentidentifier }}</gco:CharacterString>
+    </gmd:parentIdentifier>
+    {%- endif %}
+    {%- if hierarchy %}
+    <gmd:hierarchyLevel>
+        <gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="{{ hierarchy.term }}">{{ hierarchy.term_pt }}</gmd:MD_ScopeCode>
+    </gmd:hierarchyLevel>
+    {%- endif %}
+    {%- for data in contact %}
+    <gmd:contact>
+        {%- set contact = data %}
+        {%- set role = 'pointOfContact' %}
+        <gmd:CI_ResponsibleParty>
+            {%- if contact.name %}
+            <gmd:individualName>
+                <gco:CharacterString>{{ contact.name|e }}</gco:CharacterString>
+            </gmd:individualName>
+            {%- endif %}
+            {%- if contact.organization %}
+            <gmd:organisationName>
+                <gco:CharacterString>{{ contact.organization|e }}</gco:CharacterString>
+            </gmd:organisationName>
+            {%- endif %}
+            {%- if contact.position %}
+            <gmd:positionName>
+                <gco:CharacterString>{{ contact.position|e }}</gco:CharacterString>
+            </gmd:positionName>
+            {%- endif %}
+            <gmd:contactInfo>
+                <gmd:CI_Contact>
+                    {%- if contact.phone|length >0 or contact.fax|length >0 %}
+                    <gmd:phone>
+                        <gmd:CI_Telephone>
+                            {%- for phone in contact.phone %}
+                            <gmd:voice>
+                                <gco:CharacterString>{{ phone }}</gco:CharacterString>
+                            </gmd:voice>
+                            {%- endfor %}
+                            {%- for fax in contact.fax %}
+                            <gmd:facsimile>
+                                <gco:CharacterString>{{ fax }}</gco:CharacterString>
+                            </gmd:facsimile>
+                            {%- endfor %}
+                        </gmd:CI_Telephone>
+                    </gmd:phone>
+                    {%- endif %}
+                    <gmd:address>
+                        <gmd:CI_Address>
+                            {%- if contact.address %}
+                            <gmd:deliveryPoint>
+                                <gco:CharacterString>{{ contact.address }}</gco:CharacterString>
+                            </gmd:deliveryPoint>
+                            {%- endif %}
+                            {%- if contact.city %}
+                            <gmd:city>
+                                <gco:CharacterString>{{ contact.city }}</gco:CharacterString>
+                            </gmd:city>
+                            {%- endif %}
+                            {%- if contact.postcode %}
+                            <gmd:postalCode>
+                                <gco:CharacterString>{{ contact.postcode }}</gco:CharacterString>
+                            </gmd:postalCode>
+                            {%- endif %}
+                            {%- if contact.country %}
+                            <gmd:country>
+                                <gco:CharacterString>{{ contact.country }}</gco:CharacterString>
+                            </gmd:country>
+                            {%- endif %}
+                            {%- for email in contact.email %}
+                            <gmd:electronicMailAddress>
+                                <gco:CharacterString>{{ email }}</gco:CharacterString>
+                            </gmd:electronicMailAddress>
+                            {%- endfor %}
+                        </gmd:CI_Address>
+                    </gmd:address>
+                    {%- if contact.onlineresource %}
+                    <gmd:onlineResource>
+                        <gmd:CI_OnlineResource>
+                            <gmd:linkage>
+                                <gmd:URL>{{ contact.onlineresource.url }}</gmd:URL>
+                            </gmd:linkage>
+                        </gmd:CI_OnlineResource>
+                    </gmd:onlineResource>
+                    {%- endif %}
+                </gmd:CI_Contact>
+            </gmd:contactInfo>
+            <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="{{ contact.role }}" codeSpace="ISOTC211/19115">{{ contact.role_pt }}</gmd:CI_RoleCode>
+            </gmd:role>
+        </gmd:CI_ResponsibleParty>
+    </gmd:contact>
+    {%- endfor %}
+    {%- if datestamp %}
+    <gmd:dateStamp>
+        <gco:Date>{{ datestamp }}</gco:Date>
+    </gmd:dateStamp>
+    {%- endif %}
+    {%- if stdname %}
+    <gmd:metadataStandardName>
+        <gco:CharacterString>{{ stdname }}</gco:CharacterString>
+    </gmd:metadataStandardName>
+    {%- endif %}
+    {%- if stdver %}
+    <gmd:metadataStandardVersion>
+        <gco:CharacterString>{{ stdver }}</gco:CharacterString>
+    </gmd:metadataStandardVersion>
+    {%- endif %}
+    <gmd:locale>
+        <gmd:PT_Locale id="locale-eng">
+          <gmd:languageCode>
+            <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng">English</gmd:LanguageCode>
+          </gmd:languageCode>
+          <gmd:characterEncoding>
+            <gmd:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+          </gmd:characterEncoding>
+        </gmd:PT_Locale>
+      </gmd:locale>
+    {%- if dataseturi %}
+    <gmd:dataSetURI>
+        <gco:CharacterString>{{ dataseturi }}</gco:CharacterString>
+    </gmd:dataSetURI>
+    {%- endif %}
+    {%- for system in referencesystem %}
+    <gmd:referenceSystemInfo>
+        <gmd:MD_ReferenceSystem>
+            <gmd:referenceSystemIdentifier>
+                <gmd:RS_Identifier>
+                    {%- if system.code and system.codeSpace %}
+                    <gmd:code>
+                        <gco:CharacterString>http://www.opengis.net/def/crs/{{ system.codeSpace }}/0/{{ system.code }}</gco:CharacterString>
+                    </gmd:code>
+                    {%- endif %}
+                    {%- if system.codeSpace %}
+                    <gmd:codeSpace>
+                        <gco:CharacterString>{{ system.codeSpace|upper }}</gco:CharacterString>
+                    </gmd:codeSpace>
+                    {%- endif %}
+                    {%- if system.version %}
+                    <gmd:version>
+                        <gco:CharacterString>{{ system.version }}</gco:CharacterString>
+                    </gmd:version>
+                    {%- endif %}
+                </gmd:RS_Identifier>
+            </gmd:referenceSystemIdentifier>
+        </gmd:MD_ReferenceSystem>
+    </gmd:referenceSystemInfo>
+    {%- endfor %}
+    <gmd:identificationInfo>
+        {%- if scope != 'service' %}
+        <gmd:MD_DataIdentification>
+            <gmd:citation>
+                <gmd:CI_Citation>
+                    <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
+                        <gco:CharacterString>{{ identification.title }}</gco:CharacterString>
+                        <gmd:PT_FreeText>
+                            <gmd:textGroup>
+                                <gmd:LocalisedCharacterString locale="#locale-eng">{{ identification.titleEN }}</gmd:LocalisedCharacterString>
+                            </gmd:textGroup>
+                        </gmd:PT_FreeText>
+                    </gmd:title>
+                    {%- if identification.alternatetitle %}
+                    <gmd:alternateTitle>
+                        <gco:CharacterString>{{ identification.alternatetitle }}</gco:CharacterString>
+                    </gmd:alternateTitle>
+                    {%- endif %}
+                    {%- for elm in identification.date %}
+                    <gmd:date>
+                        <gmd:CI_Date>
+                            <gmd:date>
+                                <gco:Date>{{ elm.date }}</gco:Date>
+                            </gmd:date>
+                            <gmd:dateType>
+                                <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="{{ elm.type.term }}">{{ elm.type.term_pt }}</gmd:CI_DateTypeCode>
+                            </gmd:dateType>
+                        </gmd:CI_Date>
+                    </gmd:date>
+                    {%- endfor %}
+                    {%- for identifier in identification.md_identifiers %}
+                    <gmd:identifier>
+                        <gmd:MD_Identifier>
+                            <gmd:code>
+                                <gco:CharacterString>{{ identifier }}</gco:CharacterString>
+                            </gmd:code>
+                        </gmd:MD_Identifier>
+                    </gmd:identifier>
+                    {%- endfor %}
+                    {%- for identifier in identification.rs_identifiers %}
+                    <gmd:identifier>
+                        <gmd:RS_Identifier>
+                            <gmd:code>
+                                <gco:CharacterString>{{ identifier[0] }}</gco:CharacterString>
+                            </gmd:code>
+                            <gmd:codeSpace>
+                                <gco:CharacterString>{{ identifier[1] }}</gco:CharacterString>
+                            </gmd:codeSpace>
+                        </gmd:RS_Identifier>
+                    </gmd:identifier>
+                    {%- endfor %}
+                </gmd:CI_Citation>
+            </gmd:citation>
+            {%- if identification.abstract %}
+            <gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
+                <gco:CharacterString>{{ identification.abstract }}</gco:CharacterString>
+                <gmd:PT_FreeText>
+                    <gmd:textGroup>
+                        <gmd:LocalisedCharacterString locale="#locale-eng">{{ identification.abstractEN }}</gmd:LocalisedCharacterString>
+                    </gmd:textGroup>
+                </gmd:PT_FreeText>
+            </gmd:abstract>
+            {%- endif %}
+            {%- if identification.purpose %}
+            <gmd:purpose>
+                <gco:CharacterString>{{ identification.purpose }}</gco:CharacterString>
+            </gmd:purpose>
+            {%- endif %}
+            {%- for credit in identification.credits %}
+            <gmd:credit>
+                <gco:CharacterString>{{ credit }}</gco:CharacterString>
+            </gmd:credit>
+            {%- endfor %}
+            {%- for status in identification.status %}
+            <gmd:status>
+                <gmd:MD_ProgressCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue="{{status.term }}">{{ status.term_pt }}</gmd:MD_ProgressCode>
+            </gmd:status>
+            {%- endfor %}
+            {%- for contact in identification.contact %}
+            <gmd:pointOfContact>
+                <gmd:CI_ResponsibleParty>
+                    {%- if contact.name %}
+                    <gmd:individualName>
+                        <gco:CharacterString>{{ contact.name|e }}</gco:CharacterString>
+                    </gmd:individualName>
+                    {%- endif %}
+                    {%- if contact.organization %}
+                    <gmd:organisationName>
+                        <gco:CharacterString>{{ contact.organization|e }}</gco:CharacterString>
+                    </gmd:organisationName>
+                    {%- endif %}
+                    {%- if contact.position %}
+                    <gmd:positionName>
+                        <gco:CharacterString>{{ contact.position|e }}</gco:CharacterString>
+                    </gmd:positionName>
+                    {%- endif %}
+                    <gmd:contactInfo>
+                        <gmd:CI_Contact>
+                            {%- if contact.phone|length >0 or contact.fax|length >0 %}
+                            <gmd:phone>
+                                <gmd:CI_Telephone>
+                                    {%- for phone in contact.phone %}
+                                    <gmd:voice>
+                                        <gco:CharacterString>{{ phone }}</gco:CharacterString>
+                                    </gmd:voice>
+                                    {%- endfor %}
+                                    {%- for fax in contact.fax %}
+                                    <gmd:facsimile>
+                                        <gco:CharacterString>{{ fax }}</gco:CharacterString>
+                                    </gmd:facsimile>
+                                    {%- endfor %}
+                                </gmd:CI_Telephone>
+                            </gmd:phone>
+                            {%- endif %}
+                            <gmd:address>
+                                <gmd:CI_Address>
+                                    {%- if contact.address %}
+                                    <gmd:deliveryPoint>
+                                        <gco:CharacterString>{{ contact.address }}</gco:CharacterString>
+                                    </gmd:deliveryPoint>
+                                    {%- endif %}
+                                    {%- if contact.city %}
+                                    <gmd:city>
+                                        <gco:CharacterString>{{ contact.city }}</gco:CharacterString>
+                                    </gmd:city>
+                                    {%- endif %}
+                                    {%- if contact.postcode %}
+                                    <gmd:postalCode>
+                                        <gco:CharacterString>{{ contact.postcode }}</gco:CharacterString>
+                                    </gmd:postalCode>
+                                    {%- endif %}
+                                    {%- if contact.country %}
+                                    <gmd:country>
+                                        <gco:CharacterString>{{ contact.country }}</gco:CharacterString>
+                                    </gmd:country>
+                                    {%- endif %}
+                                    {%- for email in contact.email %}
+                                    <gmd:electronicMailAddress>
+                                        <gco:CharacterString>{{ email }}</gco:CharacterString>
+                                    </gmd:electronicMailAddress>
+                                    {%- endfor %}
+                                </gmd:CI_Address>
+                            </gmd:address>
+                            {%- if contact.onlineresource %}
+                            <gmd:onlineResource>
+                                <gmd:CI_OnlineResource>
+                                    <gmd:linkage>
+                                        <gmd:URL>{{ contact.onlineresource.url }}</gmd:URL>
+                                    </gmd:linkage>
+                                </gmd:CI_OnlineResource>
+                            </gmd:onlineResource>
+                            {%- endif %}
+                        </gmd:CI_Contact>
+                    </gmd:contactInfo>
+                    <gmd:role>
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="{{ contact.role }}" codeSpace="ISOTC211/19115">{{ contact.role_pt }}</gmd:CI_RoleCode>
+                    </gmd:role>
+                </gmd:CI_ResponsibleParty>
+            </gmd:pointOfContact>
+            {%- endfor %}
+            {%- for resmain in identification.resourcemaintenance %}
+            <gmd:resourceMaintenance>
+                <gmd:MD_MaintenanceInformation>
+                    <gmd:maintenanceAndUpdateFrequency>
+                        <gmd:MD_MaintenanceFrequencyCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="{{ resmain.term }}">{{ resmain.term_pt }}</gmd:MD_MaintenanceFrequencyCode>
+                    </gmd:maintenanceAndUpdateFrequency>
+                </gmd:MD_MaintenanceInformation>
+            </gmd:resourceMaintenance>
+            {%- endfor %}
+            {%- if identification.graphicoverview %}
+            <gmd:graphicOverview>
+                <gmd:MD_BrowseGraphic>
+                    <gmd:fileName>
+                        <gco:CharacterString>{{ identification.graphicoverview }}</gco:CharacterString>
+                    </gmd:fileName>
+                </gmd:MD_BrowseGraphic>
+            </gmd:graphicOverview>
+            {%- endif %}
+            {%- if identification.keywords|length > 0 %}
+            {%- for keyword in identification.keywords %}
+            {%- if keyword.keywords|length > 0 %}
+            <gmd:descriptiveKeywords>
+                {%- if keyword.cc_uid %}
+                <gmd:MD_Keywords uuid="{{keyword.cc_uid}}">
+                {%- else %}
+                <gmd:MD_Keywords>
+                    {%- endif %}
+                    {%- for word in keyword.keywords %}
+                    <gmd:keyword>
+                        <gco:CharacterString>{{ word }}</gco:CharacterString>
+                    </gmd:keyword>
+                    {%- endfor %}
+                    {%- if keyword.type %}
+                    <gmd:type>
+                        <gmd:MD_KeywordTypeCode codeList="{{ keyword.kwdtype_codeList }}" codeListValue="{{ keyword.type.term }}">{{ keyword.type.term_pt }}</gmd:MD_KeywordTypeCode>
+                    </gmd:type>
+                    {%- endif %}
+                    {%- if keyword.thesaurus %}
+                    <gmd:thesaurusName>
+                        <gmd:CI_Citation>
+                            {%- if keyword.thesaurus['title'] %}
+                            <gmd:title>
+                                <gco:CharacterString>{{ keyword.thesaurus['title'] }}</gco:CharacterString>
+                            </gmd:title>
+                            {%- endif %}
+                            <gmd:date>
+                                <gmd:CI_Date>
+                                    {%- if keyword.thesaurus['date'] %}
+                                    <gmd:date>
+                                        <gco:Date>{{ keyword.thesaurus['date'] }}</gco:Date>
+                                    </gmd:date>
+                                    {%- endif %}
+                                    {%- if keyword.thesaurus['datetype'] %}
+                                    <gmd:dateType>
+                                        {%- set dt = 'datetype' %}
+                                        <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="{{ keyword.thesaurus[dt].term }}">{{ keyword.thesaurus[dt].term_pt }}</gmd:CI_DateTypeCode>
+                                    </gmd:dateType>
+                                    {%- endif %}
+                                </gmd:CI_Date>
+                            </gmd:date>
+                        </gmd:CI_Citation>
+                    </gmd:thesaurusName>
+                    {%- endif %}
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+            {%- endif %}
+            {%- endfor %}
+            {%- endif %}
+            {%- for security in identification.securityconstraints %}
+            <gmd:resourceConstraints>
+                <gmd:MD_SecurityConstraints>
+                    <gmd:classification>
+                        <gmd:MD_ClassificationCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_ClassificationCode" codeListValue="{{ security.term }}">{{ security.term_pt }}</gmd:MD_ClassificationCode>
+                    </gmd:classification>
+                </gmd:MD_SecurityConstraints>
+            </gmd:resourceConstraints>
+            {%- endfor %}
+            {%- if identification.accessconstraints or identification.uselimitation or identification.useconstraints or identification.otherconstraints %}
+            <gmd:resourceConstraints>
+                <gmd:MD_LegalConstraints>
+                    {%- for x in identification.uselimitation %}
+                    <gmd:useLimitation>
+                        <gco:CharacterString>{{ x }}</gco:CharacterString>
+                    </gmd:useLimitation>
+                    {%- endfor %}
+                    {%- for x in identification.accessconstraints %}
+                    <gmd:accessConstraints>
+                        <gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="{{ x.term }}">{{ x.term_pt }}</gmd:MD_RestrictionCode>
+                    </gmd:accessConstraints>
+                    {%- endfor %}
+                    {%- for x in identification.useconstraints %}
+                    <gmd:useConstraints>
+                        <gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="{{ x.term }}">{{ x.term_pt }}</gmd:MD_RestrictionCode>
+                    </gmd:useConstraints>
+                    {%- endfor %}
+                    {%- for x in identification.otherconstraints %}
+                    <gmd:otherConstraints>
+                        <gco:CharacterString>{{ x }}</gco:CharacterString>
+                    </gmd:otherConstraints>
+                    {%- endfor %}
+                </gmd:MD_LegalConstraints>
+            </gmd:resourceConstraints>
+            {%- endif %}
+            {%- for repr in identification.spatialrepresentation %}
+            <gmd:spatialRepresentationType>
+                <gmd:MD_SpatialRepresentationTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="{{ repr.term }}">{{ repr.term_pt }}</gmd:MD_SpatialRepresentationTypeCode>
+            </gmd:spatialRepresentationType>
+            {%- endfor %}
+            {%- if identification.distance|length > 0 %}
+            {%-  for dis in identification.distance %}
+            <gmd:spatialResolution>
+                <gmd:MD_Resolution>
+                    <gmd:distance>
+                        <gco:Distance uom="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/uom/ML_gmxUom.xml#{{ dis[1] }}">{{ dis[0] }}</gco:Distance>
+                    </gmd:distance>
+                </gmd:MD_Resolution>
+            </gmd:spatialResolution>
+            {%- endfor %}
+            {%- endif %}
+            {%- if identification.denominators|length > 0 %}
+            {%- for de in identification.denominators %}
+            <gmd:spatialResolution>
+                <gmd:MD_Resolution>
+                    <gmd:equivalentScale>
+                        <gmd:MD_RepresentativeFraction>
+                            <gmd:denominator>
+                                <gco:Integer>{{ de }}</gco:Integer>
+                            </gmd:denominator>
+                        </gmd:MD_RepresentativeFraction>
+                    </gmd:equivalentScale>
+                </gmd:MD_Resolution>
+            </gmd:spatialResolution>
+            {%- endfor %}
+            {%- endif %}
+            {%- for language in identification.language %}
+            <gmd:language>
+                <gmd:LanguageCode codeSpace="ISO 639-2" codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="{{ language.term }}">{{ language.term_pt }}</gmd:LanguageCode>
+            </gmd:language>
+            {%- endfor %}
+            {%- if identification.charset %}
+            <gmd:characterSet>
+                <gmd:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="{{ identification.charset.term }}">{{ identification.charset.term_pt }}</gmd:MD_CharacterSetCode>
+            </gmd:characterSet>
+            {%- endif %}
+            {%- for topic in identification.topiccategory %}
+            <gmd:topicCategory>
+                <gmd:MD_TopicCategoryCode>{{ topic.term }}</gmd:MD_TopicCategoryCode>
+            </gmd:topicCategory>
+            {%- endfor %}
+            {%- if identification.extent|length > 0 %}
+            <gmd:extent>
+                <gmd:EX_Extent>
+                    {%- for geoextent in identification.extent %}
+                    {%- if geoextent.boundingBox %}
+                    {%- set bbox = geoextent.boundingBox %}
+                    <gmd:geographicElement>
+                        <gmd:EX_GeographicBoundingBox>
+                            <gmd:extentTypeCode>
+                                <gco:Boolean>{{ geoextent.hasresource|lower }}</gco:Boolean>
+                            </gmd:extentTypeCode>
+                            {%- set bbox = geoextent.boundingBox %}
+                            <gmd:westBoundLongitude>
+                                <gco:Decimal>{{ bbox.maxx }}</gco:Decimal>
+                            </gmd:westBoundLongitude>
+                            <gmd:eastBoundLongitude>
+                                <gco:Decimal>{{ bbox.minx }}</gco:Decimal>
+                            </gmd:eastBoundLongitude>
+                            <gmd:southBoundLatitude>
+                                <gco:Decimal>{{ bbox.miny }}</gco:Decimal>
+                            </gmd:southBoundLatitude>
+                            <gmd:northBoundLatitude>
+                                <gco:Decimal>{{ bbox.maxy }}</gco:Decimal>
+                            </gmd:northBoundLatitude>
+                        </gmd:EX_GeographicBoundingBox>
+                    </gmd:geographicElement>
+                    {%- elif geoextent.description_code %}
+                    <gmd:geographicElement>
+                        <gmd:EX_GeographicDescription>
+                            <gmd:extentTypeCode>
+                                <gco:Boolean>{{ geoextent.hasresource|lower }}</gco:Boolean>
+                            </gmd:extentTypeCode>
+                            <gmd:geographicIdentifier>
+                                <gmd:MD_Identifier>
+                                    <gmd:code>
+                                        <gco:CharacterString>{{ geoextent.description_code }}</gco:CharacterString>
+                                    </gmd:code>
+                                </gmd:MD_Identifier>
+                            </gmd:geographicIdentifier>
+                        </gmd:EX_GeographicDescription>
+                    </gmd:geographicElement>
+                    {%- endif %}
+                    {%- endfor %}
+                    {%- for geoextent in identification.extent %}
+                    {%- if geoextent.beginposition %}
+                    <gmd:temporalElement>
+                        <gmd:EX_TemporalExtent>
+                            <gmd:extent>
+                                <gml:TimePeriod gml:id="{{ geoextent.id }}">
+                                    <gml:beginPosition>{{ geoextent.beginposition }}</gml:beginPosition>
+                                    <gml:endPosition>{{ geoextent.endposition }}</gml:endPosition>
+                                </gml:TimePeriod>
+                            </gmd:extent>
+                        </gmd:EX_TemporalExtent>
+                    </gmd:temporalElement>
+                    {%- endif %}
+                    {%- endfor %}
+                    {%- for geoextent in identification.extent %}
+                    {%- if geoextent.min or geoextent.max or geoextent.crs %}
+                    <gmd:verticalElement>
+                        <gmd:EX_VerticalExtent>
+                            {%- if geoextent.min is number %}
+                            <gmd:minimumValue><gco:Real>{{ geoextent.min }}</gco:Real></gmd:minimumValue>
+                            {%- endif %}
+                            {%- if geoextent.max is number %}
+                            <gmd:maximumValue><gco:Real>{{ geoextent.max }}</gco:Real></gmd:maximumValue>
+                            {%- endif %}
+                            {%- if  geoextent.crs %}
+                            <gmd:verticalCRS xlink:href="{{ geoextent.crs }}"/>
+                            {%- endif %}
+                        </gmd:EX_VerticalExtent>
+                    </gmd:verticalElement>
+                    {%- endif %}
+                    {%- endfor %}
+                </gmd:EX_Extent>
+            </gmd:extent>
+            {%- endif %}
+            {%- if identification.supplementalinformation %}
+            <gmd:supplementalInformation>
+                <gco:CharacterString>{{ identification.supplementalinformation }}</gco:CharacterString>
+            </gmd:supplementalInformation>
+            {%- endif %}
+        </gmd:MD_DataIdentification>
+        {%- else %}
+        <srv:SV_ServiceIdentification>
+            <gmd:citation>
+                <gmd:CI_Citation>
+                    <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
+                        <gco:CharacterString>{{ serviceidentification.title }}</gco:CharacterString>
+                        <gmd:PT_FreeText>
+                            <gmd:textGroup>
+                                <gmd:LocalisedCharacterString locale="#locale-eng">{{ serviceidentification.titleEN }}</gmd:LocalisedCharacterString>
+                            </gmd:textGroup>
+                        </gmd:PT_FreeText>
+                    </gmd:title>
+                    {%- if serviceidentification.alternatetitle %}
+                    <gmd:alternateTitle>
+                        <gco:CharacterString>{{ serviceidentification.alternatetitle }}</gco:CharacterString>
+                    </gmd:alternateTitle>
+                    {%- endif %}
+                    {%- for elm in serviceidentification.date %}
+                    <gmd:date>
+                        <gmd:CI_Date>
+                            <gmd:date>
+                                <gco:Date>{{ elm.date }}</gco:Date>
+                            </gmd:date>
+                            <gmd:dateType>
+                                <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="{{ elm.type.term }}">{{ elm.type.term_pt }}</gmd:CI_DateTypeCode>
+                            </gmd:dateType>
+                        </gmd:CI_Date>
+                    </gmd:date>
+                    {%- endfor %}
+                    {%- for identifier in serviceidentification.md_identifiers %}
+                    <gmd:identifier>
+                        <gmd:MD_Identifier>
+                            <gmd:code>
+                                <gco:CharacterString>{{ identifier }}</gco:CharacterString>
+                            </gmd:code>
+                        </gmd:MD_Identifier>
+                    </gmd:identifier>
+                    {%- endfor %}
+                    {%- for identifier in serviceidentification.rs_identifiers %}
+                    <gmd:identifier>
+                        <gmd:RS_Identifier>
+                            <gmd:code>
+                                <gco:CharacterString>{{ identifier[0] }}</gco:CharacterString>
+                            </gmd:code>
+                            <gmd:codeSpace>
+                                <gco:CharacterString>{{ identifier[1] }}</gco:CharacterString>
+                            </gmd:codeSpace>
+                        </gmd:RS_Identifier>
+                    </gmd:identifier>
+                    {%- endfor %}
+                </gmd:CI_Citation>
+            </gmd:citation>
+            {%- if serviceidentification.abstract %}
+            <gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
+                <gco:CharacterString>{{ serviceidentification.abstract }}</gco:CharacterString>
+                <gmd:PT_FreeText>
+                    <gmd:textGroup>
+                        <gmd:LocalisedCharacterString locale="#locale-eng">{{ serviceidentification.abstractEN }}</gmd:LocalisedCharacterString>
+                    </gmd:textGroup>
+                </gmd:PT_FreeText>
+            </gmd:abstract>
+            {%- endif %}
+            {%- if serviceidentification.purpose %}
+            <gmd:purpose>
+                <gco:CharacterString>{{ serviceidentification.purpose }}</gco:CharacterString>
+            </gmd:purpose>
+            {%- endif %}
+            {%- for credit in serviceidentification.credits %}
+            <gmd:credit>
+                <gco:CharacterString>{{ credit }}</gco:CharacterString>
+            </gmd:credit>
+            {%- endfor %}
+            {%- for status in  serviceidentification.status %}
+            <gmd:status>
+                <gmd:MD_ProgressCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue="{{ status.term }}">{{ status.term_pt }}</gmd:MD_ProgressCode>
+            </gmd:status>
+            {%- endfor %}
+            {%- for contact in serviceidentification.contact %}
+            <gmd:pointOfContact>
+                <gmd:CI_ResponsibleParty>
+                    {%- if contact.name %}
+                    <gmd:individualName>
+                        <gco:CharacterString>{{ contact.name|e }}</gco:CharacterString>
+                    </gmd:individualName>
+                    {%- endif %}
+                    {%- if contact.organization %}
+                    <gmd:organisationName>
+                        <gco:CharacterString>{{ contact.organization|e }}</gco:CharacterString>
+                    </gmd:organisationName>
+                    {%- endif %}
+                    {%- if contact.position %}
+                    <gmd:positionName>
+                        <gco:CharacterString>{{ contact.position|e }}</gco:CharacterString>
+                    </gmd:positionName>
+                    {%- endif %}
+                    <gmd:contactInfo>
+                        <gmd:CI_Contact>
+                            {%- if contact.phone|length >0 or contact.fax|length >0 %}
+                            <gmd:phone>
+                                <gmd:CI_Telephone>
+                                    {%- for phone in contact.phone %}
+                                    <gmd:voice>
+                                        <gco:CharacterString>{{ phone }}</gco:CharacterString>
+                                    </gmd:voice>
+                                    {%- endfor %}
+                                    {%- for fax in contact.fax %}
+                                    <gmd:facsimile>
+                                        <gco:CharacterString>{{ fax }}</gco:CharacterString>
+                                    </gmd:facsimile>
+                                    {%- endfor %}
+                                </gmd:CI_Telephone>
+                            </gmd:phone>
+                            {%- endif %}
+                            <gmd:address>
+                                <gmd:CI_Address>
+                                    {%- if contact.address %}
+                                    <gmd:deliveryPoint>
+                                        <gco:CharacterString>{{ contact.address }}</gco:CharacterString>
+                                    </gmd:deliveryPoint>
+                                    {%- endif %}
+                                    {%- if contact.city %}
+                                    <gmd:city>
+                                        <gco:CharacterString>{{ contact.city }}</gco:CharacterString>
+                                    </gmd:city>
+                                    {%- endif %}
+                                    {%- if contact.postcode %}
+                                    <gmd:postalCode>
+                                        <gco:CharacterString>{{ contact.postcode }}</gco:CharacterString>
+                                    </gmd:postalCode>
+                                    {%- endif %}
+                                    {%- if contact.country %}
+                                    <gmd:country>
+                                        <gco:CharacterString>{{ contact.country }}</gco:CharacterString>
+                                    </gmd:country>
+                                    {%- endif %}
+                                    {%- for email in contact.email %}
+                                    <gmd:electronicMailAddress>
+                                        <gco:CharacterString>{{ email }}</gco:CharacterString>
+                                    </gmd:electronicMailAddress>
+                                    {%- endfor %}
+                                </gmd:CI_Address>
+                            </gmd:address>
+                            {%- if contact.onlineresource %}
+                            <gmd:onlineResource>
+                                <gmd:CI_OnlineResource>
+                                    <gmd:linkage>
+                                        <gmd:URL>{{ contact.onlineresource.url }}</gmd:URL>
+                                    </gmd:linkage>
+                                </gmd:CI_OnlineResource>
+                            </gmd:onlineResource>
+                            {%- endif %}
+                        </gmd:CI_Contact>
+                    </gmd:contactInfo>
+                    <gmd:role>
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="{{ contact.role }}" codeSpace="ISOTC211/19115">{{ contact.role_pt }}</gmd:CI_RoleCode>
+                    </gmd:role>
+                </gmd:CI_ResponsibleParty>
+            </gmd:pointOfContact>
+            {%- endfor %}
+            {%- for resmain in serviceidentification.resourcemaintenance %}
+            <gmd:resourceMaintenance>
+                <gmd:MD_MaintenanceInformation>
+                    <gmd:maintenanceAndUpdateFrequency>
+                        <gmd:MD_MaintenanceFrequencyCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="{{ resmain.term }}">{{ resmain.term_pt }}</gmd:MD_MaintenanceFrequencyCode>
+                    </gmd:maintenanceAndUpdateFrequency>
+                </gmd:MD_MaintenanceInformation>
+            </gmd:resourceMaintenance>
+            {%- endfor %}
+            {%- if serviceidentification.graphicoverview %}
+            <gmd:graphicOverview>
+                <gmd:MD_BrowseGraphic>
+                    <gmd:fileName>
+                        <gco:CharacterString>{{ serviceidentification.graphicoverview }}</gco:CharacterString>
+                    </gmd:fileName>
+                </gmd:MD_BrowseGraphic>
+            </gmd:graphicOverview>
+            {%- endif %}
+            {%- if serviceidentification.keywords|length > 0 %}
+            {%- for keyword in serviceidentification.keywords %}
+            {%- if keyword.keywords|length > 0 %}
+            <gmd:descriptiveKeywords>
+                {%- if keyword.cc_uid %}
+                <gmd:MD_Keywords uuid="{{keyword.cc_uid}}">
+                {%- else %}
+                <gmd:MD_Keywords>
+                    {%- endif %}
+                    {%- for word in keyword.keywords %}
+                    <gmd:keyword>
+                        <gco:CharacterString>{{ word }}</gco:CharacterString>
+                    </gmd:keyword>
+                    {%- endfor %}
+                    {%- if keyword.type %}
+                    <gmd:type>
+                        <gmd:MD_KeywordTypeCode codeList="{{ keyword.kwdtype_codeList }}" codeListValue="{{ keyword.type.term }}">{{ keyword.type }}</gmd:MD_KeywordTypeCode>
+                    </gmd:type>
+                    {%- endif %}
+                    {%- if keyword.thesaurus %}
+                    <gmd:thesaurusName>
+                        <gmd:CI_Citation>
+                            {%- if keyword.thesaurus['title'] %}
+                            <gmd:title>
+                                <gco:CharacterString>{{ keyword.thesaurus['title'] }}</gco:CharacterString>
+                            </gmd:title>
+                            {%- endif %}
+                            <gmd:date>
+                                <gmd:CI_Date>
+                                    {%- if keyword.thesaurus['date'] %}
+                                    <gmd:date>
+                                        <gco:Date>{{ keyword.thesaurus['date'] }}</gco:Date>
+                                    </gmd:date>
+                                    {%- endif %}
+                                    {%- if keyword.thesaurus['datetype'] %}
+                                    <gmd:dateType>
+                                        {%- set dt = 'datetype' %}
+                                        <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="{{ keyword.thesaurus[dt].term }}">{{ keyword.thesaurus[dt].term_pt }}</gmd:CI_DateTypeCode>
+                                    </gmd:dateType>
+                                    {%- endif %}
+                                </gmd:CI_Date>
+                            </gmd:date>
+                        </gmd:CI_Citation>
+                    </gmd:thesaurusName>
+                    {%- endif %}
+                </gmd:MD_Keywords>
+            </gmd:descriptiveKeywords>
+            {%- endif %}
+            {%- endfor %}
+            {%- endif %}
+            {%- for security in serviceidentification.securityconstraints %}
+            <gmd:resourceConstraints>
+                <gmd:MD_SecurityConstraints>
+                    <gmd:classification>
+                        <gmd:MD_ClassificationCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_ClassificationCode" codeListValue="{{ security.term }}">{{ security.term_pt }}</gmd:MD_ClassificationCode>
+                    </gmd:classification>
+                </gmd:MD_SecurityConstraints>
+            </gmd:resourceConstraints>
+            {%- endfor %}
+              {%- if serviceidentification.accessconstraints or serviceidentification.uselimitation or serviceidentification.useconstrainsts or serviceidentification.otherconstraints %}
+            <gmd:resourceConstraints>
+                <gmd:MD_LegalConstraints>
+                    {%- for x in serviceidentification.uselimitation %}
+                    <gmd:useLimitation>
+                        <gco:CharacterString>{{ x }}</gco:CharacterString>
+                    </gmd:useLimitation>
+                    {%- endfor %}
+                    {%- for x in serviceidentification.accessconstraints %}
+                    <gmd:accessConstraints>
+                        <gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="{{ x.term }}">{{ x.term_pt }}</gmd:MD_RestrictionCode>
+                    </gmd:accessConstraints>
+                    {%- endfor %}
+                    {%- for x in serviceidentification.useconstraints %}
+                    <gmd:useConstraints>
+                        <gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="{{ x.term }}">{{ x.term_pt }}</gmd:MD_RestrictionCode>
+                    </gmd:useConstraints>
+                    {%- endfor %}
+                    {%- for x in serviceidentification.otherconstraints %}
+                    <gmd:otherConstraints>
+                        <gco:CharacterString>{{ x }}</gco:CharacterString>
+                    </gmd:otherConstraints>
+                    {%- endfor %}
+                </gmd:MD_LegalConstraints>
+            </gmd:resourceConstraints>
+            {%- endif %}
+            {%- if serviceidentification.type %}
+            <srv:serviceType>
+                <gco:LocalName>{{ serviceidentification.type.term }}</gco:LocalName>
+            </srv:serviceType>
+            {%- endif %}
+            {%- if serviceidentification.extent|length > 0  %}
+            <srv:extent>
+                <gmd:EX_Extent>
+                    {%- for geoextent in serviceidentification.extent %}
+                    {%- if geoextent.boundingBox %}
+                    {%- set bbox = geoextent.boundingBox %}
+                    <gmd:geographicElement>
+                        <gmd:EX_GeographicBoundingBox>
+                            <gmd:extentTypeCode>
+                                <gco:Boolean>{{ geoextent.hasresource|lower }}</gco:Boolean>
+                            </gmd:extentTypeCode>
+                            {%- set bbox = geoextent.boundingBox %}
+                            <gmd:westBoundLongitude>
+                                <gco:Decimal>{{ bbox.maxx }}</gco:Decimal>
+                            </gmd:westBoundLongitude>
+                            <gmd:eastBoundLongitude>
+                                <gco:Decimal>{{ bbox.minx }}</gco:Decimal>
+                            </gmd:eastBoundLongitude>
+                            <gmd:southBoundLatitude>
+                                <gco:Decimal>{{ bbox.miny }}</gco:Decimal>
+                            </gmd:southBoundLatitude>
+                            <gmd:northBoundLatitude>
+                                <gco:Decimal>{{ bbox.maxy }}</gco:Decimal>
+                            </gmd:northBoundLatitude>
+                        </gmd:EX_GeographicBoundingBox>
+                    </gmd:geographicElement>
+                    {%- elif geoextent.description_code %}
+                    <gmd:geographicElement>
+                        <gmd:EX_GeographicDescription>
+                            <gmd:extentTypeCode>
+                                <gco:Boolean>{{ geoextent.hasresource|lower }}</gco:Boolean>
+                            </gmd:extentTypeCode>
+                            <gmd:geographicIdentifier>
+                                <gmd:MD_Identifier>
+                                    <gmd:code>
+                                        <gco:CharacterString>{{ geoextent.description_code }}</gco:CharacterString>
+                                    </gmd:code>
+                                </gmd:MD_Identifier>
+                            </gmd:geographicIdentifier>
+                        </gmd:EX_GeographicDescription>
+                    </gmd:geographicElement>
+                    {%- endif %}
+                    {%- endfor %}
+                    {%- for geoextent in serviceidentification.extent %}
+                    {%- if geoextent.beginposition %}
+                    <gmd:temporalElement>
+                        <gmd:EX_TemporalExtent>
+                            <gmd:extent>
+                                <gml:TimePeriod gml:id="{{ geoextent.id }}">
+                                    <gml:beginPosition>{{ geoextent.beginposition }}</gml:beginPosition>
+                                    <gml:endPosition>{{ geoextent.endposition }}</gml:endPosition>
+                                </gml:TimePeriod>
+                            </gmd:extent>
+                        </gmd:EX_TemporalExtent>
+                    </gmd:temporalElement>
+                    {%- endif %}
+                    {%- endfor %}
+                    {%- for geoextent in serviceidentification.extent %}
+                    {%- if geoextent.min or geoextent.max or geoextent.crs %}
+                    <gmd:verticalElement>
+                        <gmd:EX_VerticalExtent>
+                            {%- if geoextent.min is number %}
+                            <gmd:minimumValue><gco:Real>{{ geoextent.min }}</gco:Real></gmd:minimumValue>
+                            {%- endif %}
+                            {%- if geoextent.max is number %}
+                            <gmd:maximumValue><gco:Real>{{ geoextent.max }}</gco:Real></gmd:maximumValue>
+                            {%- endif %}
+                            {%- if  geoextent.crs %}
+                            <gmd:verticalCRS xlink:href="{{ geoextent.crs }}"/>
+                            {%- endif %}
+                        </gmd:EX_VerticalExtent>
+                    </gmd:verticalElement>
+                    {%- endif %}
+                    {%- endfor %}
+                </gmd:EX_Extent>
+            </srv:extent>
+            {%- endif %}
+            {%- if serviceidentification.couplingtype %}
+            <srv:couplingType>
+                <srv:SV_CouplingType codeListValue="{{ serviceidentification.couplingtype.term }}" codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#SV_CouplingType">{{ serviceidentification.couplingtype.term_pt }}</srv:SV_CouplingType>
+            </srv:couplingType>
+            {%- endif %}
+            {%- for op in serviceidentification.operations %}
+            <srv:containsOperations>
+                <srv:SV_OperationMetadata>
+                    <srv:operationName>
+                        <gco:CharacterString>{{ op[0] }}</gco:CharacterString>
+                    </srv:operationName>
+                    {%- for dcp in op[1] %}
+                    <srv:DCP>
+                        <srv:DCPList codeListValue="{{ dcp.term }}" codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#DCPList">{{ dcp.term_pt }}</srv:DCPList>
+                    </srv:DCP>
+                    {%- endfor %}
+                    {%- for con in op[2] %}
+                    <srv:connectPoint>
+                        <gmd:CI_OnlineResource>
+                            <gmd:linkage>
+                                <gmd:URL>{{ con }}</gmd:URL>
+                            </gmd:linkage>
+                        </gmd:CI_OnlineResource>
+                    </srv:connectPoint>
+                    {%- endfor %}
+                </srv:SV_OperationMetadata>
+            </srv:containsOperations>
+            {%- endfor %}
+            {%- for opOn in serviceidentification.operateson %}
+            <srv:operatesOn xlink:href="{{ opOn }}"/>
+            {%- endfor %}
+
+        </srv:SV_ServiceIdentification>
+        {%- endif %}
+    </gmd:identificationInfo>
+    {%- if distribution %}
+    <gmd:distributionInfo>
+        <gmd:MD_Distribution>
+            {%- for dist in distribution.distribution_format %}
+            <gmd:distributionFormat>
+                <gmd:MD_Format>
+                    <gmd:name>
+                        <gco:CharacterString>{{ dist[0] }}</gco:CharacterString>
+                    </gmd:name>
+                    <gmd:version>
+                        <gco:CharacterString>{{ dist[1] }}</gco:CharacterString>
+                    </gmd:version>
+                </gmd:MD_Format>
+            </gmd:distributionFormat>
+            {%- endfor %}
+            {%- for distributor in distribution.distributor %}
+            {%- set contact = distributor.contact %}
+            {%- set role = 'distributor' %}
+            {%- if contact %}
+            <gmd:distributor>
+                <gmd:MD_Distributor>
+                    <gmd:distributorContact>
+                        <gmd:CI_ResponsibleParty>
+                            {%- if contact.name %}
+                            <gmd:individualName>
+                                <gco:CharacterString>{{ contact.name|e }}</gco:CharacterString>
+                            </gmd:individualName>
+                            {%- endif %}
+                            {%- if contact.organization %}
+                            <gmd:organisationName>
+                                <gco:CharacterString>{{ contact.organization|e }}</gco:CharacterString>
+                            </gmd:organisationName>
+                            {%- endif %}
+                            {%- if contact.position %}
+                            <gmd:positionName>
+                                <gco:CharacterString>{{ contact.position|e }}</gco:CharacterString>
+                            </gmd:positionName>
+                            {%- endif %}
+                            <gmd:contactInfo>
+                                <gmd:CI_Contact>
+                                    {%- if contact.phone|length >0 or contact.fax|length >0 %}
+                                    <gmd:phone>
+                                        <gmd:CI_Telephone>
+                                            {%- for phone in contact.phone %}
+                                            <gmd:voice>
+                                                <gco:CharacterString>{{ phone }}</gco:CharacterString>
+                                            </gmd:voice>
+                                            {%- endfor %}
+                                            {%- for fax in contact.fax %}
+                                            <gmd:facsimile>
+                                                <gco:CharacterString>{{ fax }}</gco:CharacterString>
+                                            </gmd:facsimile>
+                                            {%- endfor %}
+                                        </gmd:CI_Telephone>
+                                    </gmd:phone>
+                                    {%- endif %}
+                                    <gmd:address>
+                                        <gmd:CI_Address>
+                                            {%- if contact.address %}
+                                            <gmd:deliveryPoint>
+                                                <gco:CharacterString>{{ contact.address }}</gco:CharacterString>
+                                            </gmd:deliveryPoint>
+                                            {%- endif %}
+                                            {%- if contact.city %}
+                                            <gmd:city>
+                                                <gco:CharacterString>{{ contact.city }}</gco:CharacterString>
+                                            </gmd:city>
+                                            {%- endif %}
+                                            {%- if contact.postcode %}
+                                            <gmd:postalCode>
+                                                <gco:CharacterString>{{ contact.postcode }}</gco:CharacterString>
+                                            </gmd:postalCode>
+                                            {%- endif %}
+                                            {%- if contact.country %}
+                                            <gmd:country>
+                                                <gco:CharacterString>{{ contact.country }}</gco:CharacterString>
+                                            </gmd:country>
+                                            {%- endif %}
+                                            {%- for email in contact.email %}
+                                            <gmd:electronicMailAddress>
+                                                <gco:CharacterString>{{ email }}</gco:CharacterString>
+                                            </gmd:electronicMailAddress>
+                                            {%- endfor %}
+                                        </gmd:CI_Address>
+                                    </gmd:address>
+                                    {%- if contact.onlineresource %}
+                                    <gmd:onlineResource>
+                                        <gmd:CI_OnlineResource>
+                                            <gmd:linkage>
+                                                <gmd:URL>{{ contact.onlineresource.url }}</gmd:URL>
+                                            </gmd:linkage>
+                                        </gmd:CI_OnlineResource>
+                                    </gmd:onlineResource>
+                                    {%- endif %}
+                                </gmd:CI_Contact>
+                            </gmd:contactInfo>
+                            <gmd:role>
+                                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="{{ contact.role }}" codeSpace="ISOTC211/19115">{{ contact.role_pt }}</gmd:CI_RoleCode>
+                            </gmd:role>
+                        </gmd:CI_ResponsibleParty>
+                    </gmd:distributorContact>
+                </gmd:MD_Distributor>
+            </gmd:distributor>
+            {%- endif %}
+            {%- endfor %}
+            {%- if distribution.size or distribution.online|length > 0 %}
+            <gmd:transferOptions>
+                <gmd:MD_DigitalTransferOptions>
+                    {%- if distribution.size %}
+                    <gmd:transferSize>
+                        <gco:Real>{{ distribution.size }}</gco:Real>
+                    </gmd:transferSize>
+                    {%- endif %}
+                    {%- for online in distribution.online %}
+                    <gmd:onLine>
+                        <gmd:CI_OnlineResource>
+                            <gmd:linkage>
+                                <gmd:URL>{{ online.url }}</gmd:URL>
+                            </gmd:linkage>
+                            {%- if online.function %}
+                            <gmd:function>
+                                <gmd:CI_OnLineFunctionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="{{ online.function.term }}">{{ online.function.term_pt }}</gmd:CI_OnLineFunctionCode>
+                            </gmd:function>
+                            {%- endif %}
+                        </gmd:CI_OnlineResource>
+                    </gmd:onLine>
+                    {%- endfor %}
+                </gmd:MD_DigitalTransferOptions>
+            </gmd:transferOptions>
+            {%- endif %}
+        </gmd:MD_Distribution>
+    </gmd:distributionInfo>
+    {%- endif %}
+    {%- if dataquality %}
+    <gmd:dataQualityInfo>
+        <gmd:DQ_DataQuality>
+            <gmd:scope>
+                <gmd:DQ_Scope>
+                    <gmd:level>
+                        <gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="{{ hierarchy.term }}">{{ hierarchy.term_pt }}</gmd:MD_ScopeCode>
+                    </gmd:level>
+                </gmd:DQ_Scope>
+            </gmd:scope>
+            <gmd:report>
+                <gmd:DQ_DomainConsistency>
+                    <gmd:result>
+                        <gmd:DQ_ConformanceResult>
+                            <gmd:specification>
+                                <gmd:CI_Citation>
+                                    <gmd:title>
+                                        <gco:CharacterString>{{ dataquality.conformancetitle[0] }}</gco:CharacterString>
+                                    </gmd:title>
+                                    <gmd:date>
+                                        <gmd:CI_Date>
+                                            <gmd:date>
+                                                <gco:Date>{{ dataquality.conformancedate[0] }}</gco:Date>
+                                            </gmd:date>
+                                            <gmd:dateType>
+                                                <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="{{ dataquality.conformancedatetype[0].term }}">{{ dataquality.conformancedatetype[0].term_pt }}</gmd:CI_DateTypeCode>
+                                            </gmd:dateType>
+                                        </gmd:CI_Date>
+                                    </gmd:date>
+                                </gmd:CI_Citation>
+                            </gmd:specification>
+                            <gmd:explanation>
+                                <gco:CharacterString>{{ dataquality.conformanceexplanation }}</gco:CharacterString>
+                            </gmd:explanation>
+                            <gmd:pass>
+                                {%- if dataquality.conformancedegree[0] %}
+                                <gco:Boolean>true</gco:Boolean>
+                                {%- else %}
+                                <gco:Boolean>false</gco:Boolean>
+                                {%- endif %}
+                            </gmd:pass>
+                        </gmd:DQ_ConformanceResult>
+                    </gmd:result>
+                </gmd:DQ_DomainConsistency>
+            </gmd:report>
+            <gmd:lineage>
+                <gmd:LI_Lineage>
+                    <gmd:statement xsi:type="gmd:PT_FreeText_PropertyType">
+                        <gco:CharacterString>{{ dataquality.lineage }}</gco:CharacterString>
+                        {%- if dataquality.lineageEN %}
+                        <gmd:PT_FreeText>
+                            <gmd:textGroup>
+                                <gmd:LocalisedCharacterString locale="#locale-eng">{{ dataquality.lineageEN }}</gmd:LocalisedCharacterString>
+                            </gmd:textGroup>
+                        </gmd:PT_FreeText>
+                        {%- endif %}
+                    </gmd:statement>
+                    {%- for step in dataquality.process_steps %}
+                    <gmd:processStep>
+                        <gmd:LI_ProcessStep>
+                            <gmd:description>
+                                <gco:CharacterString>{{ step[0] }}</gco:CharacterString>
+                            </gmd:description>
+                            {%- if step[2] %}
+                            <gmd:rationale>
+                                <gco:CharacterString>{{ step[2] }}</gco:CharacterString>
+                            </gmd:rationale>
+                            {%- endif %}
+                            {%- if step[1] %}
+                            <gmd:dateTime>
+                                <gco:DateTime>{{ step[1] }}</gco:DateTime>
+                            </gmd:dateTime>
+                            {%- endif %}
+
+                        </gmd:LI_ProcessStep>
+                    </gmd:processStep>
+                    {%- endfor %}
+                    {%- for source in dataquality.sources %}
+                    <gmd:source>
+                        <gmd:LI_Source>
+                            <gmd:description>
+                                <gco:CharacterString>{{ source }}</gco:CharacterString>
+                            </gmd:description>
+                        </gmd:LI_Source>
+                    </gmd:source>
+                    {%- endfor %}
+                </gmd:LI_Lineage>
+            </gmd:lineage>
+        </gmd:DQ_DataQuality>
+    </gmd:dataQualityInfo>
+    {%- endif %}
+</gmd:MD_Metadata>

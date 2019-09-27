@@ -24,6 +24,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import object
 import os
 from qgis.utils import pluginDirectory
 
@@ -108,7 +109,7 @@ INSPIRE_DATE_SERVICE = '2010-11-23'
 
 
 
-class Scopes:
+class Scopes(object):
     def __init__(self):
         pass
 

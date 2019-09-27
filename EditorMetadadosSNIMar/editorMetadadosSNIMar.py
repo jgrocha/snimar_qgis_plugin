@@ -24,35 +24,41 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import filter
+from builtins import str
+from builtins import range
 import os
 from qgis.utils import pluginDirectory
 import sys
 import json
 import platform
 import traceback
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
-from PyQt4.QtCore import Qt, QPoint
-from PyQt4.QtGui import QPushButton, QHeaderView, QFont, QMenu, QAction, QProgressDialog, QProgressBar, QSound, \
-    QMessageBox, \
-    QAbstractItemView
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
+from qgis.PyQt.QtCore import Qt, QPoint
+from qgis.PyQt.QtWidgets import QPushButton, QHeaderView, QMenu, QAction, QProgressDialog, QProgressBar, QMessageBox, QAbstractItemView
+from qgis.PyQt.QtGui import QFont
 import datetime
 
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.about import About
-from snimarEditorController.metadadoSNIMar import MetadadoSNIMar, vality_msg
-from snimarEditorController import filemanager
-from snimarProfileModel import snimarProfileModel, validation
+from .snimarEditorController.metadadoSNIMar import MetadadoSNIMar, vality_msg
+from .snimarEditorController import filemanager
+from .snimarProfileModel import snimarProfileModel, validation
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tableaux
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.update_dialog import SNIMarThesaurusUpdateDialog
-from snimarQtInterfaceView.pyuic4GeneratedSourceFiles import snimarEditorMainWindow
+from .snimarQtInterfaceView.pyuic4GeneratedSourceFiles import snimarEditorMainWindow
 from EditorMetadadosSNIMar.CONSTANTS import Scopes as SCOPES
 from EditorMetadadosSNIMar import CONSTANTS
 from EditorMetadadosSNIMar.snimarProfileModel import service
 
-from snimarEditorController.dialogs import contacts_dialog
-from snimarEditorController.models.delegates import ButtonDelegate
+from .snimarEditorController.dialogs import contacts_dialog
+from .snimarEditorController.models.delegates import ButtonDelegate
 
 # FLAGS
 SAVE_FLAG = 0
@@ -125,7 +131,7 @@ class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwind
         # Load the list of tracked files and load the filetable view
         self.tracked_list.load()
         filetable_data = []
-        for key, value in self.tracked_list.items():
+        for key, value in list(self.tracked_list.items()):
             filetable_data.append([value['doc_type'], value['title'], value['path'], value['id'], None, None])
         type_mapping = [qgui.QLineEdit, qgui.QLineEdit, qgui.QLineEdit, qgui.QLineEdit, qgui.QLineEdit, QPushButton]
         self.filetable.setWordWrap(True)
@@ -254,7 +260,7 @@ class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwind
         widget = MetadadoSNIMar(self, scope)
         new_tmp_name = u'Novo Ficheiro'
         if self.tmp_file_index > 0:
-            new_tmp_name += '(' + unicode(self.tmp_file_index) + ')'
+            new_tmp_name += '(' + str(self.tmp_file_index) + ')'
 
         widget.setObjectName(new_tmp_name)
         self.tabWidget.addTab(widget, new_tmp_name)
@@ -283,7 +289,7 @@ class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwind
         else:
             doc_names = [name[0]]
         for doc_ in doc_names:
-            doc = unicode(doc_)
+            doc = str(doc_)
             # Check that the string doc is not empty
             if len(doc) < 1:
                 continue
@@ -388,9 +394,10 @@ class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwind
                 return
 
             try:
-                doc = unicode(doc_)
+                doc = str(doc_)
             except UnicodeError as e:
-                print"ERROR:", e.message
+                # fix_print_with_import
+                print("ERROR:", e.message)
                 doc = doc_
 
             # Update the open_list for this entry
@@ -511,9 +518,9 @@ class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwind
 
         # List all files inside directory that end in .xml
         potential_files = os.listdir(directory)
-        potential_files = map(lambda x: os.path.join(directory, x), potential_files)
-        potential_files = filter(os.path.isfile, potential_files)
-        potential_files = filter(lambda x: x[-4:] == '.xml', potential_files)
+        potential_files = [os.path.join(directory, x) for x in potential_files]
+        potential_files = list(filter(os.path.isfile, potential_files))
+        potential_files = [x for x in potential_files if x[-4:] == '.xml']
 
         for f in potential_files:
             if f not in self.tracked_list:
@@ -677,7 +684,7 @@ class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwind
             self.thesaurus_version.setText(self.update_dialog.thesaurus.latest_stable_version)
 
             # Update the thesaurus model of all open tabs
-            for tab_index in xrange(self.tabWidget.count()):
+            for tab_index in range(self.tabWidget.count()):
                 tab = self.tabWidget.widget(tab_index)
                 if isinstance(tab, MetadadoSNIMar):
                     tab.keywords.dialog.update_thesaurus_model()
@@ -775,12 +782,13 @@ class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwind
         for x in codelists:
             url = os.path.join(CONSTANTS.CODELIST_SERVER_URL, x)
             try:
-                response = urllib2.urlopen(url)
+                response = urllib.request.urlopen(url)
                 data = json.loads(response.read())
                 with open(os.path.join(CONSTANTS.SNIMAR_BASE_DIR, "resourcesFolder/CodeLists/" + x), 'w+') as outfile:
                     json.dump(data, outfile)
-            except urllib2.HTTPError as e:
-                print "ERROR:", e.reason()
+            except urllib.error.HTTPError as e:
+                # fix_print_with_import
+                print("ERROR:", e.reason())
                 crit = qgui.QMessageBox(QMessageBox.Critical, u'Erro ao atualizar as CodeLists',
                                         u'Ocorreu um erro ao atualizar as CodeLists SNIMar. Por favor verifique o '
                                         u'estado da sua ligação à rede.\nEntretanto, poderá continuar ' + \

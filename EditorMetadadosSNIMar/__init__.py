@@ -23,10 +23,12 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from __future__ import absolute_import
+from builtins import str
 import json
 import os
 def classFactory(iface):
-    from snimarMetadataEditorPluginEntryPoint import EditorMetadadosPluginEntryPoint
+    from .snimarMetadataEditorPluginEntryPoint import EditorMetadadosPluginEntryPoint
     return EditorMetadadosPluginEntryPoint(iface)
 
 

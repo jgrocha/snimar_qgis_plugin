@@ -24,10 +24,12 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from builtins import str
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 import platform
-from PyQt4.QtGui import QToolTip, QCursor, QFont
+from qgis.PyQt.QtWidgets import QToolTip, QDialog
+from qgis.PyQt.QtGui import QCursor, QFont
 
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import chooseLegalRestrictionDialog
 from EditorMetadadosSNIMar import CONSTANTS as cons
@@ -36,7 +38,7 @@ from EditorMetadadosSNIMar.snimarEditorController.models.customComboBoxModel imp
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import restrictionsPanel
 
 
-class LegalRestrictionsDialog(qgui.QDialog, chooseLegalRestrictionDialog.Ui_Dialog):
+class LegalRestrictionsDialog(QDialog, chooseLegalRestrictionDialog.Ui_Dialog):
     def __init__(self, parent, combos, coord=None):
 
         if not coord:
@@ -49,10 +51,10 @@ class LegalRestrictionsDialog(qgui.QDialog, chooseLegalRestrictionDialog.Ui_Dial
         self.setupUi(self)
         self.setModal(True)
         self.restrict_dic = combos[0]
-        self.combo_accessrestrictions.setModel(CustomComboBoxModel(self, [None] + sorted(combos[0].values(), key=lambda x: x.term_pt)))
-        self.combo_userestrictions.setModel(CustomComboBoxModel(self, [None] + sorted(combos[0].values(), key=lambda x: x.term_pt)))
-        self.btn_cancel.clicked.connect(lambda: self.done(qgui.QDialog.Rejected))
-        self.btn_add.clicked.connect(lambda: self.done(qgui.QDialog.Accepted))
+        self.combo_accessrestrictions.setModel(CustomComboBoxModel(self, [None] + sorted(list(combos[0].values()), key=lambda x: x.term_pt)))
+        self.combo_userestrictions.setModel(CustomComboBoxModel(self, [None] + sorted(list(combos[0].values()), key=lambda x: x.term_pt)))
+        self.btn_cancel.clicked.connect(lambda: self.done(QDialog.Rejected))
+        self.btn_add.clicked.connect(lambda: self.done(QDialog.Accepted))
         self.line_uselimitations.textChanged.connect(self.checkInput)
         self.combo_accessrestrictions.currentIndexChanged.connect(self.checkInput)
         self.combo_userestrictions.currentIndexChanged.connect(self.checkInput)
@@ -93,10 +95,10 @@ class LegalRestrictionsDialog(qgui.QDialog, chooseLegalRestrictionDialog.Ui_Dial
         QToolTip.showText(QCursor.pos(), tla.formatTooltip(self.superParent.superParent.helps['chooseLegalRestrictionDialog'][self.sender().objectName()]), None)
 
     def get_data_list(self):
-        data = [unicode(self.line_uselimitations.text()).strip(),
+        data = [str(self.line_uselimitations.text()).strip(),
                 self.combo_accessrestrictions.itemData(self.combo_accessrestrictions.currentIndex()),
                 self.combo_userestrictions.itemData(self.combo_userestrictions.currentIndex()),
-                unicode(self.line_otherrestrictions.text()).strip()]
+                str(self.line_otherrestrictions.text()).strip()]
 
         return data
 

@@ -24,13 +24,15 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from builtins import str
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 import uuid
 
 # UI generated python modules
-from PyQt4.QtCore import Qt, QPoint
-from PyQt4.QtGui import QIcon, QToolTip, QCursor, QDateTimeEdit, QDateEdit
+from qgis.PyQt.QtCore import Qt, QPoint
+from qgis.PyQt.QtGui import QIcon, QCursor
+from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QDateEdit, QWidget
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import metadataPanel
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from EditorMetadadosSNIMar import CONSTANTS as cons
@@ -41,7 +43,7 @@ from EditorMetadadosSNIMar.snimarEditorController.models import customComboBoxMo
 from  EditorMetadadosSNIMar.snimarEditorController.models.null_QDateEdit import NullQDateEditWrapper
 
 
-class MetadataWidget(qgui.QWidget, metadataPanel.Ui_metadata):
+class MetadataWidget(QWidget, metadataPanel.Ui_metadata):
     def __init__(self, parent):
         super(MetadataWidget, self).__init__(parent)
         self.setupUi(self)
@@ -83,12 +85,12 @@ class MetadataWidget(qgui.QWidget, metadataPanel.Ui_metadata):
         self.combo_items_md_charactersetCode = customCombo.dic_to_CustomComboBox_dic(self.superParent.codelist["MD_CharacterSetCode"])
 
         self.language.setModel(
-            customCombo.CustomComboBoxModel(self, sorted(self.combo_items_languagecode.values(), key=lambda x: x.term_pt)))
+            customCombo.CustomComboBoxModel(self, sorted(list(self.combo_items_languagecode.values()), key=lambda x: x.term_pt)))
         self.language.setCurrentIndex(self.language.findText(cons.PREDEF_LANG_METADATA))
         self.language.setDisabled(True)
         self.datestamp.clear()
         self.characterset.setModel(
-            customCombo.CustomComboBoxModel(self, sorted(self.combo_items_md_charactersetCode.values(), key=lambda x: x.term_pt)))
+            customCombo.CustomComboBoxModel(self, sorted(list(self.combo_items_md_charactersetCode.values()), key=lambda x: x.term_pt)))
         self.characterset.setCurrentIndex(self.characterset.findText(cons.PREDEF_CHARSET))
 
         self.stdname.setText(cons.SNIMAR_PROFILE_NAME)
@@ -147,7 +149,7 @@ class MetadataWidget(qgui.QWidget, metadataPanel.Ui_metadata):
     def generate_uuid(self):
         target_name = self.sender().objectName().split('_')[3]
         target = self.findChild(qgui.QLineEdit, target_name)
-        uuid_str = unicode(uuid.uuid4())
+        uuid_str = str(uuid.uuid4())
         target.setText(uuid_str)
 
     def get_data(self, md):

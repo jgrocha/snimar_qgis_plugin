@@ -24,12 +24,14 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from builtins import str
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 
 # UI generated python module
-from PyQt4.QtCore import QDate, Qt
-from PyQt4.QtGui import QToolTip, QCursor, QDateTimeEdit, QDateEdit
+from qgis.PyQt.QtCore import QDate, Qt
+from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QDateEdit, QWidget
+from qgis.PyQt.QtGui import QCursor
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import temporalInformationPanel
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from EditorMetadadosSNIMar.snimarProfileModel import snimarProfileModel
@@ -41,7 +43,7 @@ from EditorMetadadosSNIMar.snimarEditorController.models.null_QDateEdit import N
 from EditorMetadadosSNIMar.snimarProfileModel.snimarProfileModel import EX_TemporalExtent
 
 
-class TemporalInfoWidget(qgui.QWidget, temporalInformationPanel.Ui_temporal):
+class TemporalInfoWidget(QWidget, temporalInformationPanel.Ui_temporal):
     def __init__(self, parent, scope):
         super(TemporalInfoWidget, self).__init__(parent)
 

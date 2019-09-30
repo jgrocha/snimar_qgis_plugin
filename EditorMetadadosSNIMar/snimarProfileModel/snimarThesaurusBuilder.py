@@ -24,16 +24,17 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import object
 import json
 import os
 import textwrap
-from PyQt4.QtCore import QDate, QSize
-from PyQt4.QtGui import QStandardItemModel, QStandardItem
+from qgis.PyQt.QtCore import QDate, QSize
+from qgis.PyQt.QtGui import QStandardItemModel, QStandardItem
 from EditorMetadadosSNIMar.snimarEditorController.models import customComboBoxModel as customCombo
 from EditorMetadadosSNIMar import CONSTANTS
 
 
-class SnimarThesurusModel:
+class SnimarThesurusModel(object):
     def __init__(self, stable=False):
         with open(CONSTANTS.SNIMAR_THESAURUS_META) as json_data:
             src_json = json.load(json_data)
@@ -83,12 +84,12 @@ class SnimarThesurusModel:
             temp_disciplines.appendRow(temp_disc)
         self.model_root.appendRow(temp_disciplines)
 
-        for x in src_json.keys():
+        for x in list(src_json.keys()):
             if x in [u"disciplines", u"version", u"last_update", u"stable_version"]:
                 continue
             temp_type = SnimarTypes(src_json[x]["name_pt"])
 
-            for kw in src_json[x]["keywords"].values():
+            for kw in list(src_json[x]["keywords"].values()):
                 temp_type.appendRow(SnimarKeyWord(cc_id=kw.get("id"),
                                                   cc_uuid=kw.get("uuid"),
                                                   term=kw.get("term_word"),

@@ -1,5 +1,8 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 
 
@@ -13,7 +16,7 @@ class EmailValidator(object):
             return False
         else:
             return True
-class URLValidator:
+class URLValidator(object):
     def __init__(self):
         pass
     def is_valid(string):

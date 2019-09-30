@@ -24,9 +24,11 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from __future__ import print_function
+from __future__ import absolute_import
 import os
 import platform
-import snimarProfileModel
+from . import snimarProfileModel
 from EditorMetadadosSNIMar.libs.owslib.etree import etree
 
 
@@ -51,7 +53,8 @@ def load_metadata(filename):
         md = snimarProfileModel.MD_Metadata(etree.parse(filename))
         return md
     except Exception as e:
-        print "ERROR:","Exception type:", e.__class__, "Message:", e.message
+        # fix_print_with_import
+        print("ERROR:","Exception type:", e.__class__, "Message:", e.message)
         return None
 
 

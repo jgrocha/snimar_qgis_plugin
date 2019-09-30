@@ -1,7 +1,11 @@
 # -*- coding=utf-8 -*-
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import os
 import json
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 BASE_URL = 'http://collab-keywords.snimar.pt/service/'
 URL_ENDPOINT_LIST = (
@@ -19,23 +23,26 @@ def get_service_version():
     stable = {}
     unstable = {}
     try:
-        response = urllib2.urlopen(os.path.join(BASE_URL, 'version/?format=json'))
+        response = urllib.request.urlopen(os.path.join(BASE_URL, 'version/?format=json'))
         json_data = json.loads(response.read())
 
         if len(json_data) <= 1:
             stable["version"] = "v.0.0"
             stable["version_date"] = "2115-10-06T08:44:58.739107Z"
         else:
-            stables = filter(lambda x: x.get("version") != "unstable", json_data)
+            stables = [x for x in json_data if x.get("version") != "unstable"]
             stables.sort(key=lambda x: x.get("version"))
             stable = stables[-1]
-        unstable = filter(lambda x: x.get("version") == "unstable", json_data)[0]
-    except urllib2.HTTPError as e:
-        print "ERROR", e.reason()
+        unstable = [x for x in json_data if x.get("version") == "unstable"][0]
+    except urllib.error.HTTPError as e:
+        # fix_print_with_import
+        print("ERROR", e.reason())
     except IndexError:
-        print "ERROR", 'JSON malformed'
+        # fix_print_with_import
+        print("ERROR", 'JSON malformed')
     except KeyError:
-        print "ERROR", 'JSON missing version field'
+        # fix_print_with_import
+        print("ERROR", 'JSON missing version field')
     finally:
         return {"stable": {"version": stable.get("version"), "version_date": stable.get("version_date")},
                 "unstable": {"version_date": unstable.get("version_date", "2115-10-06T08:44:58.739107Z")}}
@@ -95,11 +102,12 @@ class ThesaurusServiceManager(object):
             url = os.path.join(BASE_URL, endpoint)
 
         try:
-            response = urllib2.urlopen(url)
+            response = urllib.request.urlopen(url)
             data = json.loads(response.read())
             return data
-        except urllib2.HTTPError as e:
-            print "ERROR:",e.reason()
+        except urllib.error.HTTPError as e:
+            # fix_print_with_import
+            print("ERROR:",e.reason())
             return None
         finally:
             if self.progress_bar:
@@ -118,10 +126,11 @@ class ThesaurusServiceManager(object):
 
         dp_data = {}
         try:
-            response = urllib2.urlopen(url)
+            response = urllib.request.urlopen(url)
             dp_data = json.loads(response.read())
-        except urllib2.HTTPError as e:
-            print "ERROR:",e.reason()
+        except urllib.error.HTTPError as e:
+            # fix_print_with_import
+            print("ERROR:",e.reason())
             return dp_data
         finally:
             if self.progress_bar:
@@ -133,17 +142,18 @@ class ThesaurusServiceManager(object):
             url = os.path.join(BASE_URL, 'discipline')
 
         try:
-            response = urllib2.urlopen(url)
+            response = urllib.request.urlopen(url)
             d_data = json.loads(response.read())
-        except urllib2.HTTPError as e:
-            print "ERROR:",e.reason()
+        except urllib.error.HTTPError as e:
+            # fix_print_with_import
+            print("ERROR:",e.reason())
             return {}
         finally:
             if self.progress_bar:
                 self.update_progress_bar()
 
         dp_data['disciplines']['name_pt'] = d_data['discipline']['name_pt']
-        for keyword, discipline in d_data['discipline']['keywords'].iteritems():
+        for keyword, discipline in d_data['discipline']['keywords'].items():
             term_word = discipline['term_word']
             dp_data['disciplines'][term_word].update(discipline)
 

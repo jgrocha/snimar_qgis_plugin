@@ -24,13 +24,15 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4.QtCore import QAbstractListModel, QModelIndex, Qt, QEvent
-from PyQt4.QtGui import QComboBox, QTreeView, QFrame
+from builtins import str
+from builtins import object
+from qgis.PyQt.QtCore import QModelIndex, Qt, QEvent, QAbstractListModel
+from qgis.PyQt.QtWidgets import QComboBox, QTreeView, QFrame
 
 EnglishTermRole = 100
 
 
-class CodeListItem():
+class CodeListItem(object):
     def __init__(self, term=None, term_pt=None, description=None, dic=None):
         """
             Can be used in two ways :
@@ -50,7 +52,7 @@ class CodeListItem():
             self.description = description
 
     def __unicode__(self):
-        return unicode(self.term_pt)
+        return str(self.term_pt)
 
     def __str__(self):
         return self.term_pt
@@ -114,21 +116,21 @@ def dic_to_CustomComboBox_dic(dic):
     :type dic: dict
     """
     ret = {}
-    for x in dic.keys():
+    for x in list(dic.keys()):
         ret[x] = CodeListItem(dic=dic[x])
     return ret
 
 
 def reverse_en_to_pt_keys(dic):
     ret = {}
-    for x in dic.values():
+    for x in list(dic.values()):
         ret[x.term_pt] = x
     return ret
 
 
 def reverse_pt_to_en_keys(dic):
     ret = {}
-    for x in dic.values():
+    for x in list(dic.values()):
         ret[x.term] = x
     return ret
 

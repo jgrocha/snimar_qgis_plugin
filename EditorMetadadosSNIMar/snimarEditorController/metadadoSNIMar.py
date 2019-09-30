@@ -24,19 +24,20 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtGui as qgui, QtCore as qcore
+from qgis.PyQt import QtGui as qgui, QtCore as qcore
 import os
 import platform
 from qgis.utils import pluginDirectory
-from PyQt4.QtCore import Qt, QSize
-from PyQt4.QtGui import QFont, QColor
+from qgis.PyQt.QtCore import Qt, QSize
+from qgis.PyQt.QtGui import QFont, QColor
+from qgis.PyQt.QtWidgets import QWidget
 from EditorMetadadosSNIMar.CONSTANTS import Scopes as SCOPES
 import EditorMetadadosSNIMar.CONSTANTS as cons
 from EditorMetadadosSNIMar import snimarEditorController
 from EditorMetadadosSNIMar.snimarProfileModel import snimarProfileModel
 
 
-class MetadadoSNIMar(qgui.QWidget):
+class MetadadoSNIMar(QWidget):
     def __init__(self, parent, scope=None, xml_doc=None, md=None):
         super(MetadadoSNIMar, self).__init__(parent)
         if scope is None:
@@ -176,7 +177,7 @@ class MetadadoSNIMar(qgui.QWidget):
     # ------------------------------------------------------------------------
 
     def is_doc_Snimar_Valid(self):
-        for x in self.widgetStalker.values():
+        for x in list(self.widgetStalker.values()):
             if len(x["missingFields"]) > 0 or len(x["incompleteEntries"]) > 0:
                 return False
 

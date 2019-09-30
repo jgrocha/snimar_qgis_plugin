@@ -24,12 +24,13 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 
 # UI generated python modules
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QToolTip, QCursor, QDateTimeEdit
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget
+from qgis.PyQt.QtGui import QCursor
 from qgis._gui import QgsFilterLineEdit
 
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import restrictionsPanel
@@ -39,7 +40,7 @@ from EditorMetadadosSNIMar.snimarEditorController.models import customComboBoxMo
 from EditorMetadadosSNIMar.CONSTANTS import Scopes as SCOPES
 
 
-class RestrictionsWidget(qgui.QWidget, restrictionsPanel.Ui_restrictions):
+class RestrictionsWidget(QWidget, restrictionsPanel.Ui_restrictions):
     def __init__(self, parent, scope):
         super(RestrictionsWidget, self).__init__(parent)
         self.setupUi(self)
@@ -50,20 +51,20 @@ class RestrictionsWidget(qgui.QWidget, restrictionsPanel.Ui_restrictions):
             self.superParent.codelist["MD_RestrictionCode"])
         self.combo_items_md_classificationcode = customCombo.dic_to_CustomComboBox_dic(
             self.superParent.codelist["MD_ClassificationCode"])
-        self.listValidation = lval.Restrictions(self.combo_items_md_classificationcode.values(),
-                                                self.combo_items_md_restrictionscode.values())
+        self.listValidation = lval.Restrictions(list(self.combo_items_md_classificationcode.values()),
+                                                list(self.combo_items_md_restrictionscode.values()))
 
         tla.setupListView(self.useLimitation, QgsFilterLineEdit, self)
-        tla.setupListView(self.accessConstraints, customCombo.CustomComboBox, self, comboList=self.combo_items_md_restrictionscode.values(),
+        tla.setupListView(self.accessConstraints, customCombo.CustomComboBox, self, comboList=list(self.combo_items_md_restrictionscode.values()),
                           validationfunction=self.listValidation.accessConstraints)
-        tla.setupListView(self.useConstraints, customCombo.CustomComboBox, self, comboList=self.combo_items_md_restrictionscode.values(),
+        tla.setupListView(self.useConstraints, customCombo.CustomComboBox, self, comboList=list(self.combo_items_md_restrictionscode.values()),
                           validationfunction=self.listValidation.useConstraints)
         tla.setupListView(self.otherConstraints, QgsFilterLineEdit, self)
 
         tla.setupListView(self.securityrestrictions,
                           customCombo.CustomComboBox,
                           self,
-                          comboList=self.combo_items_md_classificationcode.values(),
+                          comboList=list(self.combo_items_md_classificationcode.values()),
                           validationfunction=self.listValidation.securityrestrictions)
 
         for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):

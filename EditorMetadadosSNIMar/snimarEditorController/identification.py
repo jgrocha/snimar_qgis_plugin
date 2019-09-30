@@ -24,12 +24,15 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import zip
+from builtins import str
 import uuid
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QToolTip, QCursor, QDateTimeEdit
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget
+from qgis.PyQt.QtGui import QCursor
 from qgis._gui import QgsFilterLineEdit
 
 from EditorMetadadosSNIMar import CONSTANTS as cons
@@ -45,7 +48,7 @@ from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles impo
     identificationPanel
 
 
-class IdentificationWidget(qgui.QWidget, identificationPanel.Ui_identification):
+class IdentificationWidget(QWidget, identificationPanel.Ui_identification):
     """
 
         :type superParent :   editorMetadadosSNIMar.EditorMetadadosSNIMar
@@ -79,26 +82,26 @@ class IdentificationWidget(qgui.QWidget, identificationPanel.Ui_identification):
             self.superParent.codelist["DistanceUnits"])
 
         # Lists
-        self.validator = lval.Identification(self.combo_items_md_maintenancefrequencycode.values(),
-                                             self.combo_items_languagecode.values(),
-                                             self.combo_items_md_spatialrepresentationtypecode.values(),
-                                             self.combo_items_md_progressCode.values())
+        self.validator = lval.Identification(list(self.combo_items_md_maintenancefrequencycode.values()),
+                                             list(self.combo_items_languagecode.values()),
+                                             list(self.combo_items_md_spatialrepresentationtypecode.values()),
+                                             list(self.combo_items_md_progressCode.values()))
         self.tablevalidator = tval.Identification()
         tla.setupListView(self.credits, QgsFilterLineEdit, self)
         # ---------
 
         tla.setupListView(self.resourcemaintenance, customCombo.CustomComboBox, self,
-                          comboList=self.combo_items_md_maintenancefrequencycode.values(),
+                          comboList=list(self.combo_items_md_maintenancefrequencycode.values()),
                           validationfunction=self.validator.resourcemaintenance)
         # ---------
 
         tla.setupListView(self.language, customCombo.CustomComboBox, self,
-                          comboList=self.combo_items_languagecode.values(),
+                          comboList=list(self.combo_items_languagecode.values()),
                           validationfunction=self.validator.language)
 
         # ----------------------------
         tla.setupListView(self.resourcestatus, customCombo.CustomComboBox, self,
-                          comboList=self.combo_items_md_progressCode.values(),
+                          comboList=list(self.combo_items_md_progressCode.values()),
                           validationfunction=self.validator.resourcestatus)
 
         self.combo_language.setCurrentIndex(
@@ -137,11 +140,11 @@ class IdentificationWidget(qgui.QWidget, identificationPanel.Ui_identification):
 
         self.characterset.setModel(
             customCombo.CustomComboBoxModel(self, [None] + sorted(
-                self.combo_items_md_charactersetCode.values(), key=lambda x: x.term_pt)))
+                list(self.combo_items_md_charactersetCode.values()), key=lambda x: x.term_pt)))
         self.characterset.setCurrentIndex(self.characterset.findText(cons.PREDEF_CHARSET))
         self.hierarchylevel.setModel(
             customCombo.CustomComboBoxModel(self,
-                                            [None] + sorted(self.combo_items_md_scopecode.values(),
+                                            [None] + sorted(list(self.combo_items_md_scopecode.values()),
                                                             key=lambda x: x.term_pt)))
         # ----------------------------------------------------------------------#
         self.btn_adi_contact.clicked.connect(self.addContact)
@@ -162,7 +165,7 @@ class IdentificationWidget(qgui.QWidget, identificationPanel.Ui_identification):
             info.pressed.connect(self.printHelp)
         self.btn_adi_contact.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
         self.btn_gen_uuid_identifiers.clicked.connect(
-            lambda: self.identifiers.model().addNewRow([unicode(uuid.uuid4()), None]))
+            lambda: self.identifiers.model().addNewRow([str(uuid.uuid4()), None]))
 
         self.eater = tla.EatWheel()
         for x in self.findChildren(qgui.QComboBox):
@@ -189,14 +192,14 @@ class IdentificationWidget(qgui.QWidget, identificationPanel.Ui_identification):
             self.distance.horizontalHeader().setResizeMode(qgui.QHeaderView.Stretch)
             self.combo_distance.setModel(
                 customCombo.CustomComboBoxModel(self,
-                                                sorted(self.combo_items_distance_units.values(),
+                                                sorted(list(self.combo_items_distance_units.values()),
                                                        key=lambda x: x.term_pt)))
             self.combo_distance.setCurrentIndex(self.combo_distance.findText('Metros'))
 
             tla.setupListView(self.equivalentscale, qgui.QSpinBox, self, fraction_flag=True,
                               validationfunction=self.validator.equivalentscale)
             tla.setupListView(self.geographicrepresentation, customCombo.CustomComboBox, self,
-                              comboList=self.combo_items_md_spatialrepresentationtypecode.values(),
+                              comboList=list(self.combo_items_md_spatialrepresentationtypecode.values()),
                               validationfunction=self.validator.geographicrepresentation)
 
             self.equivalentscale.model().rowsInserted.connect(self.check_mandatory_resolution)
@@ -224,10 +227,10 @@ class IdentificationWidget(qgui.QWidget, identificationPanel.Ui_identification):
             tla.setupListView(self.operatesOn, QgsFilterLineEdit, self)
             self.serviceType.setModel(
                 customCombo.CustomComboBoxModel(self, [None] + sorted(
-                    self.combo_item_service_type.values(), key=lambda x: x.term_pt)))
+                    list(self.combo_item_service_type.values()), key=lambda x: x.term_pt)))
             self.couplingType.setModel(
                 customCombo.CustomComboBoxModel(self, [None] + sorted(
-                    self.combo_items_couplingType.values(), key=lambda x: x.term_pt)))
+                    list(self.combo_items_couplingType.values()), key=lambda x: x.term_pt)))
             # spatialRespresentationType AND language
             self.box_language_geoReprType.setHidden(True)
             # spatialRepresentation
@@ -400,7 +403,7 @@ class IdentificationWidget(qgui.QWidget, identificationPanel.Ui_identification):
 
         for row in self.identifiers.model().matrix:
             common.uricode.append(row[0])
-            if row[1] is not None and isinstance(row[1], basestring) and row[1].strip() != "":
+            if row[1] is not None and isinstance(row[1], str) and row[1].strip() != "":
                 common.uricodespace.append(row[1].strip())
             else:
                 common.uricodespace.append(None)

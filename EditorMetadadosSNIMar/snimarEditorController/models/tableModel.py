@@ -24,19 +24,21 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import str
+from builtins import range
 import operator
 import unicodedata
 
-from PyQt4.QtCore import QAbstractTableModel, QModelIndex, Qt, QSize, QDate
-from PyQt4.QtGui import QLineEdit, QCheckBox, QComboBox, QDateEdit, QSpinBox, QDoubleSpinBox, QHeaderView, QBrush, \
-    QColor, QTableView, QLabel, QStandardItem, QDateTimeEdit
+from qgis.PyQt.QtCore import QAbstractTableModel, QModelIndex, Qt, QSize, QDate
+from qgis.PyQt.QtWidgets import QLineEdit, QCheckBox, QComboBox, QDateEdit, QSpinBox, QDoubleSpinBox, QHeaderView, QTableView, QLabel, QDateTimeEdit
+from qgis.PyQt.QtGui import QBrush, QColor, QStandardItem
 from qgis._gui import QgsFilterLineEdit
 from EditorMetadadosSNIMar import CONSTANTS as cons
 from EditorMetadadosSNIMar.snimarEditorController.models.customComboBoxModel import CustomComboBox
 
 
 def rm_accents(input_str):
-    if isinstance(input_str, unicode):
+    if isinstance(input_str, str):
         nfkd_form = unicodedata.normalize('NFKD', input_str)
         only_ascii = nfkd_form.encode('ASCII', 'ignore')
         return only_ascii
@@ -113,7 +115,7 @@ class TableModel(QAbstractTableModel):
                     if self.matrix[index.row()][index.column()] is None:
                         return None
                     else:
-                        text = u'' + unicode(self.matrix[index.row()][index.column()])
+                        text = u'' + str(self.matrix[index.row()][index.column()])
                         return formatTooltip(text)
                 else:
                     text = self.valList[index.row()][1]

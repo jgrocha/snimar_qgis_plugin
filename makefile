@@ -5,7 +5,7 @@ PYUIFILES := $(patsubst %.ui,%.py,$(UIFILES))
 build: build_rcc build_ui
 
 build_rcc: EditorMetadadosSNIMar/resources.qrc
-	pyrcc4 -o EditorMetadadosSNIMar/resources.py EditorMetadadosSNIMar/resources.qrc
+	pyrcc5 -o EditorMetadadosSNIMar/resources.py EditorMetadadosSNIMar/resources.qrc
 
 build_ui: $(PYUIFILES)
 	mkdir -p EditorMetadadosSNIMar/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/
@@ -14,10 +14,10 @@ build_ui: $(PYUIFILES)
 	mv EditorMetadadosSNIMar/snimarQtInterfaceView/templates/dialogs/*.py EditorMetadadosSNIMar/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/
 
 EditorMetadadosSNIMar/snimarQtInterfaceView/templates/%.py: EditorMetadadosSNIMar/snimarQtInterfaceView/templates/%.ui
-	pyuic4 $< -o $@
+	pyuic5 $< -o $@
 
 EditorMetadadosSNIMar/snimarQtInterfaceView/templates/dialogs%.py: EditorMetadadosSNIMar/snimarQtInterfaceView/templates/dialogs/%.ui
-	pyuic4 $< -o $@
+	pyuic5 $< -o $@
 
 cleanUserFiles:
 	rm -f EditorMetadadosSNIMar/userFiles/*.json

@@ -42,7 +42,7 @@ import urllib.request, urllib.error, urllib.parse
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
 from qgis.PyQt.QtCore import Qt, QPoint
-from qgis.PyQt.QtWidgets import QPushButton, QHeaderView, QMenu, QAction, QProgressDialog, QProgressBar, QMessageBox, QAbstractItemView
+from qgis.PyQt.QtWidgets import QPushButton, QHeaderView, QMenu, QAction, QProgressDialog, QProgressBar, QMessageBox, QAbstractItemView, QMainWindow
 from qgis.PyQt.QtGui import QFont
 import datetime
 
@@ -65,7 +65,7 @@ SAVE_FLAG = 0
 SAVEAS_FLAG = 1
 
 
-class EditorMetadadosSNIMar(qgui.QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
+class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
     """SNIMar Editor main window class"""
 
     def __init__(self, iface, parent):

@@ -24,14 +24,17 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from __future__ import absolute_import
+from builtins import str
 import sys
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
+from qgis.PyQt.QtWidgets import QItemDelegate
 
 from qgis._gui import QgsFilterLineEdit
 from EditorMetadadosSNIMar import CONSTANTS as cons
-from customComboBoxModel import CustomComboBoxModel
+from .customComboBoxModel import CustomComboBoxModel
 
 
 class DoubleSpinBoxDelegate(QItemDelegate):

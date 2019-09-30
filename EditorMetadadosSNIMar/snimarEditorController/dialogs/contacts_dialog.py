@@ -24,10 +24,13 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
-from PyQt4.QtCore import QMetaObject, Qt
-from PyQt4.QtGui import QWidget, QToolTip, QCursor, QFont, QDateTimeEdit
+from builtins import str
+from builtins import range
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
+from qgis.PyQt.QtCore import QMetaObject, Qt
+from qgis.PyQt.QtWidgets import QWidget, QToolTip, QDateTimeEdit, QDialog
+from qgis.PyQt.QtGui import QCursor, QFont
 
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import contactListManagerWindow
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
@@ -43,7 +46,7 @@ CONTACTFILE = os.path.join(os.path.join(os.path.abspath(os.path.expanduser('~'))
 OUTRA = "Outra - Especificar Abaixo"
 
 
-class ContactsDialog(qgui.QDialog, contactListManagerWindow.Ui_contacts_dialog):
+class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
     def __init__(self, parent, edition_mode=True):
         super(ContactsDialog, self).__init__(parent)
         if platform.system() != "Linux":
@@ -94,7 +97,7 @@ class ContactsDialog(qgui.QDialog, contactListManagerWindow.Ui_contacts_dialog):
 
             self.combo_org.setModel(
                 cus.CustomComboBoxModel(self,
-                                        [cus.CodeListItem(OUTRA, OUTRA, OUTRA)] + sorted(self.orgs.values(),
+                                        [cus.CodeListItem(OUTRA, OUTRA, OUTRA)] + sorted(list(self.orgs.values()),
                                                                                          key=lambda x: x.term_pt)))
             self.combo_org.currentIndexChanged.connect(self.check_org)
             self.btn_contact_add.setVisible(True)
@@ -160,25 +163,25 @@ class ContactsDialog(qgui.QDialog, contactListManagerWindow.Ui_contacts_dialog):
     def save_contact(self):
 
         flags = self.mandatory_state()
-        if all(flag == True for flag in flags.values()):
+        if all(flag == True for flag in list(flags.values())):
             # Get the data
-            self.current_contact['name'] = unicode(self.name.text())
-            self.current_contact['organization'] = unicode(self.organization.text())
-            self.current_contact['delivery_point'] = unicode(self.delivery_point.text())
-            self.current_contact['city'] = unicode(self.city.text())
-            self.current_contact['postalcode'] = unicode(self.postalcode.text())
-            self.current_contact['country'] = unicode(self.country.text())
+            self.current_contact['name'] = str(self.name.text())
+            self.current_contact['organization'] = str(self.organization.text())
+            self.current_contact['delivery_point'] = str(self.delivery_point.text())
+            self.current_contact['city'] = str(self.city.text())
+            self.current_contact['postalcode'] = str(self.postalcode.text())
+            self.current_contact['country'] = str(self.country.text())
 
-            items = [unicode(self.phone.item(index).text()) for index in xrange(self.phone.count())]
+            items = [str(self.phone.item(index).text()) for index in range(self.phone.count())]
             self.current_contact['phone'] = items
 
-            items = [unicode(self.email.item(index).text()) for index in xrange(self.email.count())]
+            items = [str(self.email.item(index).text()) for index in range(self.email.count())]
             self.current_contact['email'] = items
 
-            items = [unicode(self.fax.item(index).text()) for index in xrange(self.fax.count())]
+            items = [str(self.fax.item(index).text()) for index in range(self.fax.count())]
             self.current_contact['fax'] = items
 
-            self.current_contact['online'] = unicode(self.online.text())
+            self.current_contact['online'] = str(self.online.text())
             if self.current_contact['index'] == -1:
                 self.current_contact['index'] = len(self.contact_array)
                 self.contact_array.append(self.current_contact)
@@ -285,8 +288,8 @@ class ContactsDialog(qgui.QDialog, contactListManagerWindow.Ui_contacts_dialog):
             self.contact_array = []
 
         if len(self.contact_array) > 0:
-            list_item_texts = map(lambda x: (x['name'], x['organization']), self.contact_array)
-            items_labels = map(lambda item_text: item_text[0] + ' - ' + item_text[1], list_item_texts)
+            list_item_texts = [(x['name'], x['organization']) for x in self.contact_array]
+            items_labels = [item_text[0] + ' - ' + item_text[1] for item_text in list_item_texts]
             self.contact_list.addItems(items_labels)
 
     @qcore.pyqtSlot()
@@ -365,7 +368,7 @@ class ContactsDialog(qgui.QDialog, contactListManagerWindow.Ui_contacts_dialog):
     def mandatory_state(self):
         """Validates that mandatory fields are written."""
 
-        organization = len(unicode(self.organization.text())) > 0
+        organization = len(str(self.organization.text())) > 0
 
         return {
             'organization': True
@@ -414,7 +417,7 @@ class ContactsDialog(qgui.QDialog, contactListManagerWindow.Ui_contacts_dialog):
 
     def set_org(self, org_name):
 
-        if org_name in [x.term for x in self.orgs.values()]:
+        if org_name in [x.term for x in list(self.orgs.values())]:
             self.combo_org.setCurrentIndex(self.combo_org.findText(org_name))
         else:
             self.combo_org.setCurrentIndex(0)

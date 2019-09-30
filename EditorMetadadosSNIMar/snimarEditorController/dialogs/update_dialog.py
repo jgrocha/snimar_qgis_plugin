@@ -28,14 +28,15 @@ import os
 import json
 import datetime
 
-from PyQt4 import QtGui as qgui
-from PyQt4.QtCore import Qt
+from qgis.PyQt import QtGui as qgui
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QDialog
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import update_progress_bar
 from EditorMetadadosSNIMar.snimarProfileModel import service
 from EditorMetadadosSNIMar import CONSTANTS
 
 
-class SNIMarThesaurusUpdateDialog(qgui.QDialog, update_progress_bar.Ui_update_dialog):
+class SNIMarThesaurusUpdateDialog(QDialog, update_progress_bar.Ui_update_dialog):
     def __init__(self, parent):
         super(SNIMarThesaurusUpdateDialog, self).__init__(parent)
         self.setupUi(self)

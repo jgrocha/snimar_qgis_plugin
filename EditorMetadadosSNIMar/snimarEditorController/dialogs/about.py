@@ -1,5 +1,6 @@
 # coding=utf-8
-from PyQt4.QtGui import QDialog, QPixmap
+from qgis.PyQt.QtWidgets import QDialog
+from qgis.PyQt.QtGui import QPixmap
 import EditorMetadadosSNIMar
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import about
 

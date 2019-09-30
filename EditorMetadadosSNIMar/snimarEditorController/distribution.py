@@ -24,12 +24,14 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from builtins import str
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 
 # UI generated python modules
-from PyQt4.QtCore import Qt, QDateTime
-from PyQt4.QtGui import QToolTip, QCursor, QDateTimeEdit
+from qgis.PyQt.QtCore import Qt, QDateTime
+from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget
+from qgis.PyQt.QtGui import QCursor
 from qgis._gui import QgsFilterLineEdit
 
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import distributionPanel
@@ -41,14 +43,14 @@ from EditorMetadadosSNIMar.snimarEditorController.models import customComboBoxMo
 from EditorMetadadosSNIMar.CONSTANTS import Scopes as SCOPES
 
 
-class DistributionWidget(qgui.QWidget, distributionPanel.Ui_distribution):
+class DistributionWidget(QWidget, distributionPanel.Ui_distribution):
     def __init__(self, parent, scope):
         super(DistributionWidget, self).__init__(parent)
         self.setupUi(self)
         self.superParent = self.parent()
         self.combo_items_ci_onlinefunctioncode = customCombo.dic_to_CustomComboBox_dic(
             self.superParent.codelist["CI_OnLineFunctionCode"])
-        self.tableValidation = tval.Distribution(self.combo_items_ci_onlinefunctioncode.values())
+        self.tableValidation = tval.Distribution(list(self.combo_items_ci_onlinefunctioncode.values()))
 
         tla.setupTableView(self, self.distributionformat,
                            [u'Nome do Formato', u'Versão'],
@@ -58,7 +60,7 @@ class DistributionWidget(qgui.QWidget, distributionPanel.Ui_distribution):
         self.distributionformat.horizontalHeader().setResizeMode(qgui.QHeaderView.Stretch)
 
         self.combo_function.setModel(
-            customCombo.CustomComboBoxModel(self, sorted(self.combo_items_ci_onlinefunctioncode.values(), key=lambda x: x.term_pt)))
+            customCombo.CustomComboBoxModel(self, sorted(list(self.combo_items_ci_onlinefunctioncode.values()), key=lambda x: x.term_pt)))
         for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
@@ -144,7 +146,7 @@ class DistributionWidget(qgui.QWidget, distributionPanel.Ui_distribution):
 
         for row in self.resourcelocator.model().matrix:
             online_resource = snimarProfileModel.iso.CI_OnlineResource()
-            online_resource.url = unicode(row[0])
+            online_resource.url = str(row[0])
             if self.scope != SCOPES.SERVICES:
                 online_resource.function = self.combo_items_ci_onlinefunctioncode[row[1].term]
             md.distribution.online.append(online_resource)

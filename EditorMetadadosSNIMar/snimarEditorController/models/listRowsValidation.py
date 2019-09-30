@@ -24,11 +24,13 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import str
+from builtins import object
 import re
 from EditorMetadadosSNIMar.snimarProfileModel import snimarProfileModel
 
 
-class Identification:
+class Identification(object):
     def __init__(self, resource_mantainence, language, spatial_representation, resource_status):
         self.resourcestatusM = resource_status
         self.resourceM = resource_mantainence
@@ -37,25 +39,25 @@ class Identification:
 
     def resourcestatus(self, row):
         if row not in self.resourcestatusM:
-            return [False, u"A entrada " + unicode(row) + u" não pertence a lista predefinida pelo Perfil SNIMar."]
+            return [False, u"A entrada " + str(row) + u" não pertence a lista predefinida pelo Perfil SNIMar."]
         else:
             return [True, None]
 
     def resourcemaintenance(self, row):
         if row not in self.resourceM:
-            return [False, u"A entrada " + unicode(row) + u" não pertence a lista predefinida pelo Perfil SNIMar."]
+            return [False, u"A entrada " + str(row) + u" não pertence a lista predefinida pelo Perfil SNIMar."]
         else:
             return [True, None]
 
     def language(self, row):
         if row not in self.languages:
-            return [False, u"A Língua " + unicode(row) + u" não pertence a lista predefinida."]
+            return [False, u"A Língua " + str(row) + u" não pertence a lista predefinida."]
         else:
             return [True, None]
 
     def geographicrepresentation(self, row):
         if row not in self.geoRepreList:
-            return [False, u"A Representação " + unicode(row) + u" não pertence a lista predefinida."]
+            return [False, u"A Representação " + str(row) + u" não pertence a lista predefinida."]
         else:
             return [True, None]
 
@@ -75,7 +77,7 @@ class Identification:
             return [True, None]
 
 
-class Keywords:
+class Keywords(object):
     def __init__(self, inpirelist, topiclist):
         self.inspireList = inpirelist
 
@@ -84,54 +86,54 @@ class Keywords:
     def inspire(self, row):
         if row not in self.inspireList:
             return [False,
-                    u"O tema " + unicode(
+                    u"O tema " + str(
                         row) + u" não pertence a lista predefinida de temas INSPIRE.\nNão devem ser usados os termos em Inglês."]
         else:
             return [True, None]
 
     def topiccategory(self, row):
         if row not in self.topicList:
-            return [False, u"A categoria " + unicode(row) + u" não pertence a lista predefinida de categorias temáticas."]
+            return [False, u"A categoria " + str(row) + u" não pertence a lista predefinida de categorias temáticas."]
         else:
             return [True, None]
 
 
-class Restrictions:
+class Restrictions(object):
     def __init__(self, classificationlist, restriction_list):
         self.restriction_list = restriction_list
         self.classificationList = classificationlist
 
     def useConstraints(self, row):
         if row not in self.restriction_list:
-            return [False, u"A Restrição " + unicode(row) + u" não pertence a lista predefinida de Restrições de Uso."]
+            return [False, u"A Restrição " + str(row) + u" não pertence a lista predefinida de Restrições de Uso."]
         else:
             return [True, None]
 
     def accessConstraints(self, row):
         if row not in self.restriction_list:
-            return [False, u"A Restrição " + unicode(row) + u" não pertence a lista predefinida de Restrições de Acesso."]
+            return [False, u"A Restrição " + str(row) + u" não pertence a lista predefinida de Restrições de Acesso."]
         else:
             return [True, None]
 
     def securityrestrictions(self, row):
         if row not in self.classificationList:
-            return [False, u"A Restrição " + unicode(row) + u" não pertence a lista predefinida de Restrições de Segurança."]
+            return [False, u"A Restrição " + str(row) + u" não pertence a lista predefinida de Restrições de Segurança."]
         else:
             return [True, None]
 
 
-class GeographicInfo:
+class GeographicInfo(object):
     def __init__(self, refSys):
         self.refSys = refSys
 
     def referenceSystems(self, row):
         if row not in self.refSys:
-            return [False, u"O Sistema de referência  " + unicode(row) + u" não pertence a lista predefinida de Sistemas de referência."]
+            return [False, u"O Sistema de referência  " + str(row) + u" não pertence a lista predefinida de Sistemas de referência."]
         else:
             return [True, None]
 
 
-class InlineContact:
+class InlineContact(object):
     def __init__(self):
         self.email_pattern = re.compile('[^@]+@[^@]+\.[^@]+')
 

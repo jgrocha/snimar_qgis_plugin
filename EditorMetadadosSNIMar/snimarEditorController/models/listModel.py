@@ -24,8 +24,10 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4.QtCore import QAbstractListModel, QModelIndex, Qt, QSize
-from PyQt4.QtGui import QDateEdit, QDoubleSpinBox, QLineEdit, QComboBox, QSpinBox, QCheckBox, QColor, QLabel, QDateTimeEdit
+from builtins import str
+from qgis.PyQt.QtCore import QModelIndex, Qt, QSize, QAbstractListModel
+from qgis.PyQt.QtWidgets import QDateEdit, QDoubleSpinBox, QLineEdit, QComboBox, QSpinBox, QCheckBox, QLabel, QDateTimeEdit
+from qgis.PyQt.QtGui import QColor
 from qgis.gui import QgsFilterLineEdit
 from EditorMetadadosSNIMar import CONSTANTS as cons
 from EditorMetadadosSNIMar.snimarEditorController.models.customComboBoxModel import CustomComboBox

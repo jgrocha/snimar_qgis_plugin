@@ -24,18 +24,19 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 import platform
-from PyQt4.QtCore import Qt, QModelIndex
-from PyQt4.QtGui import QStandardItem, QStandardItemModel, QAbstractItemView, QSizePolicy, QLabel, QFont
+from qgis.PyQt.QtCore import Qt, QModelIndex
+from qgis.PyQt.QtGui import QStandardItem, QStandardItemModel, QFont
+from qgis.PyQt.QtWidgets import QAbstractItemView, QSizePolicy, QLabel, QDialog
 
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import addSnimarKeyWordsDialog
 from EditorMetadadosSNIMar.snimarProfileModel.snimarThesaurusBuilder import SnimarThesurusModel
 from EditorMetadadosSNIMar.snimarEditorController.models import customComboBoxModel as customCombo
 
 
-class SNIMARKeywordsDialog(qgui.QDialog, addSnimarKeyWordsDialog.Ui_Dialog):
+class SNIMARKeywordsDialog(QDialog, addSnimarKeyWordsDialog.Ui_Dialog):
     def __init__(self, parent, model_to_insert, snimar_keyword_types_list):
         super(SNIMARKeywordsDialog, self).__init__(parent)
         self.model_to_insert = model_to_insert
@@ -86,7 +87,7 @@ class SNIMARKeywordsDialog(qgui.QDialog, addSnimarKeyWordsDialog.Ui_Dialog):
 
     def add_keywords(self):
 
-        for x in self.to_add_keywords.values():
+        for x in list(self.to_add_keywords.values()):
             self.model_to_insert.addNewRow(
                 [self.combo_items_md_keywordtypecode[x.kw_type], x.term, x.thesaurus_info['version'], x.thesaurus_info, x.cc_uuid],check_dup_on=[1,4])
             x.setCheckState(Qt.Unchecked)

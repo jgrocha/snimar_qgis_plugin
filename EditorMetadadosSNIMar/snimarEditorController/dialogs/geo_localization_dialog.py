@@ -24,16 +24,18 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import str
 import platform
-from PyQt4.QtCore import QRegExp
-from PyQt4.QtGui import QDialog, QToolTip, QCursor, QFont
+from qgis.PyQt.QtCore import QRegExp
+from qgis.PyQt.QtWidgets import QDialog, QToolTip
+from qgis.PyQt.QtGui import QCursor, QFont
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import chooseExtentGeographicInformationDialog
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
-from PyQt4 import QtGui as qgui
+from qgis.PyQt import QtGui as qgui
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import geographicinformationPanel
 
 
-class GeoLocalizationDialog(qgui.QDialog, chooseExtentGeographicInformationDialog.Ui_Dialog):
+class GeoLocalizationDialog(QDialog, chooseExtentGeographicInformationDialog.Ui_Dialog):
     def __init__(self, parent, coord=None):
 
         if not coord:

@@ -24,11 +24,13 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from builtins import str
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 
-from PyQt4.QtCore import QModelIndex, Qt
-from PyQt4.QtGui import QCursor, QToolTip, QDateTimeEdit
+from qgis.PyQt.QtCore import QModelIndex, Qt
+from qgis.PyQt.QtGui import QCursor
+from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget
 
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.extent_dialog import ExtentDialog
@@ -52,7 +54,7 @@ from EditorMetadadosSNIMar.snimarEditorController.models import customComboBoxMo
 NO_VALUE = -999999999.0000
 
 
-class GeographicInfoWidget(qgui.QWidget, geographicinformationPanel.Ui_geographicinfo):
+class GeographicInfoWidget(QWidget, geographicinformationPanel.Ui_geographicinfo):
     def __init__(self, parent, scope):
         super(GeographicInfoWidget, self).__init__(parent)
         self.setupUi(self)
@@ -91,9 +93,9 @@ class GeographicInfoWidget(qgui.QWidget, geographicinformationPanel.Ui_geographi
                 code=element['code'], name=element['name'],
                 codeSpace=element['codespace'])
 
-        self.listValidation = lval.GeographicInfo(self.combo_items.values())
+        self.listValidation = lval.GeographicInfo(list(self.combo_items.values()))
         tla.setupListView(self.referencesystem, CustomComboBox, self,
-                          comboList=self.combo_items.values(),
+                          comboList=list(self.combo_items.values()),
                           validationfunction=self.listValidation.referenceSystems)
 
         self.boundingbox.doubleClicked.connect(self.handleDoubleClick)
@@ -104,7 +106,7 @@ class GeographicInfoWidget(qgui.QWidget, geographicinformationPanel.Ui_geographi
                 code=element['code'], name=element['name'],
                 codeSpace='EPSG')
         self.referencesystemidentifier.setModel(
-            customCombo.CustomComboBoxModel(self, [None] + sorted(self.combo_items_vert.values(),
+            customCombo.CustomComboBoxModel(self, [None] + sorted(list(self.combo_items_vert.values()),
                                                                   key=lambda x: x.name)))
 
         for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
@@ -226,7 +228,7 @@ class GeographicInfoWidget(qgui.QWidget, geographicinformationPanel.Ui_geographi
                         self.minimumValue.setValue(float(extent.min))
                     if isFloat(extent.max):
                         self.maximumValue.setValue(float(extent.max))
-                    if isinstance(extent.crs, basestring):
+                    if isinstance(extent.crs, str):
                         buf = extent.crs.replace("urn:ogc:def:crs:EPSG:", "")
                         if self.combo_items_vert.get(buf) is not None:
                             self.referencesystemidentifier.setCurrentIndex(
@@ -254,7 +256,7 @@ class GeographicInfoWidget(qgui.QWidget, geographicinformationPanel.Ui_geographi
             common = md.serviceidentification
         for row in self.boundingbox.model().matrix:
             bbox = snimarProfileModel.EX_Extent()
-            bbox.hasresource = unicode(row[4])
+            bbox.hasresource = str(row[4])
             bbox.boundingBox = snimarProfileModel.iso.EX_GeographicBoundingBox()
             bbox.boundingBox.minx = row[1].replace(',', '.')
             bbox.boundingBox.maxx = row[0].replace(',', '.')
@@ -264,8 +266,8 @@ class GeographicInfoWidget(qgui.QWidget, geographicinformationPanel.Ui_geographi
 
         for row in self.geographicidentifier.model().matrix:
             geographic_identifier = snimarProfileModel.EX_Extent()
-            geographic_identifier.description_code = unicode(row[0])
-            geographic_identifier.hasresource = unicode(row[1])
+            geographic_identifier.description_code = str(row[0])
+            geographic_identifier.hasresource = str(row[1])
             common.extent.append(geographic_identifier)
 
         for row in self.referencesystem.model().listElements:

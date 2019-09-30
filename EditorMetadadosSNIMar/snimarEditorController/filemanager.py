@@ -24,6 +24,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from __future__ import print_function
 import os
 import json
 import datetime
@@ -36,7 +37,8 @@ class FileManager(dict):
         super(FileManager, self).__init__()
         editordir = kwargs.pop('editordir', None)
         if editordir is None:
-            print u'Unable to create file list store'
+            # fix_print_with_import
+            print(u'Unable to create file list store')
         else:
             self.store = os.path.join(editordir, FILELIST_STORE)
         self.to_save = to_save
@@ -82,7 +84,7 @@ class FileManager(dict):
             return False
 
         if data is not None:
-            for key, value in data.iteritems():
+            for key, value in list(data.items()):
                 self.setdefault(key, value)
             return True
 

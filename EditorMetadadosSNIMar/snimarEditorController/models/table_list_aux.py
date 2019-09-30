@@ -24,12 +24,13 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import str
+from builtins import range
 import types
 from qgis.gui import QgsFilterLineEdit
 
-from PyQt4.QtCore import QDateTime, QObject, QEvent
-from PyQt4.QtGui import QLineEdit, QComboBox, QDoubleSpinBox, QAbstractItemView, QPushButton, QSpinBox, QDialog, \
-    QHeaderView, QCheckBox, QListView, QPlainTextEdit, QTableView, QDateTimeEdit, QDateEdit
+from qgis.PyQt.QtCore import QDateTime, QObject, QEvent
+from qgis.PyQt.QtWidgets import QLineEdit, QComboBox, QDoubleSpinBox, QAbstractItemView, QPushButton, QSpinBox, QDialog, QHeaderView, QCheckBox, QListView, QPlainTextEdit, QTableView, QDateTimeEdit, QDateEdit
 
 from EditorMetadadosSNIMar.snimarEditorController.models.listModel import ListModel
 from EditorMetadadosSNIMar.snimarEditorController.models.tableModel import TableModel
@@ -97,7 +98,7 @@ def getText(box, format_date=cons.DATE_TIME_FORMAT):
         ret_qString = box.value()
     elif type(box) == QCheckBox:
         return box.isChecked()
-    if len(unicode(ret_qString)) == 0:
+    if len(str(ret_qString)) == 0:
         return None
     else:
         return ret_qString
@@ -161,7 +162,7 @@ def setupTableView(parent, tableView, header, columnsTypes, addSources, comboLis
     comboIter = 0
 
     if addSources is not None:
-        if type(addSources) != types.ListType:
+        if type(addSources) != list:
             model = TableModel(parent, header, columnsTypes, tableView, validationfunction=validationfunction, isEditable=False,
                                initial_data=model_data)
         else:
@@ -172,7 +173,7 @@ def setupTableView(parent, tableView, header, columnsTypes, addSources, comboLis
                     comboIter += 1
                 elif columnsTypes[i] == CustomComboBox:
                     tableView.setItemDelegateForColumn(i,
-                                                       CustomComboBoxDelegate(parent, sorted(comboList[comboIter].values(),
+                                                       CustomComboBoxDelegate(parent, sorted(list(comboList[comboIter].values()),
                                                                                              key=lambda x: x.term_pt)))
                     comboIter += 1
                     raw = True
@@ -200,7 +201,7 @@ def setupTableView(parent, tableView, header, columnsTypes, addSources, comboLis
     tableView.setSelectionMode(QAbstractItemView.ContiguousSelection)
 
     if addSources is not None:
-        if type(addSources) != types.ListType:
+        if type(addSources) != list:
             addButton = parent.findChild(QPushButton, 'btn_open_' + tableView.objectName())
             addButton.clicked.connect(lambda: callDialogAndAddNew(tableView, addSources, comboList))
         elif len(addSources) != 0:

@@ -25,6 +25,9 @@
 #
 ###############################################################################
 # import keyword
+from builtins import zip
+from builtins import range
+from builtins import object
 import os
 import re
 import datetime
@@ -357,7 +360,7 @@ class MD_DataIdentification(iso.MD_DataIdentification):
     @property
     def md_identifiers(self):
         md_identifiers = []
-        for i in xrange(len(self.uricode)):
+        for i in range(len(self.uricode)):
             if self.uricodespace[i] is None:
                 md_identifiers.append(self.uricode[i])
         return md_identifiers
@@ -370,7 +373,7 @@ class MD_DataIdentification(iso.MD_DataIdentification):
     @property
     def rs_identifiers(self):
         rs_identifiers = []
-        for i in xrange(len(self.uricode)):
+        for i in range(len(self.uricode)):
             if self.uricodespace[i] is not None:
                 rs_identifiers.append((self.uricode[i], self.uricodespace[i]))
         return rs_identifiers
@@ -601,7 +604,7 @@ class SV_ServiceIdentification(iso.SV_ServiceIdentification):
     @property
     def md_identifiers(self):
         md_identifiers = []
-        for i in xrange(len(self.uricode)):
+        for i in range(len(self.uricode)):
             if self.uricodespace[i] is None:
                 md_identifiers.append(self.uricode[i])
         return md_identifiers
@@ -614,7 +617,7 @@ class SV_ServiceIdentification(iso.SV_ServiceIdentification):
     @property
     def rs_identifiers(self):
         rs_identifiers = []
-        for i in xrange(len(self.uricode)):
+        for i in range(len(self.uricode)):
             if self.uricodespace[i] is not None:
                 rs_identifiers.append((self.uricode[i], self.uricodespace[i]))
         return rs_identifiers
@@ -704,12 +707,12 @@ class DQ_DataQuality(iso.DQ_DataQuality):
 
     @property
     def process_steps(self):
-        return zip(self.process_steps_description, self.process_steps_date,
-                   self.process_steps_rationale)
+        return list(zip(self.process_steps_description, self.process_steps_date,
+                   self.process_steps_rationale))
 
     @process_steps.setter
     def process_steps(self, data):
-        for i in xrange(len(data)):
+        for i in range(len(data)):
             self.process_steps_description.append(data[i][0])
             self.process_steps_date.append(data[i][1])
             self.process_steps_rationale.append(data[i][2])

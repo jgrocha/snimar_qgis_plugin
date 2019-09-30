@@ -3,7 +3,7 @@ name=EditorMetadadosSNIMar
 email=suporte.snimar@ipma.pt
 author= Main Developers: Pedro Dias, Eduardo Castanho;
  Contributors: Joana Teixeira , Alexandre Neto
-qgisMinimumVersion=2.6
+qgisMinimumVersion=3.0
 description=Plugin para a criação e edição de metadados segundo o perfil SNIMar
 about= O Editor de Metadados SNIMar foi desenvolvido no âmbito do Projecto SNIMar
        com o objectivo de ser a ferramenta destinada à criação dos metadados

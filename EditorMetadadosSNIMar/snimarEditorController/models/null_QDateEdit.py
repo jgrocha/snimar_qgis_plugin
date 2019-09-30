@@ -1,6 +1,7 @@
 # coding=utf-8
-from PyQt4.QtCore import QDate, QDateTime
-from PyQt4.QtGui import QAbstractSpinBox
+from builtins import object
+from qgis.PyQt.QtCore import QDate, QDateTime
+from qgis.PyQt.QtWidgets import QAbstractSpinBox
 
 from EditorMetadadosSNIMar import CONSTANTS as cons
 
@@ -8,7 +9,7 @@ NULLDATE = QDate.fromString('1800-01-01', cons.DATE_FORMAT)
 NULLDATETIME = QDateTime.fromString('1800-01-01 00:00:00', cons.DATE_TIME_FORMAT)
 
 
-class NullQDateEditWrapper:
+class NullQDateEditWrapper(object):
     """
 
     """
@@ -34,7 +35,7 @@ class NullQDateEditWrapper:
             return self.FunctionWrapper(self, ret)
         return ret
 
-    class FunctionWrapper:
+    class FunctionWrapper(object):
         def __init__(self, parent, callable):
             self.parent = parent
             self.callable = callable
@@ -80,7 +81,7 @@ class NullQDateEditWrapper:
             return False
 
 
-class NullQDateTimeEditWrapper:
+class NullQDateTimeEditWrapper(object):
     """
 
     """
@@ -106,7 +107,7 @@ class NullQDateTimeEditWrapper:
             return self.FunctionWrapper(self, ret)
         return ret
 
-    class FunctionWrapper:
+    class FunctionWrapper(object):
         def __init__(self, parent, callable):
             self.parent = parent
             self.callable = callable

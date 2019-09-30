@@ -49,18 +49,21 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from __future__ import absolute_import
+from builtins import object
 import os.path
 import platform
-from PyQt4.QtGui import QIcon, QPixmap, QSplashScreen, QApplication, QSound
+from qgis.PyQt.QtGui import QIcon, QPixmap
+from qgis.PyQt.QtWidgets import QSplashScreen, QApplication, QAction
 
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
-from PyQt4.QtCore import  Qt
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
+from qgis.PyQt.QtCore import  Qt
 import time
 
-import editorMetadadosSNIMar
+from . import editorMetadadosSNIMar
 
-import resources
+from . import resources
 
 
 class EditorMetadadosPluginEntryPoint(object):
@@ -74,11 +77,12 @@ class EditorMetadadosPluginEntryPoint(object):
 
     def initGui(self):
         """Initialize the GUI machine"""
-        self.action = qgui.QAction(QIcon(":/resourcesFolder/icons/main_icon.png"), self._name, self._iface.mainWindow())
+        self.action = QAction(QIcon(":/resourcesFolder/icons/main_icon.png"), self._name, self._iface.mainWindow())
         self.action.setObjectName('initialAction')
         self.action.setWhatsThis('Editor de Metadados SNIMar')
         self.action.setStatusTip('Editor de Metadados SNIMar')
-        qcore.QObject.connect(self.action, qcore.SIGNAL('triggered()'), self.run)
+        #qcore.QObject.connect(self.action, qcore.SIGNAL('triggered()'), self.run)
+        self.action.triggered.connect(self.run)
         self._iface.addPluginToMenu('Editor de Metadados SNIMar', self.action)
         self._iface.addToolBarIcon(self.action)
 

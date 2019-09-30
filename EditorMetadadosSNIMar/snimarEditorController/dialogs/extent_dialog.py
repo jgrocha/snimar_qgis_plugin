@@ -24,14 +24,17 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from builtins import str
+from builtins import range
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 from qgis import core, utils, gui
 import qgis
 
 import os
 import platform
-from PyQt4.QtGui import QToolTip, QCursor, QFont
+from qgis.PyQt.QtWidgets import QToolTip, QDialog
+from qgis.PyQt.QtGui import QCursor, QFont
 
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import \
     chooseGeographicExtentOnMapDialog  as mdextent
@@ -134,7 +137,7 @@ class SelectionTool(gui.QgsMapToolEmitPoint):
         self.emit(qcore.SIGNAL('deactivated()'))
 
 
-class ExtentDialog(qgui.QDialog, mdextent.Ui_MDExtentDialogBase):
+class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
     def __init__(self, parent, boundingbox):
         super(ExtentDialog, self).__init__(parent)
         self.setupUi(self)
@@ -322,7 +325,7 @@ class ExtentDialog(qgui.QDialog, mdextent.Ui_MDExtentDialogBase):
 
         ## Set triggers to buttons
         self.add_extent.clicked.connect(self.add_new_extent)
-        self.btn_close.clicked.connect(lambda: self.done(qgui.QDialog.Rejected))
+        self.btn_close.clicked.connect(lambda: self.done(QDialog.Rejected))
         self.finished.connect(self.cleanup)
 
         ## Disabled coord fields
@@ -446,7 +449,7 @@ class ExtentDialog(qgui.QDialog, mdextent.Ui_MDExtentDialogBase):
             yMax = str(self.yMax.value()).replace(".", ",")
             yMin = str(self.yMin.value()).replace(".", ",")
 
-            new_row = [unicode(xMin), unicode(xMax), unicode(yMax), unicode(yMin), flag]
+            new_row = [str(xMin), str(xMax), str(yMax), str(yMin), flag]
 
             ## If coords selected then instead of adding new extent we update the selected one
             if self.boundingbox.selectionModel().hasSelection() == False:
@@ -463,7 +466,7 @@ class ExtentDialog(qgui.QDialog, mdextent.Ui_MDExtentDialogBase):
                 self.sender().objectName()]), None)
 
 
-class ChooseLayerDialog(qgui.QDialog, ly_extent.Ui_Dialog):
+class ChooseLayerDialog(QDialog, ly_extent.Ui_Dialog):
     def __init__(self, parent=None):
         super(ChooseLayerDialog, self).__init__(parent)
         self.setupUi(self)

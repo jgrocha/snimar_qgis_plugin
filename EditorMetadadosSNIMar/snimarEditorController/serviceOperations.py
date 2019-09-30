@@ -24,8 +24,9 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4.QtCore import Qt, QRegExp
-from PyQt4.QtGui import QWidget, QLabel, QPushButton, QIcon, QToolTip, QCursor
+from qgis.PyQt.QtCore import Qt, QRegExp
+from qgis.PyQt.QtWidgets import QWidget, QLabel, QPushButton, QToolTip
+from qgis.PyQt.QtGui import QIcon, QCursor
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import serviceOperationsPanel
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.service_operation_inline import InlineServiceOperation
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla

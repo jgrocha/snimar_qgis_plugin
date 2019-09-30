@@ -24,15 +24,18 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from builtins import str
+from builtins import range
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 import json
 import os
 import platform
 from qgis.utils import pluginDirectory
 import re
-from PyQt4.QtCore import Qt, QUrl
-from PyQt4.QtGui import QPalette, QFont, QMessageBox, QToolTip, QCursor, QDateTimeEdit, QDateEdit, QValidator
+from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtGui import QPalette, QFont, QCursor
+from qgis.PyQt.QtWidgets import QMessageBox, QToolTip, QDateTimeEdit, QDateEdit, QWidget
 from qgis._gui import QgsFilterLineEdit
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import contactInlinePanel
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
@@ -47,7 +50,7 @@ validator = lval.InlineContact()
 OUTRA = "Outra - Especificar Abaixo"
 
 
-class InlineContactWidget(qgui.QWidget, contactInlinePanel.Ui_contactWidget):
+class InlineContactWidget(QWidget, contactInlinePanel.Ui_contactWidget):
     def __init__(self, parent, orgslist, in_distribution=False):
         super(InlineContactWidget, self).__init__(parent)
         self.parent = parent
@@ -66,7 +69,7 @@ class InlineContactWidget(qgui.QWidget, contactInlinePanel.Ui_contactWidget):
 
         self.combo_org.setModel(
             customCombo.CustomComboBoxModel(self,
-                                            [customCombo.CodeListItem(OUTRA, OUTRA, OUTRA)] + sorted(self.orgs.values(),
+                                            [customCombo.CodeListItem(OUTRA, OUTRA, OUTRA)] + sorted(list(self.orgs.values()),
                                                                                                      key=lambda
                                                                                                          x: x.term_pt)))
         self.combo_org.currentIndexChanged.connect(self.check_org)
@@ -137,12 +140,12 @@ class InlineContactWidget(qgui.QWidget, contactInlinePanel.Ui_contactWidget):
 
             self.roles = customCombo.dic_to_CustomComboBox_dic(temp)
             self.combo_role.setModel(
-                customCombo.CustomComboBoxModel(self, sorted(self.roles.values(), key=lambda x: x.term_pt)))
+                customCombo.CustomComboBoxModel(self, sorted(list(self.roles.values()), key=lambda x: x.term_pt)))
             self.combo_role.setDisabled(True)
         else:
             self.roles = customCombo.dic_to_CustomComboBox_dic(self.superParent.codelist["CI_RoleCode"])
             self.combo_role.setModel(
-                customCombo.CustomComboBoxModel(self, sorted(self.roles.values(), key=lambda x: x.term_pt)))
+                customCombo.CustomComboBoxModel(self, sorted(list(self.roles.values()), key=lambda x: x.term_pt)))
             tla.setupMandatoryField(None, self.combo_role, self.label_role,
                                     u"Tem que ser especificada uma função para o contacto.")
             self.combo_role.currentIndexChanged.connect(self.check_mandatory_completude)
@@ -214,26 +217,26 @@ class InlineContactWidget(qgui.QWidget, contactInlinePanel.Ui_contactWidget):
             return
 
         current_contact = self.generate_contact_object()
-        current_contact['name'] = unicode(self.name.text())
-        current_contact['organization'] = unicode(self.organization.text())
-        current_contact['delivery_point'] = unicode(self.address.text())
-        current_contact['city'] = unicode(self.city.text())
-        current_contact['postalcode'] = unicode(self.postalCode.text())
-        current_contact['country'] = unicode(self.country.text())
+        current_contact['name'] = str(self.name.text())
+        current_contact['organization'] = str(self.organization.text())
+        current_contact['delivery_point'] = str(self.address.text())
+        current_contact['city'] = str(self.city.text())
+        current_contact['postalcode'] = str(self.postalCode.text())
+        current_contact['country'] = str(self.country.text())
 
-        items = [unicode(self.phone.model().data(self.phone.model().index(row, 0))) for row in xrange(
+        items = [str(self.phone.model().data(self.phone.model().index(row, 0))) for row in range(
             self.phone.model().rowCount())]
         current_contact['phone'] = items
 
-        items = [unicode(self.email.model().data(self.email.model().index(row, 0))) for row in xrange(
+        items = [str(self.email.model().data(self.email.model().index(row, 0))) for row in range(
             self.email.model().rowCount())]
         current_contact['email'] = items
 
-        items = [unicode(self.fax.model().data(self.fax.model().index(0, row))) for row in xrange(
+        items = [str(self.fax.model().data(self.fax.model().index(0, row))) for row in range(
             self.fax.model().rowCount())]
         current_contact['fax'] = items
 
-        current_contact['online'] = unicode(self.online.text())
+        current_contact['online'] = str(self.online.text())
         try:
             with open(CONTACTFILE, 'r') as fp:
                 contact_array = json.load(fp)
@@ -369,7 +372,7 @@ class InlineContactWidget(qgui.QWidget, contactInlinePanel.Ui_contactWidget):
         role = self.combo_role.itemData(self.combo_role.currentIndex())
         new_contact.role = role.term
         new_contact.role_pt = role.term_pt
-        new_contact.organization = unicode(self.organization.text())
+        new_contact.organization = str(self.organization.text())
         new_contact.email = self.email.model().listElements
         new_contact.fax = self.fax.model().listElements
         new_contact.phone = self.phone.model().listElements
@@ -379,19 +382,19 @@ class InlineContactWidget(qgui.QWidget, contactInlinePanel.Ui_contactWidget):
             onlineresource.url = self.online.text()
             new_contact.onlineresource = onlineresource
 
-        var = unicode(self.address.text())
+        var = str(self.address.text())
         if var:
             new_contact.address = var
-        var = unicode(self.country.text())
+        var = str(self.country.text())
         if var:
             new_contact.country = var
-        var = unicode(self.postalCode.text())
+        var = str(self.postalCode.text())
         if var:
             new_contact.postcode = var
-        var = unicode(self.city.text())
+        var = str(self.city.text())
         if var:
             new_contact.city = var
-        var = unicode(self.name.text())
+        var = str(self.name.text())
         if var:
             new_contact.name = var
         return new_contact
@@ -408,7 +411,7 @@ class InlineContactWidget(qgui.QWidget, contactInlinePanel.Ui_contactWidget):
 
     def set_org(self, org_name):
 
-        if org_name in [x.term for x in self.orgs.values()]:
+        if org_name in [x.term for x in list(self.orgs.values())]:
             self.combo_org.setCurrentIndex(self.combo_org.findText(org_name))
         else:
             self.combo_org.setCurrentIndex(0)

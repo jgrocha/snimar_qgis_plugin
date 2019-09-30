@@ -24,16 +24,18 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from builtins import str
+from builtins import object
 import traceback
 
-from PyQt4.QtCore import QDateTime
+from qgis.PyQt.QtCore import QDateTime
 from EditorMetadadosSNIMar.snimarProfileModel import snimarProfileModel
 from EditorMetadadosSNIMar import CONSTANTS as cons
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from EditorMetadadosSNIMar.snimarEditorController.models.customComboBoxModel import CodeListItem
 
 
-class Distribution:
+class Distribution(object):
     def __init__(self, online_list):
         self.onlineList = online_list
 
@@ -45,14 +47,14 @@ class Distribution:
 
     def resourcelocator(self, row):
         if row[1] not in self.onlineList:
-            return [False, u"O função " + unicode(row[1]) + u" não se encontra na lista predefenida."]
+            return [False, u"O função " + str(row[1]) + u" não se encontra na lista predefenida."]
         elif row[0] == "":
             return [False, u"O URL é obrigatório."]
         else:
             return [True, None]
 
 
-class GeographicInfo:
+class GeographicInfo(object):
     def __init__(self):
         pass
 
@@ -66,7 +68,7 @@ class GeographicInfo:
         pass
 
 
-class Identification:
+class Identification(object):
     def __init__(self):
         pass
 
@@ -76,7 +78,7 @@ class Identification:
         return [True, None]
 
 
-class Keywords:
+class Keywords(object):
     def __init__(self, keywordtypes, datatypes):
         self.freewordsTypes = keywordtypes+[None]
         self.dataypes = datatypes
@@ -112,7 +114,7 @@ class Keywords:
         self.thesaurus = thesaurus
 
 
-class Quality:
+class Quality(object):
     def __init__(self):
         pass
 
@@ -123,7 +125,7 @@ class Quality:
             return [True, None]
 
 
-class Restrictions:
+class Restrictions(object):
     def __init__(self, restrictions_list):
         self.restrictions_list = restrictions_list
 
@@ -145,7 +147,7 @@ class Restrictions:
                 return [True, None]
 
 
-class TemporalInfo:
+class TemporalInfo(object):
     def __init__(self):
         pass
 

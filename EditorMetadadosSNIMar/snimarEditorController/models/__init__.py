@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 ##############################################################################
 #
 #  Title:   snimarEditorController/models/__init__.py
@@ -23,5 +24,5 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from listModel import ListModel
-from tableModel import TableModel
+from .listModel import ListModel
+from .tableModel import TableModel

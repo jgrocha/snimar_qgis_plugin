@@ -26,12 +26,14 @@
 ###############################################################################
 
 # Qt and Qgis imports
+from builtins import range
 import copy
-from PyQt4 import QtCore as qcore
-from PyQt4 import QtGui as qgui
+from qgis.PyQt import QtCore as qcore
+from qgis.PyQt import QtGui as qgui
 import uuid
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAbstractItemView, QIcon, QToolTip, QCursor, QDateTimeEdit, QStandardItem, QStandardItemModel
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QAbstractItemView, QToolTip, QDateTimeEdit, QWidget
+from qgis.PyQt.QtGui import QIcon, QCursor, QStandardItem, QStandardItemModel
 from qgis._gui import QgsFilterLineEdit
 
 # Snimar Constants
@@ -45,7 +47,7 @@ from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles impo
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.freekeywords_dialog import FreeKeyWordsDialog
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.snimarKeywordsDialog import SNIMARKeywordsDialog
 
-# Snimar Controller and Model imports 
+# Snimar Controller and Model imports
 from EditorMetadadosSNIMar.snimarProfileModel import snimarProfileModel
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from EditorMetadadosSNIMar.snimarEditorController.models import tablesRowsValidation as tval
@@ -55,7 +57,7 @@ from EditorMetadadosSNIMar.snimarEditorController.models import TableModel
 from EditorMetadadosSNIMar.snimarEditorController.models.table_list_aux import unsetLabelRed, setLabelRed
 
 
-class KeywordsWidget(qgui.QWidget, keywordsPanel.Ui_keywords):
+class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
     def __init__(self, parent, scope):
         super(KeywordsWidget, self).__init__(parent)
         self.setupUi(self)
@@ -74,9 +76,9 @@ class KeywordsWidget(qgui.QWidget, keywordsPanel.Ui_keywords):
             self.superParent.codelist["MD_KeywordTypeCode"])
         self.combo_items_md_keywordtypecode_snimar = customCombo.dic_to_CustomComboBox_dic(
             self.superParent.codelist["MD_KeywordTypeCodeSNIMar"])
-        self.validatorList = lval.Keywords(self.combo_items_inspire.values(), self.combo_items_topiccategory.values())
-        self.validatorTables = tval.Keywords(self.combo_items_md_keywordtypecode.values(),
-                                             self.combo_items_datetype.values())
+        self.validatorList = lval.Keywords(list(self.combo_items_inspire.values()), list(self.combo_items_topiccategory.values()))
+        self.validatorTables = tval.Keywords(list(self.combo_items_md_keywordtypecode.values()),
+                                             list(self.combo_items_datetype.values()))
 
         sn_model = TableModel(self, [u"Tipo", u"Palavra-Chave", u"Versão Thesaurus"],
                               [customCombo.CustomComboBox, qgui.QLineEdit, qgui.QLineEdit],
@@ -145,7 +147,7 @@ class KeywordsWidget(qgui.QWidget, keywordsPanel.Ui_keywords):
             self.btn_del_inspire.setHidden(True)
             self.combo_inspire.setHidden(True)
             tla.setupListView(self.serviceClassification, customCombo.CustomComboBox, self,
-                              comboList=self.combo_items_serviceClassification.values())
+                              comboList=list(self.combo_items_serviceClassification.values()))
             tla.setupMandatoryField(self, self.serviceClassification, self.label_serviceClassification,
                                     u"Obrigatório conter pelo menos uma entrada")
 
@@ -156,13 +158,13 @@ class KeywordsWidget(qgui.QWidget, keywordsPanel.Ui_keywords):
             self.btn_del_serviceClassification.setHidden(True)
             self.combo_serviceClassification.setHidden(True)
             tla.setupListView(self.topiccategory, customCombo.CustomComboBox, self,
-                              comboList=self.combo_items_topiccategory.values(),
+                              comboList=list(self.combo_items_topiccategory.values()),
                               validationfunction=self.validatorList.topiccategory)
             tla.setupMandatoryField(self, self.topiccategory, self.label_topiccategory,
                                     u"Obrigatório conter pelo menos uma "
                                     u"entrada")
             tla.setupListView(self.inspire, customCombo.CustomComboBox, self,
-                              comboList=self.combo_items_inspire.values(),
+                              comboList=list(self.combo_items_inspire.values()),
                               validationfunction=self.validatorList.inspire)
 
             tla.setupMandatoryField(self, self.inspire, self.label_inspire,
@@ -351,7 +353,7 @@ class KeywordsWidget(qgui.QWidget, keywordsPanel.Ui_keywords):
         self.validatorTables.set_thesaurus(self.dialog.thesaurus_model)
         matrix_copy = copy.deepcopy(self.snimarkeywords.model().matrix)
 
-        for index in xrange(self.snimarkeywords.model().rowCount()):
+        for index in range(self.snimarkeywords.model().rowCount()):
             self.snimarkeywords.model().removeSpecificRow(0)
 
         for row in matrix_copy:

@@ -25,8 +25,9 @@
 #
 ###############################################################################
 import platform
-from PyQt4.QtCore import QRegExp, Qt
-from PyQt4.QtGui import QWidget, QCursor, QPushButton, QIcon, QToolTip, QPalette, QComboBox, QMessageBox, QFont, QDateTimeEdit
+from qgis.PyQt.QtCore import QRegExp, Qt
+from qgis.PyQt.QtWidgets import QWidget, QPushButton, QToolTip, QComboBox, QMessageBox, QDateTimeEdit
+from qgis.PyQt.QtGui import QCursor, QIcon, QPalette, QFont
 from qgis._gui import QgsFilterLineEdit
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import operationInlinePanel
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
@@ -49,7 +50,7 @@ class InlineServiceOperation(QWidget, operationInlinePanel.Ui_operations):
         self.combo_items_dcp = customCombo.dic_to_CustomComboBox_dic(
             self.superParent.codelist["DCPCodeList"])
 
-        tla.setupListView(self.dcp, CustomComboBox, self, comboList=self.combo_items_dcp.values(), NoParent=True)
+        tla.setupListView(self.dcp, CustomComboBox, self, comboList=list(self.combo_items_dcp.values()), NoParent=True)
         tla.setupListView(self.connectionPoint, QgsFilterLineEdit, self, NoParent=True)
         tla.setupMandatoryField(None, self.operationName, self.label_operationName, u"Elemento Obrigatório.", )
         tla.setupMandatoryField(None, self.dcp, self.label_dcp, u"Obrigatório conter pelo menos uma entrada")

@@ -25,10 +25,11 @@
 #
 ###############################################################################
 import platform
-from PyQt4.QtCore import QDate, QRegExp
-from PyQt4.QtGui import QDialog, QToolTip, QCursor, QFont
+from qgis.PyQt.QtCore import QDate, QRegExp
+from qgis.PyQt.QtWidgets import QDialog, QToolTip
+from qgis.PyQt.QtGui import QCursor, QFont
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import chooseFreeKeywordDialog
-from PyQt4 import QtGui as qgui
+from qgis.PyQt import QtGui as qgui
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from EditorMetadadosSNIMar import CONSTANTS as cons
 from EditorMetadadosSNIMar.snimarEditorController.models.customComboBoxModel import CustomComboBoxModel
@@ -36,7 +37,7 @@ from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles impo
 from EditorMetadadosSNIMar.snimarEditorController.models.null_QDateEdit import NullQDateEditWrapper
 
 
-class FreeKeyWordsDialog(qgui.QDialog, chooseFreeKeywordDialog.Ui_dialogDate):
+class FreeKeyWordsDialog(QDialog, chooseFreeKeywordDialog.Ui_dialogDate):
     def __init__(self, parent, combos, coord=None):
 
         if not coord:
@@ -49,10 +50,10 @@ class FreeKeyWordsDialog(qgui.QDialog, chooseFreeKeywordDialog.Ui_dialogDate):
         self.setupUi(self)
         self.date_date_2 = NullQDateEditWrapper(self.date_date_2)
         self.setModal(True)
-        self.combo_dataType.setModel(CustomComboBoxModel(self, [None] + sorted(combos[1].values(), key=lambda x: x.term_pt)))
+        self.combo_dataType.setModel(CustomComboBoxModel(self, [None] + sorted(list(combos[1].values()), key=lambda x: x.term_pt)))
         self.combo_dataType.setCurrentIndex(0)
         self.date_date_2.clear()
-        self.combo_type.setModel(CustomComboBoxModel(self, [None] + sorted(combos[0].values(), key=lambda x: x.term_pt)))
+        self.combo_type.setModel(CustomComboBoxModel(self, [None] + sorted(list(combos[0].values()), key=lambda x: x.term_pt)))
         self.btn_cancelar.clicked.connect(lambda: self.done(QDialog.Rejected))
         self.line_keyword.textChanged.connect(lambda: self.check_fields())
         self.line_thesaurus.textChanged.connect(lambda: self.check_fields())

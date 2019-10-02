@@ -27,6 +27,7 @@
 from builtins import str
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 import uuid
 
 # UI generated python modules
@@ -60,7 +61,7 @@ class MetadataWidget(QWidget, metadataPanel.Ui_metadata):
         self.pal.setColor(self.pal.Background, qgui.QColor(cons.ERROR_COLOR))
         self.contacts_list = []
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
@@ -74,7 +75,7 @@ class MetadataWidget(QWidget, metadataPanel.Ui_metadata):
             if len(split_name) == 4 and split_name[2] == 'uuid':
                 btn.clicked.connect(self.generate_uuid)
 
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
@@ -101,7 +102,7 @@ class MetadataWidget(QWidget, metadataPanel.Ui_metadata):
         self.check_mandatory_contacts()
 
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(qwidgets.QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateEdit):
@@ -148,7 +149,7 @@ class MetadataWidget(QWidget, metadataPanel.Ui_metadata):
     @qcore.pyqtSlot()
     def generate_uuid(self):
         target_name = self.sender().objectName().split('_')[3]
-        target = self.findChild(qgui.QLineEdit, target_name)
+        target = self.findChild(qwidgets.QLineEdit, target_name)
         uuid_str = str(uuid.uuid4())
         target.setText(uuid_str)
 

@@ -26,6 +26,7 @@
 ###############################################################################
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 from qgis.PyQt.QtCore import Qt, QDate, QDateTime
 from qgis.PyQt.QtGui import QTextCursor
 from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QDateEdit, QWidget
@@ -79,9 +80,9 @@ class QualityWidget(QWidget, qualityPanel.Ui_quality):
             self.processsteps.horizontalHeader().resizeSection(1, 260)
             self.processsteps.horizontalHeader().setDefaultSectionSize(260)
             self.processsteps.horizontalHeader().setMinimumSectionSize(260)
-            self.processsteps.horizontalHeader().setResizeMode(1, qgui.QHeaderView.Fixed)
-            self.processsteps.horizontalHeader().setResizeMode(2, qgui.QHeaderView.Stretch)
-            self.processsteps.horizontalHeader().setResizeMode(0, qgui.QHeaderView.Stretch)
+            self.processsteps.horizontalHeader().setSectionResizeMode(1, qwidgets.QHeaderView.Fixed)
+            self.processsteps.horizontalHeader().setSectionResizeMode(2, qwidgets.QHeaderView.Stretch)
+            self.processsteps.horizontalHeader().setSectionResizeMode(0, qwidgets.QHeaderView.Stretch)
             self.date_processdate.setDate(QDate.currentDate())
 
             tla.setupListView(self.source, QgsFilterLineEdit, self)
@@ -90,7 +91,7 @@ class QualityWidget(QWidget, qualityPanel.Ui_quality):
         else:
             self.panel_hist.hide()
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
@@ -99,7 +100,7 @@ class QualityWidget(QWidget, qualityPanel.Ui_quality):
                 btn.setText('')
             elif '_clear_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/delete_field.svg'))
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
@@ -115,7 +116,7 @@ class QualityWidget(QWidget, qualityPanel.Ui_quality):
                                 u"Elemento obrigatório.")
 
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(qwidgets.QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateEdit):

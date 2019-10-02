@@ -53,7 +53,8 @@ class SNIMARKeywordsDialog(QDialog, addSnimarKeyWordsDialog.Ui_Dialog):
         self.to_add_keywords = {}  # id : QStandartItem
 
         self.list_view_thesaurus.setModel(self.thesaurus_model)
-        self.thesaurus_model.itemChanged.connect(self.register_item)
+        # TODO fix this
+        #self.thesaurus_model.itemChanged.connect(self.register_item)
 
         self.list_view_thesaurus.setAlternatingRowColors(True)
         self.list_view_thesaurus.setSelectionBehavior(QAbstractItemView.SelectColumns)

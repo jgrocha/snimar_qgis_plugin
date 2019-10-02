@@ -29,8 +29,8 @@ import os
 import platform
 from qgis.utils import pluginDirectory
 from qgis.PyQt.QtCore import Qt, QSize
-from qgis.PyQt.QtGui import QFont, QColor
-from qgis.PyQt.QtWidgets import QWidget
+from qgis.PyQt.QtGui import QFont, QColor, QIcon
+from qgis.PyQt.QtWidgets import QWidget, QListWidget, QPushButton, QGridLayout, QListWidgetItem, QStackedWidget
 from EditorMetadadosSNIMar.CONSTANTS import Scopes as SCOPES
 import EditorMetadadosSNIMar.CONSTANTS as cons
 from EditorMetadadosSNIMar import snimarEditorController
@@ -52,7 +52,7 @@ class MetadadoSNIMar(QWidget):
             font.setFamily(u"Segoe UI Symbol")
             self.setFont(font)
 
-        self.sidelist = qgui.QListWidget(self)
+        self.sidelist = QListWidget(self)
         self.sidelist.setMinimumWidth(150)
         self.sidelist.setMaximumWidth(150)
         self.sidelist.setWordWrap(True)
@@ -66,7 +66,7 @@ class MetadadoSNIMar(QWidget):
             tabs = cons.TABLIST_CDG_SERIES
 
         for tab_element in tabs:
-            bufWidget = qgui.QListWidgetItem(qgui.QIcon(':/resourcesFolder/icons/' + tab_element[1]), tab_element[0])
+            bufWidget = QListWidgetItem(qgui.QIcon(':/resourcesFolder/icons/' + tab_element[1]), tab_element[0])
             self.widgetStalker[tab_element[2]] = {"widget": bufWidget,
                                                   "missingFields": set(),
                                                   "incompleteEntries": set()}
@@ -78,7 +78,7 @@ class MetadadoSNIMar(QWidget):
 
             self.sidelist.insertItem(index, bufWidget)
             index += 1
-        self.widgetstack = qgui.QStackedWidget(self)
+        self.widgetstack = QStackedWidget(self)
 
         # Setup metadata stuff
         self.xml_doc = xml_doc
@@ -89,7 +89,7 @@ class MetadadoSNIMar(QWidget):
         self.orgs = self.parent().orgs
         f = open(os.path.join(pluginDirectory('EditorMetadadosSNIMar'), 'resourcesFolder/stylesheet.qtcss'))
         self.sytlesheet = f.read()
-        for btn in self.findChildren(qgui.QPushButton):
+        for btn in self.findChildren(QPushButton):
             btn.setStyleSheet(self.sytlesheet)
             btn.setFocusPolicy(Qt.NoFocus)
         self.reference_systems_list = self.parent().reference_systems
@@ -142,7 +142,7 @@ class MetadadoSNIMar(QWidget):
         self.widgetstack.addWidget(self.distribution)
         self.widgetstack.addWidget(self.metadata)
 
-        self.grid = qgui.QGridLayout(self)
+        self.grid = QGridLayout(self)
         self.grid.addWidget(self.sidelist, 0, 0, 1, 1)
         self.grid.addWidget(self.widgetstack, 0, 1, 1, 1)
         self.setLayout(self.grid)
@@ -186,7 +186,7 @@ class MetadadoSNIMar(QWidget):
     def register_mandatory_missingfield(self, widgetName, fieldName):
         self.widgetStalker[widgetName]["missingFields"].add(fieldName.replace(u'\u26a0', '').strip())
         self.widgetStalker[widgetName]["widget"].setToolTip(self.genToolTip(widgetName))
-        self.widgetStalker[widgetName]["widget"].setTextColor(QColor(cons.ERROR_COLOR))
+        self.widgetStalker[widgetName]["widget"].setForeground(QColor(cons.ERROR_COLOR))
 
         self.widgetStalker[widgetName]["widget"].setText(
             self.widgetStalker[widgetName]["widget"].text().replace(u'\u26a0', '') + u'\u26a0')
@@ -197,7 +197,7 @@ class MetadadoSNIMar(QWidget):
             self.widgetStalker[widgetName]["widget"].setText(
                 self.widgetStalker[widgetName]["widget"].text().replace(u'\u26a0', '') + u'\u26a0')
         else:
-            self.widgetStalker[widgetName]["widget"].setTextColor(QColor("black"))
+            self.widgetStalker[widgetName]["widget"].setForeground(QColor("black"))
             self.widgetStalker[widgetName]["widget"].setText(self.widgetStalker[widgetName]["widget"].text().replace(u'\u26a0', ''))
 
         self.widgetStalker[widgetName]["widget"].setToolTip(self.genToolTip(widgetName))
@@ -205,7 +205,7 @@ class MetadadoSNIMar(QWidget):
     def register_incomplete_entries(self, widgetName, fieldName):
         self.widgetStalker[widgetName]["incompleteEntries"].add(fieldName.replace(u'\u26a0', '').strip())
         self.widgetStalker[widgetName]["widget"].setToolTip(self.genToolTip(widgetName))
-        self.widgetStalker[widgetName]["widget"].setTextColor(QColor(cons.ERROR_COLOR))
+        self.widgetStalker[widgetName]["widget"].setForeground(QColor(cons.ERROR_COLOR))
         self.widgetStalker[widgetName]["widget"].setText(self.widgetStalker[widgetName]["widget"].text().replace(u'\u26a0', '') + u'\u26a0')
 
     def unregister_incomplete_entries(self, widgetName, fieldName):
@@ -214,7 +214,7 @@ class MetadadoSNIMar(QWidget):
             self.widgetStalker[widgetName]["widget"].setText(
                 self.widgetStalker[widgetName]["widget"].text().replace(u'\u26a0', '') + u'\u26a0')
         else:
-            self.widgetStalker[widgetName]["widget"].setTextColor(QColor("black"))
+            self.widgetStalker[widgetName]["widget"].setForeground(QColor("black"))
             self.widgetStalker[widgetName]["widget"].setText(self.widgetStalker[widgetName]["widget"].text().replace(u'\u26a0', ''))
         self.widgetStalker[widgetName]["widget"].setToolTip(self.genToolTip(widgetName))
 

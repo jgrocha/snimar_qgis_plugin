@@ -27,6 +27,7 @@
 from builtins import str
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 
 from qgis.PyQt.QtCore import QModelIndex, Qt
 from qgis.PyQt.QtGui import QCursor
@@ -64,27 +65,27 @@ class GeographicInfoWidget(QWidget, geographicinformationPanel.Ui_geographicinfo
         headers = [u'Limite Oeste', u"Limite Este", u"Limite Norte", u"Limite Sul",
                    u"Contém\nRecurso"]
 
-        column_types = [qgui.QDoubleSpinBox, qgui.QDoubleSpinBox, qgui.QDoubleSpinBox,
-                        qgui.QDoubleSpinBox, qgui.QCheckBox]
+        column_types = [qwidgets.QDoubleSpinBox, qwidgets.QDoubleSpinBox, qwidgets.QDoubleSpinBox,
+                        qwidgets.QDoubleSpinBox, qwidgets.QCheckBox]
         tla.setupTableView(self, self.boundingbox, headers, column_types, GeoLocalizationDialog)
         self.boundingbox.horizontalHeader().setCascadingSectionResizes(True)
         self.boundingbox.horizontalHeader().setStretchLastSection(False)
         self.boundingbox.horizontalHeader().resizeSection(4, 60)
-        self.boundingbox.horizontalHeader().setResizeMode(4, qgui.QHeaderView.Fixed)
-        self.boundingbox.horizontalHeader().setResizeMode(3, qgui.QHeaderView.Stretch)
-        self.boundingbox.horizontalHeader().setResizeMode(2, qgui.QHeaderView.Stretch)
-        self.boundingbox.horizontalHeader().setResizeMode(1, qgui.QHeaderView.Stretch)
-        self.boundingbox.horizontalHeader().setResizeMode(0, qgui.QHeaderView.Stretch)
+        self.boundingbox.horizontalHeader().setSectionResizeMode(4, qwidgets.QHeaderView.Fixed)
+        self.boundingbox.horizontalHeader().setSectionResizeMode(3, qwidgets.QHeaderView.Stretch)
+        self.boundingbox.horizontalHeader().setSectionResizeMode(2, qwidgets.QHeaderView.Stretch)
+        self.boundingbox.horizontalHeader().setSectionResizeMode(1, qwidgets.QHeaderView.Stretch)
+        self.boundingbox.horizontalHeader().setSectionResizeMode(0, qwidgets.QHeaderView.Stretch)
 
         headers = [u"Identificador", u"Contém\nRecurso"]
-        column_types = [QgsFilterLineEdit, qgui.QCheckBox]
+        column_types = [QgsFilterLineEdit, qwidgets.QCheckBox]
         sources = [self.line_identifier, self.check_haveResource]
         tla.setupTableView(self, self.geographicidentifier, headers, column_types, sources,
                            mandatorysources=[0])
         self.geographicidentifier.horizontalHeader().setCascadingSectionResizes(True)
         self.geographicidentifier.horizontalHeader().setStretchLastSection(False)
         self.geographicidentifier.horizontalHeader().resizeSection(1, 60)
-        self.geographicidentifier.horizontalHeader().setResizeMode(0, qgui.QHeaderView.Stretch)
+        self.geographicidentifier.horizontalHeader().setSectionResizeMode(0, qwidgets.QHeaderView.Stretch)
 
         # Setup the reference system stuff
         self.combo_items = {}
@@ -109,14 +110,14 @@ class GeographicInfoWidget(QWidget, geographicinformationPanel.Ui_geographicinfo
             customCombo.CustomComboBoxModel(self, [None] + sorted(list(self.combo_items_vert.values()),
                                                                   key=lambda x: x.name)))
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
             elif '_del_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/delete_icon.svg'))
                 btn.setText('')
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
@@ -140,7 +141,7 @@ class GeographicInfoWidget(QWidget, geographicinformationPanel.Ui_geographicinfo
         self.extent_btn.clicked.connect(self.launch_extent_dialog)
 
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(qwidgets.QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateTimeEdit):

@@ -54,7 +54,7 @@ from builtins import object
 import os.path
 import platform
 from qgis.PyQt.QtGui import QIcon, QPixmap
-from qgis.PyQt.QtWidgets import QSplashScreen, QApplication, QAction
+from qgis.PyQt.QtWidgets import QSplashScreen, QApplication, QAction, QMessageBox
 
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
@@ -102,30 +102,30 @@ class EditorMetadadosPluginEntryPoint(object):
             try:
                 from lxml import etree
             except ImportError:
-                message = qgui.QMessageBox()
+                message = QMessageBox()
                 message.setModal(True)
                 message.setWindowTitle(u'Módulo LXML Não Instalado')
                 message.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
-                message.setIcon(qgui.QMessageBox.Critical)
+                message.setIcon(QMessageBox.Critical)
                 message.setInformativeText(u"<a href=\"http://lxml.de/installation.html\">Como instalar</a>")
                 message.setText(u"O plugin necessita do módulo Lxml instalado.")
-                message.addButton(u'Sair', qgui.QMessageBox.RejectRole)
+                message.addButton(u'Sair', QMessageBox.RejectRole)
                 message.exec_()
                 return
 
         if os.path.exists(os.path.join(os.path.dirname(__file__), "userFiles/.meLock")):
-            message = qgui.QMessageBox()
+            message = QMessageBox()
             message.setModal(True)
             message.setWindowTitle(u'O Editor já se encontra a correr?')
             message.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
-            message.setIcon(qgui.QMessageBox.Warning)
+            message.setIcon(QMessageBox.Warning)
             message.setText(u"Verifique,\npor favor, se já existe outra instância do Editor de Metadados SNIMar aberta.\n"
                             u"Só é permitida uma instância para evitar conflitos.")
             message.setInformativeText(u"Deseja continuar?")
-            message.addButton(u'Continuar', qgui.QMessageBox.AcceptRole)
-            message.addButton(u'Sair', qgui.QMessageBox.RejectRole)
+            message.addButton(u'Continuar', QMessageBox.AcceptRole)
+            message.addButton(u'Sair', QMessageBox.RejectRole)
             ret = message.exec_()
-            if ret != qgui.QMessageBox.AcceptRole:
+            if ret != QMessageBox.AcceptRole:
                 return
 
         # Create and display the splash screen

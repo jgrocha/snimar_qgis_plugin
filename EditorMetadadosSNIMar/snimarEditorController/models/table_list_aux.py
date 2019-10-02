@@ -196,7 +196,7 @@ def setupTableView(parent, tableView, header, columnsTypes, addSources, comboLis
     tableView.resizeRowsToContents()
     tableView.verticalHeader().setMinimumSectionSize(40)
     tableView.verticalHeader().setDefaultSectionSize(40)
-    tableView.verticalHeader().setResizeMode(QHeaderView.ResizeToContents)
+    tableView.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
     tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
     tableView.setSelectionMode(QAbstractItemView.ContiguousSelection)
 

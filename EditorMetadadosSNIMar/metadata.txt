@@ -18,6 +18,5 @@ ChangeLog: >1.0.0 - Primeira versão
            >2.1.0 - Bugs fix( Contact list corruption,gml versions,...)
 tags=Metadata, metadados, SNIMar, EEAgrants, Governo Portugal
 homepage=http://editor.snimar.pt/
-icon=resourcesFolder/icons/main_icon.svg
 experimental=False
 deprecated=False

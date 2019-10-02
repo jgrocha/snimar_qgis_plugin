@@ -27,6 +27,7 @@
 from builtins import str
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 
 # UI generated python module
 from qgis.PyQt.QtCore import QDate, Qt
@@ -81,7 +82,7 @@ class TemporalInfoWidget(QWidget, temporalInformationPanel.Ui_temporal):
         self.reftemocheck()
         self.time_ext_check()
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
@@ -90,12 +91,12 @@ class TemporalInfoWidget(QWidget, temporalInformationPanel.Ui_temporal):
                 btn.setText('')
             elif '_clear_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/delete_field.svg'))
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(qwidgets.QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateTimeEdit):

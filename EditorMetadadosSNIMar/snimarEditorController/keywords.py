@@ -32,7 +32,7 @@ from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
 import uuid
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QAbstractItemView, QToolTip, QDateTimeEdit, QWidget
+from qgis.PyQt.QtWidgets import QAbstractItemView, QToolTip, QDateTimeEdit, QWidget, QLineEdit, QHeaderView, QDateEdit, QPushButton, QComboBox, QMessageBox
 from qgis.PyQt.QtGui import QIcon, QCursor, QStandardItem, QStandardItemModel
 from qgis._gui import QgsFilterLineEdit
 
@@ -81,7 +81,7 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
                                              list(self.combo_items_datetype.values()))
 
         sn_model = TableModel(self, [u"Tipo", u"Palavra-Chave", u"Versão Thesaurus"],
-                              [customCombo.CustomComboBox, qgui.QLineEdit, qgui.QLineEdit],
+                              [customCombo.CustomComboBox, QLineEdit, QLineEdit],
                               self.snimarkeywords,
                               validationfunction=self.validatorTables.snimarkeywords)
         self.snimarkeywords.setModel(sn_model)
@@ -94,34 +94,34 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.btn_open_snimarkeywords.clicked.connect(self.snimar_dialog)
         self.btn_del_snimarkeywords.clicked.connect(lambda: tla.removeSelectedFromList(self.snimarkeywords))
 
-        self.snimarkeywords.horizontalHeader().setResizeMode(qgui.QHeaderView.Stretch)
+        self.snimarkeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         tla.setupTableView(self, self.freekeywords,
                            [u"Palavra-Chave", u"Tipo", u"Thesaurus", u"Data", u"Tipo de Data"],
-                           [QgsFilterLineEdit, customCombo.CustomComboBox, QgsFilterLineEdit, qgui.QDateEdit,
+                           [QgsFilterLineEdit, customCombo.CustomComboBox, QgsFilterLineEdit, QDateEdit,
                             customCombo.CustomComboBox],
                            FreeKeyWordsDialog,
                            comboList=[self.combo_items_md_keywordtypecode, self.combo_items_datetype],
                            validationfunction=self.validatorTables.freekeywords)
         self.freekeywords.doubleClicked.connect(self.handleDoubleClick)
-        self.freekeywords.horizontalHeader().setResizeMode(qgui.QHeaderView.Stretch)
+        self.freekeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
-                btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
+                btn.setIcon(QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
             elif '_del_' in btn.objectName():
-                btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/delete_icon.svg'))
+                btn.setIcon(QIcon(':/resourcesFolder/icons/delete_icon.svg'))
                 btn.setText('')
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
-            info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
+        for info in self.findChildren(QPushButton, qcore.QRegExp('info_*')):
+            info.setIcon(QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
         self.btn_update_snimar.clicked.connect(self.launchupdatesnimar)
         self.snimarkeywords.model().rowsInserted.connect(self.snimar_keywords_special_validation)
         self.snimarkeywords.model().rowsRemoved.connect(self.snimar_keywords_special_validation)
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateTimeEdit):
@@ -373,12 +373,12 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
                         u'Palavra Atualizada:'  u'\n' + val[2] + u'\n' + u'\n' + \
                         u'Deseja Atualizar?'
 
-                dialog = qgui.QMessageBox(qgui.QMessageBox.Question, title, texto,
-                                          (qgui.QMessageBox.Ok | qgui.QMessageBox.Cancel))
+                dialog = QMessageBox(QMessageBox.Question, title, texto,
+                                          (QMessageBox.Ok | QMessageBox.Cancel))
 
                 dialog.setWindowFlags(dialog.windowFlags() | Qt.WindowStaysOnTopHint)
                 result = dialog.exec_()
-                if result == qgui.QMessageBox.Ok:
+                if result == QMessageBox.Ok:
                     index = self.snimarkeywords.model().index(i - 1, 1)
                     lineI = line[:]
                     lineI[1] = val[2]
@@ -389,12 +389,12 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
                 texto = u'Tipo Não Atualizado:'  u'\n' + line[0].term_pt + u'\n' + \
                         u'Tipo Atualizado:'  u'\n' + new_type.term_pt + u'\n' + u'\n' + \
                         u'Deseja Atualizar?'
-                dialog = qgui.QMessageBox(qgui.QMessageBox.Question, title, texto,
-                                          (qgui.QMessageBox.Ok | qgui.QMessageBox.Cancel))
+                dialog = QMessageBox(QMessageBox.Question, title, texto,
+                                          (QMessageBox.Ok | QMessageBox.Cancel))
 
                 dialog.setWindowFlags(dialog.windowFlags() | Qt.WindowStaysOnTopHint)
                 result = dialog.exec_()
-                if result == qgui.QMessageBox.Ok:
+                if result == QMessageBox.Ok:
                     index = self.snimarkeywords.model().index(i - 1, 1)
                     lineI = line[:]
                     lineI[0] = customCombo.reverse_pt_to_en_keys(self.combo_items_md_keywordtypecode_snimar)[val[2]]

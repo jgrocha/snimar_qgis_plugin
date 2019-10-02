@@ -31,8 +31,8 @@ from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
 
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget
-from qgis.PyQt.QtGui import QCursor
+from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget, QHeaderView, QPushButton, QComboBox, QDoubleSpinBox, QSpinBox
+from qgis.PyQt.QtGui import QCursor, QIcon
 from qgis._gui import QgsFilterLineEdit
 
 from EditorMetadadosSNIMar import CONSTANTS as cons
@@ -115,7 +115,7 @@ class IdentificationWidget(QWidget, identificationPanel.Ui_identification):
                            [self.line_identifier, self.line_namespace],
                            validationfunction=self.tablevalidator.identifiers,
                            mandatorysources=[0])
-        self.identifiers.horizontalHeader().setResizeMode(qgui.QHeaderView.Stretch)
+        self.identifiers.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         tla.setupMandatoryField(self, self.hierarchylevel, self.label_hierarchylevel,
                                 u"Elemento obrigatório em falta")
@@ -151,24 +151,24 @@ class IdentificationWidget(QWidget, identificationPanel.Ui_identification):
         self.check_mandatory_contacts()
         # Buttons Icons initialization
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
-                btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
+                btn.setIcon(QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
             elif '_del_' in btn.objectName():
-                btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/delete_icon.svg'))
+                btn.setIcon(QIcon(':/resourcesFolder/icons/delete_icon.svg'))
                 btn.setText('')
 
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
-            info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
+        for info in self.findChildren(QPushButton, qcore.QRegExp('info_*')):
+            info.setIcon(QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
-        self.btn_adi_contact.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
+        self.btn_adi_contact.setIcon(QIcon(':/resourcesFolder/icons/plus_icon.svg'))
         self.btn_gen_uuid_identifiers.clicked.connect(
             lambda: self.identifiers.model().addNewRow([str(uuid.uuid4()), None]))
 
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateTimeEdit):
@@ -183,20 +183,20 @@ class IdentificationWidget(QWidget, identificationPanel.Ui_identification):
         if scope == SCOPES.CDG or scope == SCOPES.SERIES:
 
             tla.setupTableView(self, self.distance, ["Valor", "Unidade"],
-                               [qgui.QDoubleSpinBox, customCombo.CustomComboBox],
+                               [QDoubleSpinBox, customCombo.CustomComboBox],
                                [self.spin_distance, self.combo_distance],
                                comboList=[self.combo_items_distance_units],
                                mandatorysources=[0, 1])
             self.distance.verticalHeader().setMinimumSectionSize(20)
             self.distance.verticalHeader().setDefaultSectionSize(100)
-            self.distance.horizontalHeader().setResizeMode(qgui.QHeaderView.Stretch)
+            self.distance.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
             self.combo_distance.setModel(
                 customCombo.CustomComboBoxModel(self,
                                                 sorted(list(self.combo_items_distance_units.values()),
                                                        key=lambda x: x.term_pt)))
             self.combo_distance.setCurrentIndex(self.combo_distance.findText('Metros'))
 
-            tla.setupListView(self.equivalentscale, qgui.QSpinBox, self, fraction_flag=True,
+            tla.setupListView(self.equivalentscale, QSpinBox, self, fraction_flag=True,
                               validationfunction=self.validator.equivalentscale)
             tla.setupListView(self.geographicrepresentation, customCombo.CustomComboBox, self,
                               comboList=list(self.combo_items_md_spatialrepresentationtypecode.values()),

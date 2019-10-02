@@ -26,6 +26,7 @@
 ###############################################################################
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 
 # UI generated python modules
 from qgis.PyQt.QtCore import Qt
@@ -67,14 +68,14 @@ class RestrictionsWidget(QWidget, restrictionsPanel.Ui_restrictions):
                           comboList=list(self.combo_items_md_classificationcode.values()),
                           validationfunction=self.listValidation.securityrestrictions)
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
             elif '_del_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/delete_icon.svg'))
                 btn.setText('')
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
@@ -89,7 +90,7 @@ class RestrictionsWidget(QWidget, restrictionsPanel.Ui_restrictions):
         self.useConstraints.model().rowsRemoved.connect(self.check_others)
 
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(qwidgets.QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateTimeEdit):

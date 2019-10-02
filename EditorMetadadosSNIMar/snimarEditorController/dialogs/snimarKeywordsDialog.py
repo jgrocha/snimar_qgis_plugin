@@ -54,7 +54,7 @@ class SNIMARKeywordsDialog(QDialog, addSnimarKeyWordsDialog.Ui_Dialog):
 
         self.list_view_thesaurus.setModel(self.thesaurus_model)
         # TODO fix this
-        #self.thesaurus_model.itemChanged.connect(self.register_item)
+        self.thesaurus_model.itemChanged.connect(self.register_item)
 
         self.list_view_thesaurus.setAlternatingRowColors(True)
         self.list_view_thesaurus.setSelectionBehavior(QAbstractItemView.SelectColumns)
@@ -76,7 +76,7 @@ class SNIMARKeywordsDialog(QDialog, addSnimarKeyWordsDialog.Ui_Dialog):
         self.resize(self.maximumSize())
         self.adjustSize()
 
-    @qcore.pyqtSlot(QStandardItem)
+    #@qcore.pyqtSlot(QStandardItem)
     def register_item(self, item):
         """
         :type item: QStandardItem

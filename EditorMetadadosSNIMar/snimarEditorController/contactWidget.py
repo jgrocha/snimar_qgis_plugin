@@ -28,6 +28,7 @@ from builtins import str
 from builtins import range
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 import json
 import os
 import platform
@@ -86,20 +87,20 @@ class InlineContactWidget(QWidget, contactInlinePanel.Ui_contactWidget):
                                 tla.formatTooltip(
                                     u"Deve ser indicado pelo menos um endereço eletrónico (\'<em>email</em>\')."))
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
             elif '_del_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/delete_icon.svg'))
                 btn.setText('')
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
         f = open(os.path.join(pluginDirectory('EditorMetadadosSNIMar'), 'resourcesFolder/stylesheet.qtcss'))
         self.sytlesheet = f.read()
-        for btn in self.findChildren(qgui.QPushButton):
+        for btn in self.findChildren(qwidgets.QPushButton):
             btn.setStyleSheet(self.sytlesheet)
             btn.setFocusPolicy(Qt.NoFocus)
         self.name.editingFinished.connect(self.updateTitle)
@@ -121,7 +122,7 @@ class InlineContactWidget(QWidget, contactInlinePanel.Ui_contactWidget):
         self.btn_contact_list.setText('')
         self.btn_addto_list_contacts.setText('')
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(qwidgets.QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateTimeEdit):
@@ -186,15 +187,15 @@ class InlineContactWidget(QWidget, contactInlinePanel.Ui_contactWidget):
         self.check_mandatory_completude()
 
     def deleteContact(self):
-        message = qgui.QMessageBox()
+        message = qwidgets.QMessageBox()
         message.setModal(True)
         message.setWindowTitle(u'Remover contacto?')
-        message.setIcon(qgui.QMessageBox.Warning)
+        message.setIcon(qwidgets.QMessageBox.Warning)
         message.setText(u"Tem a certeza que pretende remover contacto?\n(Operação Irreversivel!)")
-        message.addButton(u'Remover', qgui.QMessageBox.AcceptRole)
-        message.addButton(u'Cancelar', qgui.QMessageBox.RejectRole)
+        message.addButton(u'Remover', qwidgets.QMessageBox.AcceptRole)
+        message.addButton(u'Cancelar', qwidgets.QMessageBox.RejectRole)
         ret = message.exec_()
-        if ret == qgui.QMessageBox.AcceptRole:
+        if ret == qwidgets.QMessageBox.AcceptRole:
             self.parent.deleteContact(self)
         else:
             return

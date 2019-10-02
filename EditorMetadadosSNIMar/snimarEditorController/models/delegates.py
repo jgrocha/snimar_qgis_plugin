@@ -30,7 +30,7 @@ import sys
 
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
-from qgis.PyQt.QtWidgets import QItemDelegate
+from qgis.PyQt.QtWidgets import QItemDelegate, QPushButton
 
 from qgis._gui import QgsFilterLineEdit
 from EditorMetadadosSNIMar import CONSTANTS as cons
@@ -91,7 +91,7 @@ class QgsFilterLineEditDelegate(QItemDelegate):
 
     def createEditor(self, parent, option, index):
         editor = QgsFilterLineEdit(parent)
-        editor.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        editor.setSizePolicy(qcore.QSizePolicy.MinimumExpanding, qcore.QSizePolicy.MinimumExpanding)
         editor.setDisabled(True)
         editor.setDisabled(False)
         return editor
@@ -99,7 +99,7 @@ class QgsFilterLineEditDelegate(QItemDelegate):
     def setEditorData(self, editor, index):
         value = index.data(Qt.EditRole)
         editor.setText(value)
-        editor.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        editor.setSizePolicy(qcore.QSizePolicy.MinimumExpanding, qcore.QSizePolicy.MinimumExpanding)
         editor.setDisabled(True)
         editor.setDisabled(False)
 
@@ -135,7 +135,7 @@ class ComboBoxDelegate(QItemDelegate):
         editor.setGeometry(option.rect)
 
     def sizehint(self, option, index):
-        return QSize(100, 100)
+        return qcore.QSize(100, 100)
 
 
 class CustomComboBoxDelegate(QItemDelegate):
@@ -164,7 +164,7 @@ class CustomComboBoxDelegate(QItemDelegate):
         editor.setGeometry(option.rect)
 
     def sizehint(self, option, index):
-        return QSize(100, 100)
+        return qcore.QSize(100, 100)
 
 
 class DateEditDelegate(QItemDelegate):
@@ -187,7 +187,7 @@ class DateEditDelegate(QItemDelegate):
         editor.setGeometry(option.rect)
 
     def sizehint(self, option, index):
-        return QSize(100, 100)
+        return qcore.QSize(100, 100)
 
 
 class QDateTimeEditDelegate(QItemDelegate):
@@ -213,7 +213,7 @@ class QDateTimeEditDelegate(QItemDelegate):
         editor.setGeometry(option.rect)
 
     def sizehint(self, option, index):
-        return QSize(100, 100)
+        return qcore.QSize(100, 100)
 
 
 class ButtonDelegate(QItemDelegate):
@@ -225,7 +225,7 @@ class ButtonDelegate(QItemDelegate):
         if not self.parent().indexWidget(index):
             btn_reload = QPushButton(index.data(), self.parent())
             btn_reload.clicked.connect(lambda: self.functionOwner.update_validity(index))
-            btn_reload.setMinimumSize(QSize(26, 26))
-            btn_reload.setMaximumSize(QSize(26, 26))
-            btn_reload.setIcon(QIcon(':/resourcesFolder/icons/refresh_icon.svg'))
+            btn_reload.setMinimumSize(qcore.QSize(26, 26))
+            btn_reload.setMaximumSize(qcore.QSize(26, 26))
+            btn_reload.setIcon(qgui.QIcon(':/resourcesFolder/icons/refresh_icon.svg'))
             self.parent().setIndexWidget(index, btn_reload)

@@ -41,6 +41,7 @@ import urllib.request, urllib.error, urllib.parse
 
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 from qgis.PyQt.QtCore import Qt, QPoint
 from qgis.PyQt.QtWidgets import QPushButton, QHeaderView, QMenu, QAction, QProgressDialog, QProgressBar, QMessageBox, QAbstractItemView, QMainWindow, QWidget, QLineEdit, QTabBar
 from qgis.PyQt.QtGui import QFont
@@ -283,7 +284,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
         if name is None:
             name = [None, None]
         if name[0] is None:
-            file_dialog = qgui.QFileDialog(self)
+            file_dialog = qwidgets.QFileDialog(self)
             file_dialog.setFilters(u"XML files (*.xml);;All Files (*.*)")
             doc_names = file_dialog.getOpenFileNames(self, u'Abrir ficheiro XML', self.last_open_dir)
         else:
@@ -387,8 +388,8 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
         if flag == SAVEAS_FLAG or but_saveas:
             # Open the Save As dialog and get the filename for the new XML document. Then,
             # convert the filename to unicode.
-            doc_ = qgui.QFileDialog.getSaveFileName(self, u'Guardar ficheiro XML', self.last_open_dir,
-                                                    u"XML files (*.xml);;All Files (*.*)")
+            doc_ = qwidgets.QFileDialog.getSaveFileName(self, u'Guardar ficheiro XML', self.last_open_dir,
+                                                    u"XML files (*.xml);;All Files (*.*)")[0]
 
             if doc_.strip() == "":
                 return
@@ -443,7 +444,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
             xml_str = snimarProfileModel.export_xml(md)
 
             with open(doc, 'w') as fp:
-                fp.write(xml_str.encode('utf-8'))
+                fp.write(xml_str.encode('utf-8').decode("utf-8"))
                 fp.flush()
                 fp.close()
                 self.statusbar.clearMessage()
@@ -505,14 +506,15 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
         except Exception as e:
             traceback.print_exc()
             self.statusbar.clearMessage()
-            self.statusbar.showMessage(e.message + str(type(e)))
+            #self.statusbar.showMessage(e.message + str(type(e)))
+            self.statusbar.showMessage(str(e))
 
         # Save files list,necessary because of the access before
         self.tracked_list.save()
 
     @qcore.pyqtSlot()
     def start_dir_track(self):
-        directory = qgui.QFileDialog.getExistingDirectory(self, directory=self.last_open_dir)
+        directory = qwidgets.QFileDialog.getExistingDirectory(self, directory=self.last_open_dir)
         if directory == "":
             return
 

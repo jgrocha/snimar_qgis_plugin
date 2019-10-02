@@ -32,6 +32,7 @@ from qgis.PyQt.QtGui import QCursor, QFont
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import chooseExtentGeographicInformationDialog
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import geographicinformationPanel
 
 
@@ -66,7 +67,7 @@ class GeoLocalizationDialog(QDialog, chooseExtentGeographicInformationDialog.Ui_
                 self.superParent = temp
             else:
                 temp = temp.parent()
-        for info in self.findChildren(qgui.QPushButton, QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)

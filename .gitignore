@@ -1,4 +1,5 @@
 .idea
+.meLock
 *.pyc
 *.bak
 /Releases/

@@ -30,6 +30,7 @@ from qgis.PyQt.QtWidgets import QDialog, QToolTip
 from qgis.PyQt.QtGui import QCursor, QFont
 from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import chooseFreeKeywordDialog
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 from EditorMetadadosSNIMar.snimarEditorController.models import table_list_aux as tla
 from EditorMetadadosSNIMar import CONSTANTS as cons
 from EditorMetadadosSNIMar.snimarEditorController.models.customComboBoxModel import CustomComboBoxModel
@@ -90,7 +91,7 @@ class FreeKeyWordsDialog(QDialog, chooseFreeKeywordDialog.Ui_dialogDate):
             else:
                 temp = temp.parent()
 
-        for info in self.findChildren(qgui.QPushButton, QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)

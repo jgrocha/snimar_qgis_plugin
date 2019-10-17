@@ -28,6 +28,7 @@ from builtins import str
 from builtins import range
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 from qgis import core, utils, gui
 import qgis
 
@@ -49,8 +50,10 @@ class SelectionTool(gui.QgsMapToolEmitPoint):
     def __init__(self, canvas, parent):
         self.canvas = canvas
         gui.QgsMapToolEmitPoint.__init__(self, self.canvas)
-        self.tmp_band = gui.QgsRubberBand(self.canvas, core.QGis.Polygon)
-        self.tmp_band.setBorderColor(qcore.Qt.yellow)
+        #self.tmp_band = gui.QgsRubberBand(self.canvas, core.QGis.Polygon)
+        self.tmp_band = gui.QgsRubberBand(self.canvas)#, qgis.core.QgsWkbTypes.Polygon)
+        #self.tmp_band.setBorderColor(qcore.Qt.yellow)
+        self.tmp_band.setStrokeColor(qcore.Qt.yellow)
         self.tmp_band.setFillColor(qcore.Qt.transparent)
         self.tmp_band.setWidth(3)
         self.reset()
@@ -59,7 +62,7 @@ class SelectionTool(gui.QgsMapToolEmitPoint):
     def reset(self):
         self.start_point = self.end_point = None
         self.emitting_point = False
-        self.tmp_band.reset(core.QGis.Polygon)
+        self.tmp_band.reset() #core.QGis.Polygon)
 
     def canvasPressEvent(self, e):
         self.start_point = self.toMapCoordinates(e.pos())
@@ -152,7 +155,7 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
                 self.superParent = temp
             else:
                 temp = temp.parent()
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
@@ -166,8 +169,8 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         self.canvas = gui.QgsMapCanvas(self)
 
         # Append to Dialog Layout
-        self.toolBar = qgui.QToolBar()
-        self.layout = qgui.QVBoxLayout(self.frame)
+        self.toolBar = qwidgets.QToolBar()
+        self.layout = qwidgets.QVBoxLayout(self.frame)
         self.layout.addWidget(self.toolBar)
         self.layout.addWidget(self.canvas)
 
@@ -177,16 +180,16 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         self.canvas.renderStarting.connect(self.renderStarting)
 
         # Create Map Tools
-        actionFullExt = qgui.QAction(qgui.QIcon(':/resourcesFolder/icons/globe.svg'), "Mapa total",
+        actionFullExt = qwidgets.QAction(qgui.QIcon(':/resourcesFolder/icons/globe.svg'), "Mapa total",
                                      self)
-        actionPan = qgui.QAction(qgui.QIcon(':/resourcesFolder/icons/pan.svg'), "Mover", self)
-        actionZoomIn = qgui.QAction(qgui.QIcon(':/resourcesFolder/icons/zoom_in.svg'), "Aproximar",
+        actionPan = qwidgets.QAction(qgui.QIcon(':/resourcesFolder/icons/pan.svg'), "Mover", self)
+        actionZoomIn = qwidgets.QAction(qgui.QIcon(':/resourcesFolder/icons/zoom_in.svg'), "Aproximar",
                                     self)
-        actionZoomOut = qgui.QAction(qgui.QIcon(':/resourcesFolder/icons/zoom_out.svg'), "Afastar",
+        actionZoomOut = qwidgets.QAction(qgui.QIcon(':/resourcesFolder/icons/zoom_out.svg'), "Afastar",
                                      self)
-        actionSelect = qgui.QAction(qgui.QIcon(':/resourcesFolder/icons/selection.svg'), 'Desenhar',
+        actionSelect = qwidgets.QAction(qgui.QIcon(':/resourcesFolder/icons/selection.svg'), 'Desenhar',
                                     self)
-        actionFromLayer = qgui.QAction(qgui.QIcon(':/resourcesFolder/icons/layers.svg'),
+        actionFromLayer = qwidgets.QAction(qgui.QIcon(':/resourcesFolder/icons/layers.svg'),
                                        'Obter de camada', self)
 
         actionFullExt.setCheckable(False)
@@ -231,8 +234,10 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
 
         # Set Layer Symbology
         props = {'color_border': '0,0,0,125', 'style': 'no', 'style_border': 'solid'}
-        s = core.QgsFillSymbolV2.createSimple(props)
-        llayer.setRendererV2(core.QgsSingleSymbolRendererV2(s))
+        #s = core.QgsFillSymbolV2.createSimple(props)
+        s = core.QgsFillSymbol.createSimple(props)
+        #llayer.setRendererV2(core.QgsSingleSymbolRendererV2(s))
+        llayer.setRenderer(core.QgsSingleSymbolRenderer(s))
 
         # Set CRS - necessary to load Raster - it assumes this default CRS
         s = qcore.QSettings()

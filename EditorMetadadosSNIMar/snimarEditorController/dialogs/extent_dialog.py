@@ -88,19 +88,20 @@ class SelectionTool(gui.QgsMapToolEmitPoint):
         self.showRect(self.start_point, self.end_point)
 
     def showRect(self, start, end):
-        self.tmp_band.reset(core.QGis.Polygon)
+        self.tmp_band.reset() #core.QGis.Polygon)
         if start.x() == end.x() or start.y() == end.y():
             return
 
-        point1 = core.QgsPoint(start.x(), start.y())
-        point2 = core.QgsPoint(start.x(), end.y())
-        point3 = core.QgsPoint(end.x(), end.y())
-        point4 = core.QgsPoint(end.x(), start.y())
+        point1 = core.QgsPointXY(start.x(), start.y())
+        point2 = core.QgsPointXY(start.x(), end.y())
+        point3 = core.QgsPointXY(end.x(), end.y())
+        point4 = core.QgsPointXY(end.x(), start.y())
 
         self.tmp_band.addPoint(point1, False)
         self.tmp_band.addPoint(point2, False)
         self.tmp_band.addPoint(point3, False)
-        self.tmp_band.addPoint(point4, True)  # true to update canvas
+        self.tmp_band.addPoint(point4, False)  # true to update canvas
+        self.tmp_band.addPoint(point1, True)
         self.tmp_band.show()
 
     def rectangle(self):
@@ -122,17 +123,18 @@ class SelectionTool(gui.QgsMapToolEmitPoint):
         self.parent.yMax.setValue(0.)
 
     def drawRect(self, minx, miny, maxx, maxy):
-        self.tmp_band.reset(core.QGis.Polygon)
+        self.tmp_band.reset() #(core.QGis.Polygon)
 
-        point1 = core.QgsPoint(minx, miny)
-        point2 = core.QgsPoint(minx, maxy)
-        point3 = core.QgsPoint(maxx, maxy)
-        point4 = core.QgsPoint(maxx, miny)
+        point1 = core.QgsPointXY(minx, miny)
+        point2 = core.QgsPointXY(minx, maxy)
+        point3 = core.QgsPointXY(maxx, maxy)
+        point4 = core.QgsPointXY(maxx, miny)
 
         self.tmp_band.addPoint(point1, False)
         self.tmp_band.addPoint(point2, False)
         self.tmp_band.addPoint(point3, False)
-        self.tmp_band.addPoint(point4, True)  # true to update canvas
+        self.tmp_band.addPoint(point4, False)  # true to update canvas
+        self.tmp_band.addPoint(point1, True)
         self.tmp_band.show()
 
     def deactivate(self):
@@ -270,16 +272,18 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         myRasterShader = core.QgsRasterShader()
         myColorRamp = core.QgsColorRampShader()
         myColorRamp.setColorRampItemList(lst)
-        myColorRamp.setColorRampType(core.QgsColorRampShader.INTERPOLATED)
+        myColorRamp.setColorRampType(core.QgsColorRampShader.Interpolated)
         myRasterShader.setRasterShaderFunction(myColorRamp)
         myPseudoRenderer = core.QgsSingleBandPseudoColorRenderer(layer.dataProvider(), layer.type(),
                                                                  myRasterShader)
         layer.setRenderer(myPseudoRenderer)
 
         ## Add vector to map
-        core.QgsMapLayerRegistry.instance().addMapLayer(llayer, False)
+        #core.QgsMapLayerRegistry.instance().addMapLayer(llayer, False)
+        core.QgsProject.instance().addMapLayer(llayer, False)
         ## Add raster to map
-        core.QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+        #core.QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+        core.QgsProject.instance().addMapLayer(layer, False)
 
         ## Save Max Extent
         self.maxExt = core.QgsRectangle(-180., -90., 180., 90.)
@@ -324,9 +328,10 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         # ----------------------------------
 
         ## Append layers to MapCanvas
-        self.layers.append(gui.QgsMapCanvasLayer(llayer))
-        self.layers.append(gui.QgsMapCanvasLayer(layer))
-        self.canvas.setLayerSet(self.layers)
+        #self.layers.append(gui.QgsMapCanvasLayer(llayer))
+        #self.layers.append(gui.QgsMapCanvasLayer(layer))
+        #self.canvas.setLayerSet(self.layers)
+        self.canvas.setLayers([llayer, layer])
 
         ## Set triggers to buttons
         self.add_extent.clicked.connect(self.add_new_extent)
@@ -402,8 +407,7 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
             source_crs = layer.crs()
             dest_crs = core.QgsCoordinateReferenceSystem(4326)
             if source_crs != dest_crs:
-                transform = core.QgsCoordinateTransform(
-                    source_crs, dest_crs)
+                transform = core.QgsCoordinateTransform(source_crs, dest_crs, core.QgsProject.instance())
                 extent = transform.transformBoundingBox(box)
             else:
                 extent = box

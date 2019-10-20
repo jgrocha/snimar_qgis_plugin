@@ -28,6 +28,7 @@ from __future__ import print_function
 import os
 import json
 import datetime
+import traceback
 from EditorMetadadosSNIMar import CONSTANTS
 from EditorMetadadosSNIMar.CONSTANTS import FILELIST_STORE
 
@@ -41,6 +42,7 @@ class FileManager(dict):
             print(u'Unable to create file list store')
         else:
             self.store = os.path.join(editordir, FILELIST_STORE)
+            print(self.store)
         self.to_save = to_save
 
     def save(self):
@@ -57,6 +59,7 @@ class FileManager(dict):
     def track_new_file(self, *args, **kwargs):
         """Starts tracking a new file. Pass the id and title in the kwargs so
         it is guaranteed that the new file has the id and title also saved."""
+        traceback.print_stack()
         path = kwargs.pop('path', None)
         if path is not None and path not in self:
             self.setdefault(path, {})

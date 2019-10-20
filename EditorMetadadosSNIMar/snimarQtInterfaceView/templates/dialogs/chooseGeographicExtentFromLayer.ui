@@ -28,11 +28,7 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QgsMapLayerComboBox" name="mMapLayerComboBox">
-     <property name="filters">
-      <set>QgsMapLayerProxyModel::HasGeometry|QgsMapLayerProxyModel::LineLayer|QgsMapLayerProxyModel::NoGeometry|QgsMapLayerProxyModel::PointLayer|QgsMapLayerProxyModel::PolygonLayer|QgsMapLayerProxyModel::RasterLayer|QgsMapLayerProxyModel::VectorLayer</set>
-     </property>
-    </widget>
+    <widget class="QgsMapLayerComboBox" name="mMapLayerComboBox"/>
    </item>
    <item row="2" column="0">
     <widget class="QCheckBox" name="selectionCheckBox">

@@ -273,6 +273,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
             'id': None,
             'doc_type': SCOPES.get_rich_text_translation(SCOPES.get_string_representation(scope))
         }
+        print('new_metadata_xml_tab')
         self.open_list.track_new_file(**filedict)
         self.tab_files.append(filedict)
         self.tmp_file_index += 1
@@ -357,7 +358,8 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
                         'path': doc, 'name': doc, 'object': meta, 'title': common.title,
                         'doc_type': SCOPES.get_rich_text_translation(md.hierarchy),
                         'id': md.identifier
-                        }
+                    }
+                    print('open_metadata_xml_file')
                     self.open_list.track_new_file(**filelist)
                     self.tabWidget.setCurrentIndex(self.tabWidget.addTab(meta, os.path.basename(doc)))
 
@@ -426,6 +428,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
             popped_fo['name'] = os.path.basename(doc)
             popped_fo['doc_type'] = SCOPES.get_rich_text_translation(SCOPES.get_string_representation(
                 self.tabWidget.currentWidget().scope))
+            print('save_metadata_xml_file')
             self.open_list.track_new_file(**popped_fo)
         elif flag == SAVE_FLAG and not but_saveas:
             name = self.tabWidget.currentWidget().objectName()

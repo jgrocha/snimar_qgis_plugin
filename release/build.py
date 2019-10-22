@@ -65,7 +65,7 @@ def make_plugin_version_string():
     Parses the version JSON file and returns a formatted string with the current
     version.
     """
-    with open(version_filesystem_location()) as fp:
+    with open(version_filesystem_location(), encoding='utf-8') as fp:
         version = json.load(fp)
         return '{major}.{minor}.{revision}'.format(**version)
 
@@ -145,12 +145,12 @@ def make_release_zip():
 if __name__ == '__main__':
     info = make_release_information()
 
-    with open(os.path.join(public_filesystem_location(), 'editormetadadossnimar.xml'), 'w') as fp:
+    with open(os.path.join(public_filesystem_location(), 'editormetadadossnimar.xml'), 'w', encoding='utf-8') as fp:
         fp.write(make_repository_xml(info))
 
     shutil.copytree(source_filesystem_location(), release_filesystem_location(), ignore=get_ignore_file_list)
 
-    with open(os.path.join(release_filesystem_location(), 'metadata.txt'), 'w') as fp:
+    with open(os.path.join(release_filesystem_location(), 'metadata.txt'), 'w', encoding='utf-8') as fp:
         fp.write(make_plugin_metadata(info))
 
     make_release_zip()

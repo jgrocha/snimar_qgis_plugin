@@ -26,15 +26,21 @@ cleanUserFiles:
 
 clean:
 	find . -iname "*.pyc" -type f -delete
+	find . -name __pycache__ -type d -delete
+	rm -r public
+	mkdir public
+
+release: clean cleanUserFiles build
+	./release/build.py
 
 release_current: clean cleanUserFiles build
-	python -c "import releaseManager; releaseManager.create_release()"
+	python3 -c "import releaseManager; releaseManager.create_release()"
 
 release_major: clean cleanUserFiles build
-	python -c "import releaseManager; releaseManager.create_release(up_major=True)"
+	python3 -c "import releaseManager; releaseManager.create_release(up_major=True)"
 
 release_minor: clean cleanUserFiles build
-	python -c "import releaseManager; releaseManager.create_release(up_minor=True)"
+	python3 -c "import releaseManager; releaseManager.create_release(up_minor=True)"
 
 release_revision: clean cleanUserFiles build
-	python -c "import releaseManager; releaseManager.create_release(up_revision=True)"
+	python3 -c "import releaseManager; releaseManager.create_release(up_revision=True)"

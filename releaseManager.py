@@ -23,7 +23,7 @@ def create_release(up_major=False, up_minor=False, up_revision=False):
     if up_major or up_minor or up_revision:
         with open(os.path.join(os.path.dirname(__file__), 'EditorMetadadosSNIMar/version.json'), 'w') as data_file:
             json.dump(version, data_file)
-    _gen_and_create_metadata_txt_file()
+    #_gen_and_create_metadata_txt_file()
 
     current_version = ".".join([str(version["major"]), str(version["minor"]), str(version["revision"])])
     # create new Release folder
@@ -40,7 +40,7 @@ def create_release(up_major=False, up_minor=False, up_revision=False):
     shutil.copytree("EditorMetadadosSNIMar", "Releases/version." + current_version + "/toZip/EditorMetadadosSNIMar",
                     ignore=ignore_stuff)
     # copy repository xml
-    _gen_create_repository_xml_file("Releases/version." + current_version)
+    #_gen_create_repository_xml_file("Releases/version." + current_version)
 
     # make zip
     zipDic("Releases/version." + current_version + "/toZip/",
@@ -69,8 +69,7 @@ def zipDic(src, dst):
         for filename in files:
             absname = os.path.abspath(os.path.join(dirname, filename))
             arcname = absname[len(abs_src) + 1:]
-            print 'zipping %s as %s' % (os.path.join(dirname, filename),
-                                        arcname)
+            print('zipping %s as %s' % (os.path.join(dirname, filename), arcname))
             zf.write(absname, arcname)
     zf.close()
 
@@ -135,3 +134,9 @@ def _gen_create_repository_xml_file(dest_absol_path):
                               "       <experimental>False</experimental>",
                               "  </pyqgis_plugin>",
                               "</plugins>"]))
+
+def publish():
+    """
+    Publishes the current release into the public path.
+    """
+    pass

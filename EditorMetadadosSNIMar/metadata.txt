@@ -9,14 +9,16 @@ about= O Editor de Metadados SNIMar foi desenvolvido no âmbito do Projecto SNIM
        com o objectivo de ser a ferramenta destinada à criação dos metadados
        em conformidade com o Perfil de Metadados SNIMar
        email: suporte.snimar@ipma.pt.
-version=2.2.0
+version=3.0.0
 ChangeLog: >1.0.0 - Primeira versão
            >...
            >2.0.0 - Actualização do Perfil
            >2.0.1 - Correçao Bugs
             -actualizar palavras-chave SNIMar
            >2.1.0 - Bugs fix( Contact list corruption,gml versions,...)
+           >3.0.0 - Code update for QGIS3
 tags=Metadata, metadados, SNIMar, EEAgrants, Governo Portugal
 homepage=http://editor.snimar.pt/
+icon=resourcesFolder/icons/main_icon.svg
 experimental=False
 deprecated=False

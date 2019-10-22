@@ -44,7 +44,10 @@ def validate(filename):
 
 
 def verify_md_metadata(filename):
-    tree = etree.parse(filename)
+    try:
+        tree = etree.parse(filename)
+    except etree.XMLSyntaxError:
+        return False
     return 'MD_Metadata' in tree.getroot().tag if hasattr(tree, 'getroot') else False
 
 

@@ -286,8 +286,10 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
             name = [None, None]
         if name[0] is None:
             file_dialog = qwidgets.QFileDialog(self)
-            file_dialog.setFilters(u"XML files (*.xml);;All Files (*.*)")
-            doc_names = file_dialog.getOpenFileNames(self, u'Abrir ficheiro XML', self.last_open_dir)
+            #file_dialog.setFilter(u"XML files (*.xml);;All Files (*.*)")
+            filters = "XML files (*.xml);;All Files (*.*)"
+            doc_names = file_dialog.getOpenFileName(self, u'Abrir ficheiro XML', self.last_open_dir, filters)
+            doc_names = [doc_names[0]]
         else:
             doc_names = [name[0]]
         for doc_ in doc_names:
@@ -860,7 +862,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
             try:
                 xml_str = snimarProfileModel.export_xml(md)
                 with open(doc, 'w') as fp:
-                    fp.write(xml_str.encode('utf-8'))
+                    fp.write(xml_str.encode('utf-8').decode('utf-8'))
                     fp.flush()
                     fp.close()
             except Exception as e:

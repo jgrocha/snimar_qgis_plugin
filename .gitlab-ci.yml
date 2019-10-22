@@ -1,0 +1,10 @@
+image: registry.gitlab.com/likeno/snimar/qgis_editor:1.0.0
+
+pages:
+  script:
+    - make release
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

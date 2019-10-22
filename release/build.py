@@ -4,6 +4,7 @@ import datetime
 import json
 import shutil
 import zipfile
+from urllib.parse import urljoin
 import jinja2
 
 
@@ -78,7 +79,17 @@ def make_plugin_release_filename():
     return 'EditorMetadadosSNIMar.{version}.zip'.format(version=version)
 
 
+def make_plugin_download_url():
+    """
+    Returns the URL that can be used to download the plugin from the repository
+    """
+    return urljoin('https://likeno.gitlab.io/snimar/qgis_editor', make_plugin_release_filename())
+
+
 def make_plugin_release_filesystem_location():
+    """
+    Returns the absolute path of the release ZIP file inside the public directory.
+    """
     return os.path.join(public_filesystem_location(), make_plugin_release_filename())
 
 
@@ -90,6 +101,7 @@ def make_release_information():
     return {
         'plugin_version': make_plugin_version_string(),
         'plugin_filename': make_plugin_release_filename(),
+        'plugin_download_url': make_plugin_download_url(),
         'plugin_update_date': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S'),
     }
 

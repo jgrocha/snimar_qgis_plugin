@@ -83,7 +83,7 @@ def make_plugin_download_url():
     """
     Returns the URL that can be used to download the plugin from the repository
     """
-    return urljoin('https://likeno.gitlab.io/snimar/qgis_editor', make_plugin_release_filename())
+    return urljoin('https://likeno.gitlab.io/snimar/qgis_editor/', make_plugin_release_filename())
 
 
 def make_plugin_release_filesystem_location():

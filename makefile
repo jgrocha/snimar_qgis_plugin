@@ -27,7 +27,7 @@ cleanUserFiles:
 clean:
 	find . -iname "*.pyc" -type f -delete
 	find . -name __pycache__ -type d -delete
-	rm -r public
+	rm -rf public
 	mkdir public
 
 release: clean cleanUserFiles build

@@ -52,6 +52,7 @@ class SNIMarThesaurusUpdateDialog(QDialog, update_progress_bar.Ui_update_dialog)
         self.thesaurus = service.ThesaurusServiceManager(self.update_progressbar)
         self.thesaurus.retrieve_all()
         self.finish_update()
+        pass
 
     def finish_update(self):
         self.update_progressbar.setValue(100)

@@ -6,6 +6,8 @@ from builtins import object
 import os
 import json
 import urllib.request, urllib.error, urllib.parse
+from qgis.PyQt.QtWidgets import QApplication
+
 
 BASE_URL = 'http://collab-keywords.snimar.pt/service/'
 URL_ENDPOINT_LIST = (
@@ -59,6 +61,7 @@ class ThesaurusServiceManager(object):
 
         self.stable_data = {}
         self.unstable_data = {}
+        QApplication.processEvents()
 
     def set_version_params(self):
         versions = get_service_version()
@@ -67,9 +70,11 @@ class ThesaurusServiceManager(object):
         self.latest_unstable_version_date = versions["unstable"]["version_date"]
         if self.progress_bar:
             self.update_progress_bar()
+        QApplication.processEvents()
 
     def retrieve_all(self):
         self.set_version_params()
+        QApplication.processEvents()
         # buf = self.retrieve_disc_param(self.latest_stable_version)
         # if len(buf) > 0:
         #    self.stable_data.update(buf)
@@ -162,3 +167,4 @@ class ThesaurusServiceManager(object):
     def update_progress_bar(self):
         self.value += 5
         self.progress_bar.setValue(self.value)
+        QApplication.processEvents()

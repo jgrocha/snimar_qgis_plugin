@@ -44,6 +44,7 @@ from qgis.PyQt import QtGui as qgui
 from qgis.PyQt import QtWidgets as qwidgets
 from qgis.PyQt.QtCore import Qt, QPoint
 from qgis.PyQt.QtWidgets import QPushButton, QHeaderView, QMenu, QAction, QProgressDialog, QProgressBar, QMessageBox, QAbstractItemView, QMainWindow, QWidget, QLineEdit, QTabBar
+from qgis.PyQt.QtWidgets import QApplication
 from qgis.PyQt.QtGui import QFont
 import datetime
 

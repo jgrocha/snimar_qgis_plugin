@@ -30,7 +30,16 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>3</number>
+    </property>
+    <property name="topMargin">
+     <number>3</number>
+    </property>
+    <property name="rightMargin">
+     <number>3</number>
+    </property>
+    <property name="bottomMargin">
      <number>3</number>
     </property>
     <item row="0" column="0">
@@ -135,37 +144,6 @@
            <property name="verticalSpacing">
             <number>4</number>
            </property>
-           <item row="1" column="1">
-            <widget class="QCheckBox" name="thesaurus_unstable_checkbox">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="toolTip">
-              <string>Utilizar a última versão instável</string>
-             </property>
-             <property name="text">
-              <string>Versão Instável</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="thesaurus_version">
-             <property name="font">
-              <font>
-               <underline>true</underline>
-              </font>
-             </property>
-             <property name="text">
-              <string>v0.0</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0" colspan="2">
             <widget class="QLabel" name="thesaurus_title_label">
              <property name="font">
@@ -175,12 +153,11 @@
               </font>
              </property>
              <property name="text">
-              <string>Versão
- Thesaurus SNIMar:</string>
+              <string>Thesaurus SNIMar</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
+           <item row="1" column="0">
             <widget class="QPushButton" name="thesaurus_update">
              <property name="enabled">
               <bool>true</bool>
@@ -239,7 +216,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="focusPolicy">

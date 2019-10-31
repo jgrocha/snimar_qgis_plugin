@@ -208,7 +208,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
                                 self.launch_update()
 
         self.thesaurus_update.clicked.connect(self.launch_update)
-        self.thesaurus_unstable_checkbox.stateChanged.connect(self.use_unstable)
+        #self.thesaurus_unstable_checkbox.stateChanged.connect(self.use_unstable)
 
         self.btn_delete_all.pressed.connect(self.erase_all)
         self.btn_conform_all.pressed.connect(self.check_conformity_all)
@@ -688,7 +688,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
 
         else:
             # Update the GUI stuff
-            self.thesaurus_version.setText(self.update_dialog.thesaurus.latest_stable_version)
+            #self.thesaurus_version.setText(self.update_dialog.thesaurus.latest_stable_version)
 
             # Update the thesaurus model of all open tabs
             for tab_index in range(self.tabWidget.count()):
@@ -702,7 +702,8 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
 
     @qcore.pyqtSlot()
     def use_unstable(self):
-        if self.thesaurus_unstable_checkbox.isChecked():
+        #if self.thesaurus_unstable_checkbox.isChecked():
+        if True:
             self.update_thesaurus_label(0, stable=False)
         else:
             self.update_thesaurus_label(0, stable=True)
@@ -711,7 +712,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
         version_string = 'v'
         version_string += str(version)
         version_string += '.x' if not stable else '.0'
-        self.thesaurus_version.setText(version_string)
+        #self.thesaurus_version.setText(version_string)
 
     def editor_dirname(self):
         """

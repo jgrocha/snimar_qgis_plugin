@@ -328,6 +328,8 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         # ----------------------------------
 
         ## Append layers to MapCanvas
+        self.layers.append(llayer)
+        self.layers.append(layer)
         #self.layers.append(gui.QgsMapCanvasLayer(llayer))
         #self.layers.append(gui.QgsMapCanvasLayer(layer))
         #self.canvas.setLayerSet(self.layers)
@@ -346,7 +348,8 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
 
     def cleanup(self):
         for layer in self.layers:
-            core.QgsMapLayerRegistry.instance().removeMapLayer(layer.layer().id())
+            #core.QgsMapLayerRegistry.instance().removeMapLayer(layer.layer().id())
+            core.QgsProject.instance().removeMapLayer(layer.id())
 
     ## Toolbar actions:
     ## Zoom In

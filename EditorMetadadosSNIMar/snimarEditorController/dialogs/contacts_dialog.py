@@ -28,6 +28,7 @@ from builtins import str
 from builtins import range
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
+from qgis.PyQt import QtWidgets as qwidgets
 from qgis.PyQt.QtCore import QMetaObject, Qt
 from qgis.PyQt.QtWidgets import QWidget, QToolTip, QDateTimeEdit, QDialog
 from qgis.PyQt.QtGui import QCursor, QFont
@@ -57,7 +58,7 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
         self.setupUi(self)
         self.superParent = self.parent()
 
-        for btn in self.findChildren(qgui.QPushButton, qcore.QRegExp('btn_*')):
+        for btn in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('btn_*')):
             if '_add_' in btn.objectName():
                 btn.setIcon(qgui.QIcon(':/resourcesFolder/icons/plus_icon.svg'))
                 btn.setText('')
@@ -69,12 +70,12 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
 
         lists = ['phone', 'fax', 'email']
         for item in lists:
-            btn = self.findChild(qgui.QPushButton, 'btn_add_' + item)
+            btn = self.findChild(qwidgets.QPushButton, 'btn_add_' + item)
             btn.clicked.connect(self.add_list_row)
-            btn = self.findChild(qgui.QPushButton, 'btn_del_' + item)
+            btn = self.findChild(qwidgets.QPushButton, 'btn_del_' + item)
             btn.clicked.connect(self.del_list_row)
 
-        for info in self.findChildren(qgui.QPushButton, qcore.QRegExp('info_*')):
+        for info in self.findChildren(qwidgets.QPushButton, qcore.QRegExp('info_*')):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
@@ -146,7 +147,7 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
         self.contact_list.itemClicked.connect(self.selection_changed_export_Mode)  # change current selection
         # ACTIONS FUNCTIONS
         self.eater = tla.EatWheel()
-        for x in self.findChildren(qgui.QComboBox):
+        for x in self.findChildren(qwidgets.QComboBox):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
         for x in self.findChildren(QDateTimeEdit):

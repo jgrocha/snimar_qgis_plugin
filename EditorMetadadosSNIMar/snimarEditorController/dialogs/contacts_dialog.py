@@ -223,15 +223,15 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
 
     @qcore.pyqtSlot()
     def delete_contact(self):
-        message = qgui.QMessageBox()
+        message = qwidgets.QMessageBox()
         message.setModal(True)
         message.setWindowTitle(u'Remover contacto?')
-        message.setIcon(qgui.QMessageBox.Warning)
+        message.setIcon(qwidgets.QMessageBox.Warning)
         message.setText(u"Tem a certeza que pretende remover contacto?\n(Operação Irreversivel!)")
-        message.addButton(u'Remover', qgui.QMessageBox.AcceptRole)
-        message.addButton(u'Cancelar', qgui.QMessageBox.RejectRole)
+        message.addButton(u'Remover', qwidgets.QMessageBox.AcceptRole)
+        message.addButton(u'Cancelar', qwidgets.QMessageBox.RejectRole)
         ret = message.exec_()
-        if ret == qgui.QMessageBox.AcceptRole:
+        if ret == qwidgets.QMessageBox.AcceptRole:
             # get current selected index in list
             index = self.contact_list.currentRow()
             if index < 0:
@@ -249,15 +249,15 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
     def selection_changed(self):
         index = self.contact_list.currentRow()
         if self.changes and self.current_contact is not None:
-            message = qgui.QMessageBox()
+            message = qwidgets.QMessageBox()
             message.setModal(True)
             message.setWindowTitle(u'Existem Alterações.')
-            message.setIcon(qgui.QMessageBox.Warning)
+            message.setIcon(qwidgets.QMessageBox.Warning)
             message.setText(u"Deseja guardar as alterações efectuadas?")
-            message.addButton(u'Guardar', qgui.QMessageBox.AcceptRole)
-            message.addButton(u'Cancelar', qgui.QMessageBox.RejectRole)
+            message.addButton(u'Guardar', qwidgets.QMessageBox.AcceptRole)
+            message.addButton(u'Cancelar', qwidgets.QMessageBox.RejectRole)
             ret = message.exec_()
-            if ret == qgui.QMessageBox.AcceptRole:
+            if ret == qwidgets.QMessageBox.AcceptRole:
                 self.save_contact()
         self.contactPanel.setDisabled(False)
         self.changes = False
@@ -298,13 +298,13 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
         """Add a new row to the specific list that shares the same name with the button that
         emits the signal that fires the slot."""
         sender_name = self.sender().objectName()
-        target_list = self.findChild(qgui.QListWidget, sender_name.split('_')[2])
-        target_input = self.findChild(qgui.QLineEdit, sender_name.split('_')[2] + '_input')
+        target_list = self.findChild(qwidgets.QListWidget, sender_name.split('_')[2])
+        target_input = self.findChild(qwidgets.QLineEdit, sender_name.split('_')[2] + '_input')
 
         if target_list is not None and target_input is not None:
             input_text = target_input.text()
             if len(input_text) > 0:
-                item = qgui.QListWidgetItem(input_text)
+                item = qwidgets.QListWidgetItem(input_text)
                 item.setFlags(item.flags() | qcore.Qt.ItemIsEditable)
                 target_list.addItem(item)
                 target_input.setText('')
@@ -314,7 +314,7 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
         """Works like the add_list_row, but deletes the selected row from the list that shares
         its name with button that emits the signal."""
         sender_name = self.sender().objectName()
-        target_list = self.findChild(qgui.QListWidget, sender_name.split('_')[2])
+        target_list = self.findChild(qwidgets.QListWidget, sender_name.split('_')[2])
 
         index = target_list.currentRow()
         if index is not None:

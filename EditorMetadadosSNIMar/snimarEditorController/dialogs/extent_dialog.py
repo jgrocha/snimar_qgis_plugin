@@ -246,11 +246,15 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         oldValidation = str(s.value("/Projections/defaultBehaviour", "useGlobal"))
         s.setValue("/Projections/defaultBehaviour", "useGlobal")
 
+        print('We are here 1')
+
         # Load Raster
         fileName = os.path.join(plugin_path, "resourcesFolder/GMRT.tif")
         fileInfo = qcore.QFileInfo(fileName)
         baseName = fileInfo.baseName()
+        print('We are here 2')
         layer = core.QgsRasterLayer(fileName, baseName)
+        print('We are here 3')
         layer.setCrs(
             core.QgsCoordinateReferenceSystem(4326, core.QgsCoordinateReferenceSystem.EpsgCrsId))
         s.setValue("/Projections/defaultBehaviour", oldValidation)

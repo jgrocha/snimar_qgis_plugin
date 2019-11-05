@@ -283,7 +283,7 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
             with open(CONTACTFILE, 'r') as fp:
                 self.contact_array = json.load(fp)
         except Exception:
-            pass
+            self.contact_array = []
         self.fix_contact_list()
         if self.contact_array is None:
             self.contact_array = []
@@ -403,7 +403,7 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
                 del x['address']
             except KeyError:
                 continue
-        ret.append(x)
+            ret.append(x)
         return ret
 
     def check_org(self):

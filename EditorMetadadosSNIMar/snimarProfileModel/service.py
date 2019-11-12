@@ -8,6 +8,8 @@ import json
 import urllib.request, urllib.error, urllib.parse
 from qgis.PyQt.QtWidgets import QApplication
 
+from urllib.parse import urljoin
+
 
 BASE_URL = 'http://collab-keywords.snimar.pt/service/'
 URL_ENDPOINT_LIST = (
@@ -168,3 +170,29 @@ class ThesaurusServiceManager(object):
         self.value += 5
         self.progress_bar.setValue(self.value)
         QApplication.processEvents()
+
+
+class WormsThesaurusManager(object):
+    BASE_URL = 'http://www.marinespecies.org/rest'
+
+    def search_by_aphia_id(self, identifier):
+        """
+        Runs a search query using a specific AphiaId.
+        """
+        url = urljoin(self.BASE_URL, '/'.join(['AphiaVernacularsByAphiaID', identifier]))
+
+    def search_by_scientific_name(self, name, like=False):
+        """
+        Runs a search query using a given scientific name.
+        """
+        url = urljoin(self.BASE_URL, 'AphiaRecordsByNames')
+
+        params = {
+            'like': like,
+            'marine_only': True,
+            'scientificnames[]': name,
+        }
+
+
+class CrossRefThesaurusManager(object):
+    pass

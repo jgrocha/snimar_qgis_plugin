@@ -92,12 +92,11 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.snimarkeywords.resizeRowsToContents()
         self.snimarkeywords.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.snimarkeywords.setSelectionMode(QAbstractItemView.ContiguousSelection)
+        self.snimarkeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.btn_open_snimarkeywords.clicked.connect(self.snimar_dialog)
         self.btn_del_snimarkeywords.clicked.connect(lambda: tla.removeSelectedFromList(self.snimarkeywords))
 
         self.btn_open_wormskeywords.clicked.connect(self.worms_dialog)
-
-        self.snimarkeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         tla.setupTableView(self, self.freekeywords,
                            [u"Palavra-Chave", u"Tipo", u"Thesaurus", u"Data", u"Tipo de Data"],

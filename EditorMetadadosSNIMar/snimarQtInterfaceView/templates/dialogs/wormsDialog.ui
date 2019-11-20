@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>662</width>
-    <height>464</height>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,7 +61,7 @@
       <item>
        <layout class="QHBoxLayout" name="search_inner_layout">
         <item>
-         <widget class="QPushButton" name="search_btn">
+         <widget class="QPushButton" name="btn_search">
           <property name="text">
            <string>Pesquisar</string>
           </property>
@@ -131,14 +131,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="results_table">
-        <property name="columnCount">
-         <number>3</number>
-        </property>
-        <column/>
-        <column/>
-        <column/>
-       </widget>
+       <widget class="QTableView" name="results_table"/>
       </item>
      </layout>
     </widget>
@@ -172,7 +165,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="close_dialog_btn">
+      <widget class="QPushButton" name="btn_close_dialog">
        <property name="text">
         <string>Fechar</string>
        </property>

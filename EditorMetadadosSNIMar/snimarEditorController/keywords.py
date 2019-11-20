@@ -46,6 +46,7 @@ from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles impo
 # Dialogs
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.freekeywords_dialog import FreeKeyWordsDialog
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.snimarKeywordsDialog import SNIMARKeywordsDialog
+from EditorMetadadosSNIMar.snimarEditorController.dialogs.wormsKeywordsDialog import WormsKeywordsDialog
 
 # Snimar Controller and Model imports
 from EditorMetadadosSNIMar.snimarProfileModel import snimarProfileModel
@@ -94,6 +95,8 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.btn_open_snimarkeywords.clicked.connect(self.snimar_dialog)
         self.btn_del_snimarkeywords.clicked.connect(lambda: tla.removeSelectedFromList(self.snimarkeywords))
 
+        self.btn_open_wormskeywords.clicked.connect(self.worms_dialog)
+
         self.snimarkeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         tla.setupTableView(self, self.freekeywords,
@@ -130,6 +133,11 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.dialog = SNIMARKeywordsDialog(self, self.snimarkeywords.model(),
                                            self.combo_items_md_keywordtypecode_snimar)
         self.dialog.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
+
+
+        self.wormsDialog = WormsKeywordsDialog(self)
+        self.wormsDialog.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
+
 
         self.validatorTables.set_thesaurus(self.dialog.thesaurus_model)
 
@@ -206,6 +214,15 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         except RuntimeError:
             try:
                 self.dialog.exec_()
+            except RuntimeError:
+                pass
+
+    def worms_dialog(self):
+        try:
+            self.wormsDialog.exec_()
+        except RuntimeError:
+            try:
+                self.wormsDialog.exec_()
             except RuntimeError:
                 pass
 

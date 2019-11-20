@@ -248,7 +248,11 @@ class TableModel(QAbstractTableModel):
         """Attempt to sort the tables"""
         if Ncol in [0, 1, 2, 3, 4]:
             self.layoutAboutToBeChanged.emit()
-            self.matrix = sorted(self.matrix, key=lambda x: rm_accents(x[Ncol]))
+            try:
+                self.matrix = sorted(self.matrix, key=lambda x: rm_accents(x[Ncol]))
+            except TypeError:
+                pass
+
             if order == Qt.DescendingOrder:
                 self.matrix.reverse()
             self.layoutChanged.emit()

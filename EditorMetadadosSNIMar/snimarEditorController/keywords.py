@@ -256,6 +256,7 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
             return
         for keyword in common.keywords:
             for word in keyword.keywords:
+                print(word, keyword.is_worms())
                 if keyword.is_inspire() and self.scope != SCOPES.SERVICES:
                     if self.combo_items_inspire.get(word, None) is not None:
                         self.inspire.model().addNewRow(self.combo_items_inspire[word])
@@ -291,6 +292,11 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
                     self.snimarkeywords.model().addNewRow(
                         [type_, word, thesaurus['version'], thesaurus, keyword.cc_uuid])
                     self.snimar_keywords_special_validation()
+
+                elif keyword.is_worms():
+                    self.wormskeywords.model().addNewRow(
+                        [word, keyword.cc_id]
+                    )
 
                 else:
                     if customCombo.reverse_pt_to_en_keys(self.combo_items_md_keywordtypecode).get(keyword.type) is None:
@@ -370,6 +376,7 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         for row in self.wormskeywords.model().matrix:
             keyword = snimarProfileModel.MD_Keywords()
             keyword.keywords.append(row[0])
+            keyword.cc_id = row[1]
             keyword.thesaurus = { 'title': 'http://www.marinespecies.org/rest/' }
             common.keywords.append(keyword)
 

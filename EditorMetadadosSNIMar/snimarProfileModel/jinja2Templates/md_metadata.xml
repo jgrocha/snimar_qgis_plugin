@@ -348,8 +348,12 @@
             {%- for keyword in identification.keywords %}
             {%- if keyword.keywords|length > 0 %}
             <gmd:descriptiveKeywords>
-                {%- if keyword.cc_uid %}
+                {%- if keyword.cc_uid and keyword.cc_id %}
+                <gmd:MD_Keywords uuid="{{keyword.cc_uid}}" id="{{ keyword.cc_id }}">
+                {%- elif keyword.cc_uid %}
                 <gmd:MD_Keywords uuid="{{keyword.cc_uid}}">
+                {%- elif keyword.cc_id %}
+                <gmd:MD_Keywords id="{{ keyword.cc_id }}">
                 {%- else %}
                 <gmd:MD_Keywords>
                     {%- endif %}

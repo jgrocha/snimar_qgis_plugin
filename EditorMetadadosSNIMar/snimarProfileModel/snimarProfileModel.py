@@ -262,7 +262,8 @@ class MD_DataIdentification(iso.MD_DataIdentification):
             for val in md.findall(
                 util.nspath_eval('gmd:descriptiveKeywords/gmd:MD_Keywords', namespaces)):
                 uu = util.testXMLAttribute(val, 'uuid')
-                self.keywords.append(MD_Keywords(val, uuid=uu))
+                kid = util.textXMLAttribute(val, 'id')
+                self.keywords.append(MD_Keywords(val, uuid=uu, kid=kid))
 
             self.contact = []
             for i in md.findall(
@@ -520,7 +521,8 @@ class SV_ServiceIdentification(iso.SV_ServiceIdentification):
             for val in md.findall(
                 util.nspath_eval('gmd:descriptiveKeywords/gmd:MD_Keywords', namespaces)):
                 uu = util.testXMLAttribute(val, 'uuid')
-                self.keywords.append(MD_Keywords(val, uuid=uu))
+                kid = util.testXMLAttribute(val, 'id')
+                self.keywords.append(MD_Keywords(val, uuid=uu, kid=kid))
 
             self.contact = []
             for i in md.findall(
@@ -785,17 +787,19 @@ class EX_TemporalExtent(object):
 
 
 class MD_Keywords(object):
-    def __init__(self, md=None, uuid=None):
+    def __init__(self, md=None, uuid=None, kid=None):
         if md is None:
             self.keywords = []
             self.type = None
             self.thesaurus = None
             self.cc_uuid = None
+            self.cc_id = None
             self.kwdtype_codeList = 'http://standards.iso.org/ittf/PubliclyAvailableStandards' \
                                     '/ISO_19139_Schemas/resourcesFolder/codelist/gmxCodelists.xml' \
                                     '#MD_KeywordTypeCode'
         else:
             self.cc_uuid = uuid
+            self.cc_id = kid
             self.keywords = []
             val = md.findall(util.nspath_eval('gmd:keyword/gco:CharacterString', namespaces))
             for word in val:
@@ -835,6 +839,11 @@ class MD_Keywords(object):
             return True
         else:
             return False
+
+    def is_worms(self):
+        if self.thesaurus is None:
+            return False
+        return self.thesaurus['title'] == 'http://www.marinespecies.org/rest/'
 
     def is_serviceClassification(self):
         return self.thesaurus is not None and (

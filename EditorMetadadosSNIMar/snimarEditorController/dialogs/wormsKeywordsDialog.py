@@ -50,6 +50,9 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
         """
         network_manager = QtNetwork.QNetworkAccessManager(self)
 
+        while self.wk_model.rowCount() > 0:
+            self.wk_model.removeSpecificRow(self.wk_model.rowCount() - 1)
+
         name = self.name_edit.text()
         request_name_url = 'http://www.marinespecies.org/rest/AphiaRecordsByName/{}'.format(name)
         request = QtNetwork.QNetworkRequest(qcore.QUrl(request_name_url))

@@ -96,6 +96,15 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.btn_open_snimarkeywords.clicked.connect(self.snimar_dialog)
         self.btn_del_snimarkeywords.clicked.connect(lambda: tla.removeSelectedFromList(self.snimarkeywords))
 
+        worms_model = TableModel(self, ['Nome', 'ID'], [QLineEdit, QLineEdit], self.wormskeywords)
+        self.wormskeywords.setModel(worms_model)
+        self.wormskeywords.resizeColumnsToContents()
+        self.wormskeywords.verticalHeader().setVisible(False)
+        self.wormskeywords.resizeRowsToContents()
+        self.wormskeywords.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.wormskeywords.setSelectionMode(QAbstractItemView.ContiguousSelection)
+        self.wormskeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
         self.btn_open_wormskeywords.clicked.connect(self.worms_dialog)
 
         tla.setupTableView(self, self.freekeywords,
@@ -356,6 +365,12 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
             keyword.thesaurus = row[3]
             keyword.kwdtype_codeList = 'http://collab-keywords.snimar.pt/codelists/gmxCodelists.xml' \
                                        '#MD_KeywordTypeCode_snimar'
+            common.keywords.append(keyword)
+
+        for row in self.wormskeywords.model().matrix:
+            keyword = snimarProfileModel.MD_Keywords()
+            keyword.keywords.append(row[0])
+            keyword.thesaurus = { 'title': 'http://www.marinespecies.org/rest/' }
             common.keywords.append(keyword)
 
     @qcore.pyqtSlot(qcore.QModelIndex)

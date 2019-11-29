@@ -47,6 +47,7 @@ from EditorMetadadosSNIMar.snimarQtInterfaceView.pyuic4GeneratedSourceFiles impo
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.freekeywords_dialog import FreeKeyWordsDialog
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.snimarKeywordsDialog import SNIMARKeywordsDialog
 from EditorMetadadosSNIMar.snimarEditorController.dialogs.wormsKeywordsDialog import WormsKeywordsDialog
+from EditorMetadadosSNIMar.snimarEditorController.dialogs.crossrefKeywordsDialog import CrossrefKeywordsDialog
 
 # Snimar Controller and Model imports
 from EditorMetadadosSNIMar.snimarProfileModel import snimarProfileModel
@@ -104,8 +105,19 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.wormskeywords.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.wormskeywords.setSelectionMode(QAbstractItemView.ContiguousSelection)
         self.wormskeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-
         self.btn_open_wormskeywords.clicked.connect(self.worms_dialog)
+        self.btn_del_wormskeyword.clicked.connect(lambda: tla.removeSelectedFromList(self.wormskeywords))
+
+        crossref_model = TableModel(self, ['Autor', 'Titulo'], [QLineEdit, QLineEdit], self.crossrefkeywords)
+        self.crossrefkeywords.setModel(crossref_model)
+        self.crossrefkeywords.resizeColumnsToContents()
+        self.crossrefkeywords.verticalHeader().setVisible(False)
+        self.crossrefkeywords.resizeRowsToContents()
+        self.crossrefkeywords.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.crossrefkeywords.setSelectionMode(QAbstractItemView.ContiguousSelection)
+        self.crossrefkeywords.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.btn_open_crossrefkeywords.clicked.connect(self.crossref_dialog)
+        self.btn_del_crossrefkeyword.clicked.connect(lambda: tla.removeSelectedFromList(self.crossrefkeywords))
 
         tla.setupTableView(self, self.freekeywords,
                            [u"Palavra-Chave", u"Tipo", u"Thesaurus", u"Data", u"Tipo de Data"],
@@ -145,6 +157,9 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
 
         self.wormsDialog = WormsKeywordsDialog(self)
         self.wormsDialog.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
+
+        self.crossrefDialog = CrossrefKeywordsDialog(self)
+        self.crossrefDialog.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
 
 
         self.validatorTables.set_thesaurus(self.dialog.thesaurus_model)
@@ -234,6 +249,15 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
             except RuntimeError:
                 pass
 
+    def crossref_dialog(self):
+        try:
+            self.crossrefDialog.exec_()
+        except RuntimeError:
+            try:
+                self.crossrefDialog.exec_()
+            except RuntimeError:
+                pass
+
     def set_data(self, md):
         if md is None:
             return False
@@ -295,6 +319,11 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
 
                 elif keyword.is_worms():
                     self.wormskeywords.model().addNewRow(
+                        [word, keyword.cc_id]
+                    )
+
+                elif keyword.is_crossref():
+                    self.crossrefkeywords.model().addNewRow(
                         [word, keyword.cc_id]
                     )
 
@@ -378,6 +407,13 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
             keyword.keywords.append(row[0])
             keyword.cc_id = row[1]
             keyword.thesaurus = { 'title': 'http://www.marinespecies.org/rest/' }
+            common.keywords.append(keyword)
+
+        for row in self.crossrefkeywords.model().matrix:
+            keyword = snimarProfileModel.MD_Keywords()
+            keyword.keywords.append(row[0])
+            keyword.cc_id = row[1]
+            keyword.thesaurus = { 'title': 'https://api.crossref.org/works' }
             common.keywords.append(keyword)
 
     @qcore.pyqtSlot(qcore.QModelIndex)

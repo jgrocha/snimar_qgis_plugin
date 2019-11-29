@@ -54,17 +54,49 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
             self.wk_model.removeSpecificRow(self.wk_model.rowCount() - 1)
 
         name = self.name_edit.text()
-        request_name_url = 'http://www.marinespecies.org/rest/AphiaRecordsByName/{}'.format(name)
-        request = QtNetwork.QNetworkRequest(qcore.QUrl(request_name_url))
-        reply = network_manager.get(request)
+        if name and len(name) > 0:
+            request_name_url = 'http://www.marinespecies.org/rest/AphiaRecordsByName/{}'.format(name.replace(' ', '+'))
+            request_name = QtNetwork.QNetworkRequest(qcore.QUrl(request_name_url))
+            reply_name = network_manager.get(request_name)
 
-        def process_name_search():
-            data = json.loads(str(reply.readAll(), 'utf-8'))
+            def process_name_search():
+                if reply_name.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
+                    return
+                data = json.loads(str(reply_name.readAll(), 'utf-8'))
+                for item in data:
+                    self.wk_model.addNewRow([item['scientificname'], item['AphiaID']])
 
-            for item in data:
-                self.wk_model.addNewRow([item['scientificname'], item['AphiaID']])
+            reply_name.finished.connect(process_name_search)
 
-        reply.finished.connect(process_name_search)
+        vernacular = self.vernacular_edit.text()
+        if vernacular and len(vernacular) > 0:
+            request_vernacular_url = 'http://www.marinespecies.org/rest/AphiaRecordsByVernacular/{}'.format(vernacular.replace(' ', '+'))
+            request_vernacular = QtNetwork.QNetworkRequest(qcore.QUrl(request_vernacular_url))
+            reply_vernacular = network_manager.get(request_vernacular)
+
+            def process_vernacular_search():
+                if reply_vernacular.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
+                    return
+                data = json.loads(str(reply_vernacular.readAll(), 'utf-8'))
+                for item in data:
+                    self.wk_model.addNewRow([item['scientificname'], item['AphiaID']])
+
+            reply_vernacular.finished.connect(process_vernacular_search)
+
+        identifier = self.identifier_edit.text()
+        if identifier and len(identifier) > 0:
+            request_identifier_url = 'http://www.marinespecies.org/rest/AphiaRecordByAphiaID/{}'.format(identifier.replace(' ', '+'))
+            request_identifier = QtNetwork.QNetworkRequest(qcore.QUrl(request_identifier_url))
+            reply_identifier = network_manager.get(request_identifier)
+
+            def process_identifier_search():
+                if reply_identifier.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
+                    return
+                data = json.loads(str(reply_identifier.readAll(), 'utf-8'))
+                self.wk_model.addNewRow([data['scientificname'], data['AphiaID']])
+
+            reply_identifier.finished.connect(process_identifier_search)
+
 
     def handle_selection_change(self, selected, deselected):
         self.add_row_btn.setEnabled(True)

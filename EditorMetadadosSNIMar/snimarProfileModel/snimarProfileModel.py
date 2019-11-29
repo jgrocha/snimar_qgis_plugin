@@ -262,7 +262,7 @@ class MD_DataIdentification(iso.MD_DataIdentification):
             for val in md.findall(
                 util.nspath_eval('gmd:descriptiveKeywords/gmd:MD_Keywords', namespaces)):
                 uu = util.testXMLAttribute(val, 'uuid')
-                kid = util.textXMLAttribute(val, 'id')
+                kid = util.testXMLAttribute(val, 'id')
                 self.keywords.append(MD_Keywords(val, uuid=uu, kid=kid))
 
             self.contact = []
@@ -844,6 +844,11 @@ class MD_Keywords(object):
         if self.thesaurus is None:
             return False
         return self.thesaurus['title'] == 'http://www.marinespecies.org/rest/'
+
+    def is_crossref(self):
+        if self.thesaurus is None:
+            return False
+        return self.thesaurus['title'] == 'https://api.crossref.org/works'
 
     def is_serviceClassification(self):
         return self.thesaurus is not None and (

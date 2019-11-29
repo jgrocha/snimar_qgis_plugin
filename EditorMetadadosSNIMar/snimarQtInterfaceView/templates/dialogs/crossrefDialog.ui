@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>worms_dialog</class>
- <widget class="QDialog" name="worms_dialog">
+ <class>crossref_dialog</class>
+ <widget class="QDialog" name="crossref_dialog">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -27,46 +27,32 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
       <item>
-       <layout class="QHBoxLayout" name="search_params_layout" stretch="0,0,0">
+       <layout class="QHBoxLayout" name="search_params_layout" stretch="0,0">
         <item>
-         <layout class="QVBoxLayout" name="name_layout">
+         <layout class="QVBoxLayout" name="author_layout">
           <item>
-           <widget class="QLabel" name="name_label">
+           <widget class="QLabel" name="author_label">
             <property name="text">
-             <string>Nome científico</string>
+             <string>Autor</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="name_edit"/>
+           <widget class="QLineEdit" name="author_edit"/>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="vernacular_layout">
+         <layout class="QVBoxLayout" name="title_layout">
           <item>
-           <widget class="QLabel" name="vernacular_label">
+           <widget class="QLabel" name="title_label">
             <property name="text">
-             <string>Nome vernacular</string>
+             <string>Titulo</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="vernacular_edit"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="identifier_layout">
-          <item>
-           <widget class="QLabel" name="identifier_label">
-            <property name="text">
-             <string>AphiaID</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="identifier_edit"/>
+           <widget class="QLineEdit" name="title_edit"/>
           </item>
          </layout>
         </item>

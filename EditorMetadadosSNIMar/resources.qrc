@@ -35,5 +35,10 @@
         <file>resourcesFolder/logo_eea.png</file>
         <file>resourcesFolder/icons/delete_field.svg</file>
         <file>resourcesFolder/icons/layers.svg</file>
+        <file>resourcesFolder/icnf.png</file>
+        <file>resourcesFolder/infor_biomares_.png</file>
+        <file>resourcesFolder/lpn_.jpg</file>
+        <file>resourcesFolder/fcul_.png</file>
+        <file>resourcesFolder/univ_evora_.png</file>
     </qresource>
 </RCC>

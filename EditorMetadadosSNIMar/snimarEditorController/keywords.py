@@ -28,6 +28,7 @@
 # Qt and Qgis imports
 from builtins import range
 import copy
+import datetime
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
 import uuid
@@ -406,7 +407,11 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
             keyword = snimarProfileModel.MD_Keywords()
             keyword.keywords.append(row[0])
             keyword.cc_id = row[1]
-            keyword.thesaurus = { 'title': 'http://www.marinespecies.org/rest/' }
+            keyword.thesaurus = {
+                'title': 'http://www.marinespecies.org/rest/'
+                'date': datetime.datetime.utcnow().strftime('%Y-%m-%d'),
+                'datetype': self.combo_items_datetype['revision'],
+            }
             common.keywords.append(keyword)
 
         for row in self.crossrefkeywords.model().matrix:

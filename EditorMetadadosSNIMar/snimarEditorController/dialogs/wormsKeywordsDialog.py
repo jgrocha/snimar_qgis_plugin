@@ -24,8 +24,10 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
         self.setModal(True)
 
         # Table setup
-        self.wk_model = TableModel(self, [u"Nome", u"AphiaId"], [QtWidgets.QLineEdit, QtWidgets.QLineEdit], self.results_table)
+        self.results_table.setColumnHidden(1, True)
+        self.wk_model = TableModel(self, [u"Nome", 'date'], [QtWidgets.QLineEdit, QtWidgets.QLineEdit], self.results_table)
         self.results_table.setModel(self.wk_model)
+        self.results_table.setColumnHidden(1, True)
         self.results_table.resizeColumnsToContents()
         self.results_table.verticalHeader().setVisible(False)
         self.results_table.resizeRowsToContents()
@@ -64,7 +66,7 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
                     return
                 data = json.loads(str(reply_name.readAll(), 'utf-8'))
                 for item in data:
-                    self.wk_model.addNewRow([item['scientificname'], item['AphiaID']])
+                    self.wk_model.addNewRow([item['scientificname'], item['modified'].split('T')[0]])
 
             reply_name.finished.connect(process_name_search)
 
@@ -79,7 +81,7 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
                     return
                 data = json.loads(str(reply_vernacular.readAll(), 'utf-8'))
                 for item in data:
-                    self.wk_model.addNewRow([item['scientificname'], item['AphiaID']])
+                    self.wk_model.addNewRow([item['scientificname'], item['modified'].split('T')[0]])
 
             reply_vernacular.finished.connect(process_vernacular_search)
 
@@ -93,7 +95,7 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
                 if reply_identifier.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
                     return
                 data = json.loads(str(reply_identifier.readAll(), 'utf-8'))
-                self.wk_model.addNewRow([data['scientificname'], data['AphiaID']])
+                self.wk_model.addNewRow([data['scientificname'], data['modified'].split('T')[0]])
 
             reply_identifier.finished.connect(process_identifier_search)
 
@@ -104,4 +106,5 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
 
     def add_keyword(self):
         selection = self.results_table.selectionModel()
+        print(self.current_selection)
         self.parent().wormskeywords.model().addNewRow(self.current_selection)

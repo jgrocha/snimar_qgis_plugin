@@ -848,7 +848,7 @@ class MD_Keywords(object):
     def is_crossref(self):
         if self.thesaurus is None:
             return False
-        return self.thesaurus['title'] == 'https://api.crossref.org/works'
+        return 'https://api.crossref.org/works' in self.thesaurus['title']
 
     def is_serviceClassification(self):
         return self.thesaurus is not None and (

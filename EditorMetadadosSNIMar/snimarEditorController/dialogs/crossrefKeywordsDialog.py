@@ -18,7 +18,8 @@ def build_author_string(authors):
     author_list = []
 
     for author in authors:
-        author_list.append('{} {}'.format(author['given'], author['family']))
+        name = '{}, {}'.format(author['family'], author['given']) if 'given' in author else '{}'.format(author['family'])
+        author_list.append(name)
 
     return ', '.join(author_list)
 
@@ -34,8 +35,12 @@ class CrossrefKeywordsDialog(QtWidgets.QDialog, crossrefDialog.Ui_crossref_dialo
         self.setModal(True)
 
         # Table setup
-        self.wk_model = TableModel(self, [u"Nome", u"Título"], [QtWidgets.QLineEdit, QtWidgets.QLineEdit], self.results_table)
+        self.results_table.setColumnHidden(2, True)
+        self.results_table.setColumnHidden(3, True)
+        self.wk_model = TableModel(self, [u"Autor", u"Título", "DOI", "date"], [QtWidgets.QLineEdit, QtWidgets.QLineEdit, QtWidgets.QLineEdit, QtWidgets.QLineEdit], self.results_table)
         self.results_table.setModel(self.wk_model)
+        self.results_table.setColumnHidden(2, True)
+        self.results_table.setColumnHidden(3, True)
         self.results_table.resizeColumnsToContents()
         self.results_table.verticalHeader().setVisible(False)
         self.results_table.resizeRowsToContents()
@@ -89,52 +94,14 @@ class CrossrefKeywordsDialog(QtWidgets.QDialog, crossrefDialog.Ui_crossref_dialo
                 data = json.loads(str(reply.readAll(), 'utf-8'))
 
                 for item in data['message']['items']:
-                    self.wk_model.addNewRow([build_author_string(item['author']), item['title'][0]])
+                    self.wk_model.addNewRow([
+                        build_author_string(item['author']),
+                        item['title'][0],
+                        item['DOI'],
+                        item['created']['date-time'].split('T')[0],
+                    ])
 
             reply.finished.connect(process_crossref_search)
-
-#        if name and len(name) > 0:
-#            request_name_url = 'http://www.marinespecies.org/rest/AphiaRecordsByName/{}'.format(name.replace(' ', '+'))
-#            request_name = QtNetwork.QNetworkRequest(qcore.QUrl(request_name_url))
-#            reply_name = network_manager.get(request_name)
-#
-#            def process_name_search():
-#                if reply_name.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
-#                    return
-#                data = json.loads(str(reply_name.readAll(), 'utf-8'))
-#                for item in data:
-#                    self.wk_model.addNewRow([item['scientificname'], item['AphiaID']])
-#
-#            reply_name.finished.connect(process_name_search)
-#
-#        vernacular = self.vernacular_edit.text()
-#        if vernacular and len(vernacular) > 0:
-#            request_vernacular_url = 'http://www.marinespecies.org/rest/AphiaRecordsByVernacular/{}'.format(vernacular.replace(' ', '+'))
-#            request_vernacular = QtNetwork.QNetworkRequest(qcore.QUrl(request_vernacular_url))
-#            reply_vernacular = network_manager.get(request_vernacular)
-#
-#            def process_vernacular_search():
-#                if reply_vernacular.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
-#                    return
-#                data = json.loads(str(reply_vernacular.readAll(), 'utf-8'))
-#                for item in data:
-#                    self.wk_model.addNewRow([item['scientificname'], item['AphiaID']])
-#
-#            reply_vernacular.finished.connect(process_vernacular_search)
-#
-#        identifier = self.identifier_edit.text()
-#        if identifier and len(identifier) > 0:
-#            request_identifier_url = 'http://www.marinespecies.org/rest/AphiaRecordByAphiaID/{}'.format(identifier.replace(' ', '+'))
-#            request_identifier = QtNetwork.QNetworkRequest(qcore.QUrl(request_identifier_url))
-#            reply_identifier = network_manager.get(request_identifier)
-#
-#            def process_identifier_search():
-#                if reply_identifier.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
-#                    return
-#                data = json.loads(str(reply_identifier.readAll(), 'utf-8'))
-#                self.wk_model.addNewRow([data['scientificname'], data['AphiaID']])
-#
-#            reply_identifier.finished.connect(process_identifier_search)
 
 
     def handle_selection_change(self, selected, deselected):
@@ -143,4 +110,9 @@ class CrossrefKeywordsDialog(QtWidgets.QDialog, crossrefDialog.Ui_crossref_dialo
 
     def add_keyword(self):
         selection = self.results_table.selectionModel()
-        self.parent().crossrefkeywords.model().addNewRow(self.current_selection)
+        self.parent().crossrefkeywords.model().addNewRow([
+            self.current_selection[0], self.current_selection[2], self.current_selection[3],
+        ])
+        self.parent().crossrefkeywords.model().addNewRow([
+            self.current_selection[1], self.current_selection[2], self.current_selection[3],
+        ])

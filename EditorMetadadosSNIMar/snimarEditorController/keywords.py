@@ -98,8 +98,10 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.btn_open_snimarkeywords.clicked.connect(self.snimar_dialog)
         self.btn_del_snimarkeywords.clicked.connect(lambda: tla.removeSelectedFromList(self.snimarkeywords))
 
-        worms_model = TableModel(self, ['Nome', 'ID'], [QLineEdit, QLineEdit], self.wormskeywords)
+        self.wormskeywords.setColumnHidden(1, True)
+        worms_model = TableModel(self, ['Palavra-chave', 'date'], [QLineEdit, QLineEdit], self.wormskeywords)
         self.wormskeywords.setModel(worms_model)
+        self.wormskeywords.setColumnHidden(1, True)
         self.wormskeywords.resizeColumnsToContents()
         self.wormskeywords.verticalHeader().setVisible(False)
         self.wormskeywords.resizeRowsToContents()
@@ -109,8 +111,13 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         self.btn_open_wormskeywords.clicked.connect(self.worms_dialog)
         self.btn_del_wormskeyword.clicked.connect(lambda: tla.removeSelectedFromList(self.wormskeywords))
 
-        crossref_model = TableModel(self, ['Autor', 'Titulo'], [QLineEdit, QLineEdit], self.crossrefkeywords)
+        #crossref_model = TableModel(self, ['Autor', 'Titulo'], [QLineEdit, QLineEdit], self.crossrefkeywords)
+        self.crossrefkeywords.setColumnHidden(1, True)
+        self.crossrefkeywords.setColumnHidden(2, True)
+        crossref_model = TableModel(self, ['Palavra-chave', 'doi', 'date'], [QLineEdit, QLineEdit, QLineEdit], self.crossrefkeywords)
         self.crossrefkeywords.setModel(crossref_model)
+        self.crossrefkeywords.setColumnHidden(1, True)
+        self.crossrefkeywords.setColumnHidden(2, True)
         self.crossrefkeywords.resizeColumnsToContents()
         self.crossrefkeywords.verticalHeader().setVisible(False)
         self.crossrefkeywords.resizeRowsToContents()
@@ -281,7 +288,6 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
             return
         for keyword in common.keywords:
             for word in keyword.keywords:
-                print(word, keyword.is_worms())
                 if keyword.is_inspire() and self.scope != SCOPES.SERVICES:
                     if self.combo_items_inspire.get(word, None) is not None:
                         self.inspire.model().addNewRow(self.combo_items_inspire[word])
@@ -320,12 +326,12 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
 
                 elif keyword.is_worms():
                     self.wormskeywords.model().addNewRow(
-                        [word, keyword.cc_id]
+                        [word, keyword.thesaurus['date']]
                     )
 
                 elif keyword.is_crossref():
                     self.crossrefkeywords.model().addNewRow(
-                        [word, keyword.cc_id]
+                        [word, keyword.thesaurus['title'].split('doi:')[-1], keyword.thesaurus['date']]
                     )
 
                 else:
@@ -406,10 +412,9 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         for row in self.wormskeywords.model().matrix:
             keyword = snimarProfileModel.MD_Keywords()
             keyword.keywords.append(row[0])
-            keyword.cc_id = row[1]
             keyword.thesaurus = {
-                'title': 'http://www.marinespecies.org/rest/'
-                'date': datetime.datetime.utcnow().strftime('%Y-%m-%d'),
+                'title': 'http://www.marinespecies.org/rest/',
+                'date': row[1],
                 'datetype': self.combo_items_datetype['revision'],
             }
             common.keywords.append(keyword)
@@ -417,8 +422,11 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
         for row in self.crossrefkeywords.model().matrix:
             keyword = snimarProfileModel.MD_Keywords()
             keyword.keywords.append(row[0])
-            keyword.cc_id = row[1]
-            keyword.thesaurus = { 'title': 'https://api.crossref.org/works' }
+            keyword.thesaurus = {
+                'title': 'https://api.crossref.org/works?filter=doi:{}'.format(row[1]),
+                'date': row[2],
+                'datetype': self.combo_items_datetype['revision'],
+            }
             common.keywords.append(keyword)
 
     @qcore.pyqtSlot(qcore.QModelIndex)

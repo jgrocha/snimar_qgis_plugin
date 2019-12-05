@@ -54,16 +54,40 @@ class CrossrefKeywordsDialog(QtWidgets.QDialog, crossrefDialog.Ui_crossref_dialo
         self.btn_close_dialog.clicked.connect(lambda: self.done(0))
 
         # Setup search
-        self.btn_search.clicked.connect(self.search_thesaurus)
+        self.btn_search.clicked.connect(self.reset_search)
 
         # Setup add row
         self.add_row_btn.clicked.connect(self.add_keyword)
+
+        # Pagination
+        self.page = 0
+        self.previous_page.clicked.connect(self.get_previous_page)
+        self.next_page.clicked.connect(self.get_next_page)
+
+    def reset_search(self):
+        self.page = 0
+        self.current_page.setText('Pag. inicial')
+        self.search_thesaurus()
+
+    def get_previous_page(self):
+        self.page -= 1
+        if self.page < 0:
+            self.reset_search()
+        else:
+            self.current_page.setText('Pag. {}'.format(self.page))
+            self.search_thesaurus()
+
+    def get_next_page(self):
+        self.page += 1
+        self.current_page.setText('Pag. {}'.format(self.page))
+        self.search_thesaurus()
 
     def search_thesaurus(self):
         """
         Send request to the crossref API
         """
         network_manager = QtNetwork.QNetworkAccessManager(self)
+        print('call search', self.page)
 
         while self.wk_model.rowCount() > 0:
             self.wk_model.removeSpecificRow(self.wk_model.rowCount() - 1)
@@ -80,26 +104,35 @@ class CrossrefKeywordsDialog(QtWidgets.QDialog, crossrefDialog.Ui_crossref_dialo
             params.append('query.container-title={}'.format(title.replace(' ', '+')))
 
         if len(params) > 0:
+            params.append('offset={}'.format(self.page * 20))
             url = '{}?{}'.format(base_url, '&'.join(params))
             print(url)
 
+            self.search_status.setText('A pesquisar')
             request = QtNetwork.QNetworkRequest(qcore.QUrl(url))
             reply = network_manager.get(request)
 
             def process_crossref_search():
                 if reply.attribute(QtNetwork.QNetworkRequest.HttpStatusCodeAttribute) > 200:
-                    print('error')
+                    self.search_status.setText('Erro')
                     return
 
+                self.search_status.setText('Concluido')
                 data = json.loads(str(reply.readAll(), 'utf-8'))
 
                 for item in data['message']['items']:
-                    self.wk_model.addNewRow([
-                        build_author_string(item['author']),
-                        item['title'][0],
-                        item['DOI'],
-                        item['created']['date-time'].split('T')[0],
-                    ])
+                    try:
+                        if (len(item['title']) < 1 or len(item['title'][0]) < 1) or len(item['author']) < 1:
+                            continue
+
+                        self.wk_model.addNewRow([
+                            build_author_string(item['author']),
+                            item['title'][0],
+                            item['DOI'],
+                            item['created']['date-time'].split('T')[0],
+                        ])
+                    except:
+                        continue
 
             reply.finished.connect(process_crossref_search)
 

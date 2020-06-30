@@ -40,5 +40,19 @@
         <file>resourcesFolder/lpn_.jpg</file>
         <file>resourcesFolder/fcul_.png</file>
         <file>resourcesFolder/univ_evora_.png</file>
+        <file>resourcesFolder/CCMAR_UAlg-01.png</file>
+        <file>resourcesFolder/marsw_logos/CCMAR_UAlg-01.png</file>
+        <file>resourcesFolder/marsw_logos/Fundo Ambiental-01.png</file>
+        <file>resourcesFolder/marsw_logos/ICNF-01.png</file>
+        <file>resourcesFolder/marsw_logos/Inforbiomares-01.png</file>
+        <file>resourcesFolder/marsw_logos/LPN-01.png</file>
+        <file>resourcesFolder/marsw_logos/MARE-01.png</file>
+        <file>resourcesFolder/marsw_logos/MARSW-01.png</file>
+        <file>resourcesFolder/marsw_logos/Portugal2020-01.png</file>
+        <file>resourcesFolder/marsw_logos/POSEUR-01.png</file>
+        <file>resourcesFolder/marsw_logos/Rep_Portuguesa-01.png</file>
+        <file>resourcesFolder/marsw_logos/UEvora-01.png</file>
+        <file>resourcesFolder/marsw_logos/ULisboa_Fac_Ciencias-01.png</file>
+        <file>resourcesFolder/marsw_logos/UniaoEuropeia-01.png</file>
     </qresource>
 </RCC>

@@ -100,7 +100,7 @@ class EditorMetadadosSNIMar(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
             btn.setStyleSheet(self.sytlesheet)
             btn.setFocusPolicy(Qt.NoFocus)
         self.showMaximized()
-        self.setWindowTitle(u'Editor de Metadados SNIMar')
+        self.setWindowTitle(u'Editor de Metadados Marsw Infobiomares')
 
         # Shortcuts
         shortcut_open = qgui.QKeySequence(qcore.Qt.CTRL + qcore.Qt.Key_O)

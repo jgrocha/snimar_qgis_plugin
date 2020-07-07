@@ -70,7 +70,7 @@ class EditorMetadadosPluginEntryPoint(object):
     """Main entrypoint for the QGIS EditorMetadadosSNIMar plugin."""
 
     def __init__(self, iface):
-        self._name = 'Editor de Metadados SNIMar'
+        self._name = 'Editor de Metadados Marsw Infobiomares'
         self._iface = iface
         self.dialog = None
 
@@ -79,16 +79,16 @@ class EditorMetadadosPluginEntryPoint(object):
         """Initialize the GUI machine"""
         self.action = QAction(QIcon(":/resourcesFolder/icons/main_icon.png"), self._name, self._iface.mainWindow())
         self.action.setObjectName('initialAction')
-        self.action.setWhatsThis('Editor de Metadados SNIMar')
-        self.action.setStatusTip('Editor de Metadados SNIMar')
+        self.action.setWhatsThis('Editor de Metadados Marsw Infobiomares')
+        self.action.setStatusTip('Editor de Metadados Marsw Infobiomares')
         #qcore.QObject.connect(self.action, qcore.SIGNAL('triggered()'), self.run)
         self.action.triggered.connect(self.run)
-        self._iface.addPluginToMenu('Editor de Metadados SNIMar', self.action)
+        self._iface.addPluginToMenu('Editor de Metadados Marsw Infobiomares', self.action)
         self._iface.addToolBarIcon(self.action)
 
     def unload(self):
         """Unload the plugin"""
-        self._iface.removePluginMenu('Editor de Metadados SNIMar', self.action)
+        self._iface.removePluginMenu('Editor de Metadados Marsw Infobiomares', self.action)
         self._iface.removeToolBarIcon(self.action)
         try:
             os.remove(os.path.join(os.path.dirname(__file__), "userFiles/.meLock"))
@@ -119,7 +119,7 @@ class EditorMetadadosPluginEntryPoint(object):
             message.setWindowTitle(u'O Editor já se encontra a correr?')
             message.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
             message.setIcon(QMessageBox.Warning)
-            message.setText(u"Verifique,\npor favor, se já existe outra instância do Editor de Metadados SNIMar aberta.\n"
+            message.setText(u"Verifique,\npor favor, se já existe outra instância do Editor de Metadados aberta.\n"
                             u"Só é permitida uma instância para evitar conflitos.")
             message.setInformativeText(u"Deseja continuar?")
             message.addButton(u'Continuar', QMessageBox.AcceptRole)

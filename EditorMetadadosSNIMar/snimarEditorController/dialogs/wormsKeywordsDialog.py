@@ -17,7 +17,7 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
     def __init__(self, parent):
         super(WormsKeywordsDialog, self).__init__(parent)
         if platform.system() != "Linux":
-            font = QFont()
+            font = qgui.QFont()
             font.setFamily(u"Segoe UI Symbol")
             self.setFont(font)
         self.setupUi(self)

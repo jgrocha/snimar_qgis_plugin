@@ -28,7 +28,7 @@ class CrossrefKeywordsDialog(QtWidgets.QDialog, crossrefDialog.Ui_crossref_dialo
     def __init__(self, parent):
         super(CrossrefKeywordsDialog, self).__init__(parent)
         if platform.system() != "Linux":
-            font = QFont()
+            font = qgui.QFont()
             font.setFamily(u"Segoe UI Symbol")
             self.setFont(font)
         self.setupUi(self)

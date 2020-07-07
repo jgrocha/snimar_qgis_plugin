@@ -413,7 +413,7 @@ class KeywordsWidget(QWidget, keywordsPanel.Ui_keywords):
             keyword = snimarProfileModel.MD_Keywords()
             keyword.keywords.append(row[0])
             keyword.thesaurus = {
-                'title': 'http://www.marinespecies.org/rest/',
+                'title': 'https://www.marinespecies.org/rest/',
                 'date': row[1],
                 'datetype': self.combo_items_datetype['revision'],
             }

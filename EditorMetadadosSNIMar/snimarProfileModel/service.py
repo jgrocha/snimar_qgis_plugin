@@ -173,7 +173,7 @@ class ThesaurusServiceManager(object):
 
 
 class WormsThesaurusManager(object):
-    BASE_URL = 'http://www.marinespecies.org/rest'
+    BASE_URL = 'https://www.marinespecies.org/rest'
 
     def search_by_aphia_id(self, identifier):
         """

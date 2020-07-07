@@ -843,7 +843,7 @@ class MD_Keywords(object):
     def is_worms(self):
         if self.thesaurus is None:
             return False
-        return self.thesaurus['title'] == 'http://www.marinespecies.org/rest/'
+        return self.thesaurus['title'] == 'https://www.marinespecies.org/rest/'
 
     def is_crossref(self):
         if self.thesaurus is None:

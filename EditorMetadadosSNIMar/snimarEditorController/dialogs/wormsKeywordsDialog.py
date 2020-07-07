@@ -57,7 +57,7 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
 
         name = self.name_edit.text()
         if name and len(name) > 0:
-            request_name_url = 'http://www.marinespecies.org/rest/AphiaRecordsByName/{}'.format(name.replace(' ', '+'))
+            request_name_url = 'https://www.marinespecies.org/rest/AphiaRecordsByName/{}'.format(name.replace(' ', '+'))
             request_name = QtNetwork.QNetworkRequest(qcore.QUrl(request_name_url))
             reply_name = network_manager.get(request_name)
 
@@ -72,7 +72,7 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
 
         vernacular = self.vernacular_edit.text()
         if vernacular and len(vernacular) > 0:
-            request_vernacular_url = 'http://www.marinespecies.org/rest/AphiaRecordsByVernacular/{}'.format(vernacular.replace(' ', '+'))
+            request_vernacular_url = 'https://www.marinespecies.org/rest/AphiaRecordsByVernacular/{}'.format(vernacular.replace(' ', '+'))
             request_vernacular = QtNetwork.QNetworkRequest(qcore.QUrl(request_vernacular_url))
             reply_vernacular = network_manager.get(request_vernacular)
 
@@ -87,7 +87,7 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
 
         identifier = self.identifier_edit.text()
         if identifier and len(identifier) > 0:
-            request_identifier_url = 'http://www.marinespecies.org/rest/AphiaRecordByAphiaID/{}'.format(identifier.replace(' ', '+'))
+            request_identifier_url = 'https://www.marinespecies.org/rest/AphiaRecordByAphiaID/{}'.format(identifier.replace(' ', '+'))
             request_identifier = QtNetwork.QNetworkRequest(qcore.QUrl(request_identifier_url))
             reply_identifier = network_manager.get(request_identifier)
 
@@ -106,5 +106,4 @@ class WormsKeywordsDialog(QtWidgets.QDialog, wormsDialog.Ui_worms_dialog):
 
     def add_keyword(self):
         selection = self.results_table.selectionModel()
-        print(self.current_selection)
         self.parent().wormskeywords.model().addNewRow(self.current_selection)

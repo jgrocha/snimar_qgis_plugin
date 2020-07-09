@@ -1,1 +1,0 @@
-http://collab-keywords.snimar.pt/

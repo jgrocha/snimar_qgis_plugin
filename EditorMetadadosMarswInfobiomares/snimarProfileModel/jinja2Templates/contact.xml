@@ -1,0 +1,78 @@
+<gmd:CI_ResponsibleParty>
+    {%- if contact.name %}
+    <gmd:individualName>
+        <gco:CharacterString>{{ contact.name|e }}</gco:CharacterString>
+    </gmd:individualName>
+    {%- endif %}
+    {%- if contact.organization %}
+    <gmd:organisationName>
+        <gco:CharacterString>{{ contact.organization|e }}</gco:CharacterString>
+    </gmd:organisationName>
+    {%- endif %}
+    {%- if contact.position %}
+    <gmd:positionName>
+        <gco:CharacterString>{{ contact.position|e }}</gco:CharacterString>
+    </gmd:positionName>
+    {%- endif %}
+    <gmd:contactInfo>
+        <gmd:CI_Contact>
+            {%- if contact.phone|length >0 or contact.fax|length >0 %}
+            <gmd:phone>
+                <gmd:CI_Telephone>
+                    {%- for phone in contact.phone %}
+                    <gmd:voice>
+                        <gco:CharacterString>{{ phone }}</gco:CharacterString>
+                    </gmd:voice>
+                    {%- endfor %}
+                    {%- for fax in contact.fax %}
+                    <gmd:facsimile>
+                        <gco:CharacterString>{{ fax }}</gco:CharacterString>
+                    </gmd:facsimile>
+                    {%- endfor %}
+                </gmd:CI_Telephone>
+            </gmd:phone>
+            {%- endif %}
+            <gmd:address>
+                <gmd:CI_Address>
+                    {%- if contact.address %}
+                    <gmd:deliveryPoint>
+                        <gco:CharacterString>{{ contact.address }}</gco:CharacterString>
+                    </gmd:deliveryPoint>
+                    {%- endif %}
+                    {%- if contact.city %}
+                    <gmd:city>
+                        <gco:CharacterString>{{ contact.city }}</gco:CharacterString>
+                    </gmd:city>
+                    {%- endif %}
+                    {%- if contact.postcode %}
+                    <gmd:postalCode>
+                        <gco:CharacterString>{{ contact.postcode }}</gco:CharacterString>
+                    </gmd:postalCode>
+                    {%- endif %}
+                    {%- if contact.country %}
+                    <gmd:country>
+                        <gco:CharacterString>{{ contact.country }}</gco:CharacterString>
+                    </gmd:country>
+                    {%- endif %}
+                    {%- for email in contact.email %}
+                    <gmd:electronicMailAddress>
+                        <gco:CharacterString>{{ email }}</gco:CharacterString>
+                    </gmd:electronicMailAddress>
+                    {%- endfor %}
+                </gmd:CI_Address>
+            </gmd:address>
+            {%- for onlineresource in contact.onlineresource %}
+            <gmd:onlineResource>
+                <gmd:CI_OnlineResource>
+                    <gmd:linkage>
+                        <gmd:URL>{{ onlineresource.url }}</gmd:URL>
+                    </gmd:linkage>
+                </gmd:CI_OnlineResource>
+            </gmd:onlineResource>
+            {%- endfor %}
+        </gmd:CI_Contact>
+    </gmd:contactInfo>
+    <gmd:role>
+        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="{{ contact.role }}" codeSpace="ISOTC211/19115">{{ contact.role_pt }}</gmd:CI_RoleCode>
+    </gmd:role>
+</gmd:CI_ResponsibleParty>

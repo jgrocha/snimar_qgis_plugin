@@ -43,7 +43,7 @@ def release_filesystem_location():
     """
     Returns the absolute path of the location where the release is built.
     """
-    return os.path.join(public_filesystem_location(), 'source/EditorMetadadosSNIMar')
+    return os.path.join(public_filesystem_location(), 'source/EditorMetadadosMarswInfobiomares')
 
 
 def source_filesystem_location():
@@ -51,7 +51,7 @@ def source_filesystem_location():
     Returns the absolute path of the directory that holds the source code for the
     project.
     """
-    return os.path.join(project_root_filesystem_location(), 'EditorMetadadosSNIMar')
+    return os.path.join(project_root_filesystem_location(), 'EditorMetadadosMarswInfobiomares')
 
 
 def version_filesystem_location():
@@ -76,14 +76,14 @@ def make_plugin_release_filename():
     Returns the name of the release ZIP asset, using the release version format string.
     """
     version = make_plugin_version_string()
-    return 'EditorMetadadosSNIMar.{version}.zip'.format(version=version)
+    return 'EditorMetadadosMarswInfobiomares.{version}.zip'.format(version=version)
 
 
 def make_plugin_download_url():
     """
     Returns the URL that can be used to download the plugin from the repository
     """
-    return urljoin('https://likeno.gitlab.io/snimar/qgis_editor/', make_plugin_release_filename())
+    return urljoin('https://marsw.ualg.pt/static/qgis/', make_plugin_release_filename())
 
 
 def make_plugin_release_filesystem_location():
@@ -119,7 +119,7 @@ def make_repository_xml(data):
     """
     Make the repository XML file for the plugin repository.
     """
-    template = load_template('editor_metadados_snimar.template.xml')
+    template = load_template('editor_metadados_marsw_infobiomares.template.xml')
     return template.render(data)
 
 
@@ -157,7 +157,7 @@ def make_release_zip():
 if __name__ == '__main__':
     info = make_release_information()
 
-    with open(os.path.join(public_filesystem_location(), 'editormetadadossnimar.xml'), 'w', encoding='utf-8') as fp:
+    with open(os.path.join(public_filesystem_location(), 'editormetadadosmarswinfobiomares.xml'), 'w', encoding='utf-8') as fp:
         fp.write(make_repository_xml(info))
 
     shutil.copytree(source_filesystem_location(), release_filesystem_location(), ignore=get_ignore_file_list)

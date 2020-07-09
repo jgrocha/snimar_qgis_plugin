@@ -1,5 +1,5 @@
 [general]
-name=EditorMetadadosSNIMar
+name=EditorMetadadosMarswInfobiomares
 email=suporte.snimar@ipma.pt
 author=Main Developers: Pedro Dias, Eduardo Castanho;
   Constributos: Joana Teixeira, Alexandre Neto

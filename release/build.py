@@ -43,7 +43,7 @@ def release_filesystem_location():
     """
     Returns the absolute path of the location where the release is built.
     """
-    return os.path.join(public_filesystem_location(), 'source/EditorMetadadosMarswInfobiomares')
+    return os.path.join(public_filesystem_location(), 'source/EditorMetadadosMarswInforbiomares')
 
 
 def source_filesystem_location():
@@ -51,7 +51,7 @@ def source_filesystem_location():
     Returns the absolute path of the directory that holds the source code for the
     project.
     """
-    return os.path.join(project_root_filesystem_location(), 'EditorMetadadosMarswInfobiomares')
+    return os.path.join(project_root_filesystem_location(), 'EditorMetadadosMarswInforbiomares')
 
 
 def version_filesystem_location():
@@ -76,7 +76,7 @@ def make_plugin_release_filename():
     Returns the name of the release ZIP asset, using the release version format string.
     """
     version = make_plugin_version_string()
-    return 'EditorMetadadosMarswInfobiomares.{version}.zip'.format(version=version)
+    return 'EditorMetadadosMarswInforbiomares.{version}.zip'.format(version=version)
 
 
 def make_plugin_download_url():

@@ -28,8 +28,8 @@ from __future__ import print_function
 import os
 import json
 import datetime
-from EditorMetadadosMarswInfobiomares import CONSTANTS
-from EditorMetadadosMarswInfobiomares.CONSTANTS import FILELIST_STORE
+from EditorMetadadosMarswInforbiomares import CONSTANTS
+from EditorMetadadosMarswInforbiomares.CONSTANTS import FILELIST_STORE
 
 
 class FileManager(dict):

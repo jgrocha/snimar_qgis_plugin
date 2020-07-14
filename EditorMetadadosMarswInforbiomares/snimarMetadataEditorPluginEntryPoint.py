@@ -61,16 +61,16 @@ from qgis.PyQt import QtGui as qgui
 from qgis.PyQt.QtCore import  Qt
 import time
 
-from . import editorMetadadosSNIMar
+from . import editorMetadadosMarswInforbiomares
 
 from . import resources
 
 
 class EditorMetadadosPluginEntryPoint(object):
-    """Main entrypoint for the QGIS EditorMetadadosMarswInfobiomares plugin."""
+    """Main entrypoint for the QGIS EditorMetadadosMarswInforbiomares plugin."""
 
     def __init__(self, iface):
-        self._name = 'Editor de Metadados Marsw Infobiomares'
+        self._name = 'Editor de Metadados Marsw Inforbiomares'
         self._iface = iface
         self.dialog = None
 
@@ -79,16 +79,16 @@ class EditorMetadadosPluginEntryPoint(object):
         """Initialize the GUI machine"""
         self.action = QAction(QIcon(":/resourcesFolder/icons/main_icon.png"), self._name, self._iface.mainWindow())
         self.action.setObjectName('initialAction')
-        self.action.setWhatsThis('Editor de Metadados Marsw Infobiomares')
-        self.action.setStatusTip('Editor de Metadados Marsw Infobiomares')
+        self.action.setWhatsThis('Editor de Metadados Marsw Inforbiomares')
+        self.action.setStatusTip('Editor de Metadados Marsw Inforbiomares')
         #qcore.QObject.connect(self.action, qcore.SIGNAL('triggered()'), self.run)
         self.action.triggered.connect(self.run)
-        self._iface.addPluginToMenu('Editor de Metadados Marsw Infobiomares', self.action)
+        self._iface.addPluginToMenu('Editor de Metadados Marsw Inforbiomares', self.action)
         self._iface.addToolBarIcon(self.action)
 
     def unload(self):
         """Unload the plugin"""
-        self._iface.removePluginMenu('Editor de Metadados Marsw Infobiomares', self.action)
+        self._iface.removePluginMenu('Editor de Metadados Marsw Inforbiomares', self.action)
         self._iface.removeToolBarIcon(self.action)
         try:
             os.remove(os.path.join(os.path.dirname(__file__), "userFiles/.meLock"))
@@ -132,7 +132,7 @@ class EditorMetadadosPluginEntryPoint(object):
         splash_pix = QPixmap(":/resourcesFolder/splash.png")
         splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
         splash.setMask(splash_pix.mask())
-        splash.showMessage("A Carregar...", alignment=Qt.AlignBottom | Qt.AlignHCenter, color=Qt.white)
+        #splash.showMessage("A Carregar...", alignment=Qt.AlignBottom | Qt.AlignHCenter, color=Qt.white)
         splash.setWindowFlags(splash.windowFlags() | Qt.WindowStaysOnTopHint)
         splash.show()
 
@@ -145,7 +145,7 @@ class EditorMetadadosPluginEntryPoint(object):
 
         f = open(os.path.join(os.path.dirname(__file__), "userFiles/.meLock"), "w")
         f.close()
-        self.dialog = editorMetadadosSNIMar.EditorMetadadosMarswInfobiomares(self._iface, self)
+        self.dialog = editorMetadadosMarswInforbiomares.EditorMetadadosMarswInforbiomares(self._iface, self)
         self.dialog.setWindowIcon(QIcon(":/resourcesFolder/icons/main_icon.png"))
         self.dialog.show()
 

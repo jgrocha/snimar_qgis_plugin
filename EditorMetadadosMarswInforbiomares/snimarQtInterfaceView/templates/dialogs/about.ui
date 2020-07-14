@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Editor de metadados SNIMar - Sobre</string>
+   <string>Editor de metadados - Sobre</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -59,7 +59,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Editor de metadados Marsw Infobiomares</string>
+      <string>Editor de metadados Marsw Inforbiomares</string>
      </property>
     </widget>
    </item>
@@ -336,7 +336,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O Editor de Metadados foi desenvolvido no âmbito dos projetos Marsw e Infobiomares com o objectivo de ser a ferramenta destinada à criação dos metadados em conformidade com o Perfil de Metadados SNIMar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O Editor de Metadados foi desenvolvido no âmbito dos projetos Marsw e Inforbiomares com o objectivo de ser a ferramenta destinada à criação dos metadados em conformidade com o Perfil de Metadados SNIMar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>

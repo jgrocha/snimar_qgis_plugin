@@ -27,7 +27,7 @@
 from builtins import str
 from builtins import object
 import re
-from EditorMetadadosMarswInfobiomares.snimarProfileModel import snimarProfileModel
+from EditorMetadadosMarswInforbiomares.snimarProfileModel import snimarProfileModel
 
 
 class Identification(object):

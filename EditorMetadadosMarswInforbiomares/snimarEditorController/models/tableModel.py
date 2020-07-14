@@ -33,8 +33,8 @@ from qgis.PyQt.QtCore import QAbstractTableModel, QModelIndex, Qt, QSize, QDate
 from qgis.PyQt.QtWidgets import QLineEdit, QCheckBox, QComboBox, QDateEdit, QSpinBox, QDoubleSpinBox, QHeaderView, QTableView, QLabel, QDateTimeEdit
 from qgis.PyQt.QtGui import QBrush, QColor, QStandardItem
 from qgis._gui import QgsFilterLineEdit
-from EditorMetadadosMarswInfobiomares import CONSTANTS as cons
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.customComboBoxModel import CustomComboBox
+from EditorMetadadosMarswInforbiomares import CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.customComboBoxModel import CustomComboBox
 
 
 def rm_accents(input_str):

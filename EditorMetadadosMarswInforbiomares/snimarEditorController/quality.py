@@ -34,17 +34,17 @@ from qgis.PyQt.QtGui import QCursor
 from qgis._gui import QgsFilterLineEdit
 import re
 
-from EditorMetadadosMarswInfobiomares.snimarProfileModel import snimarProfileModel
+from EditorMetadadosMarswInforbiomares.snimarProfileModel import snimarProfileModel
 
 # UI generated python modules
 
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import qualityPanel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tla
-from EditorMetadadosMarswInfobiomares import CONSTANTS as cons
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import tablesRowsValidation as tval
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import customComboBoxModel as customCombo
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.null_QDateEdit import NullQDateEditWrapper
-from EditorMetadadosMarswInfobiomares import CONSTANTS as CONS
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import qualityPanel
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tla
+from EditorMetadadosMarswInforbiomares import CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import tablesRowsValidation as tval
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import customComboBoxModel as customCombo
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.null_QDateEdit import NullQDateEditWrapper
+from EditorMetadadosMarswInforbiomares import CONSTANTS as CONS
 
 regex_pt = re.compile('^ *dados? *hist.ricos? *(?:marinhos?)? *(?:recuperados?)? *\.? *\n?',
                       re.IGNORECASE)

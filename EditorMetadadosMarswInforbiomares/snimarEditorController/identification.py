@@ -35,23 +35,23 @@ from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget, QHeaderView, Q
 from qgis.PyQt.QtGui import QCursor, QIcon
 from qgis._gui import QgsFilterLineEdit
 
-from EditorMetadadosMarswInfobiomares import CONSTANTS as cons
-from EditorMetadadosMarswInfobiomares.CONSTANTS import Scopes as SCOPES
-from EditorMetadadosMarswInfobiomares.snimarEditorController import contactWidget
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import customComboBoxModel as customCombo
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import listRowsValidation as lval
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tla
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import tablesRowsValidation as tval
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.table_list_aux import unsetLabelRed, \
+from EditorMetadadosMarswInforbiomares import CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares.CONSTANTS import Scopes as SCOPES
+from EditorMetadadosMarswInforbiomares.snimarEditorController import contactWidget
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import customComboBoxModel as customCombo
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import listRowsValidation as lval
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tla
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import tablesRowsValidation as tval
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.table_list_aux import unsetLabelRed, \
     setLabelRed
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import \
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import \
     identificationPanel
 
 
 class IdentificationWidget(QWidget, identificationPanel.Ui_identification):
     """
 
-        :type superParent :   editorMetadadosSNIMar.EditorMetadadosMarswInfobiomares
+        :type superParent :   editorMetadadosSNIMar.EditorMetadadosMarswInforbiomares
         """
 
     def __init__(self, parent, scope):

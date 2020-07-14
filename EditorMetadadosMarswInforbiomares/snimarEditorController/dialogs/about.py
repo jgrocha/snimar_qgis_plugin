@@ -2,16 +2,16 @@
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt.QtGui import QPixmap, QIcon
 from qgis.PyQt import QtCore
-import EditorMetadadosMarswInfobiomares
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import about
-from EditorMetadadosMarswInfobiomares import resources
+import EditorMetadadosMarswInforbiomares
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import about
+from EditorMetadadosMarswInforbiomares import resources
 
 
 class About(QDialog, about.Ui_About):
     def __init__(self):
         super(About, self).__init__()
         self.setupUi(self)
-        self.version.setText(u"Versão:" + EditorMetadadosMarswInfobiomares.__version__)
+        self.version.setText(u"Versão:" + EditorMetadadosMarswInforbiomares.__version__)
         self.pushButton.clicked.connect(lambda: self.done(1))
 
         #inforbiomares = QPixmap(":/resourcesFolder/infor_biomares_.png")

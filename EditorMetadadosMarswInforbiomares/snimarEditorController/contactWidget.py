@@ -38,13 +38,13 @@ from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtGui import QPalette, QFont, QCursor
 from qgis.PyQt.QtWidgets import QMessageBox, QToolTip, QDateTimeEdit, QDateEdit, QWidget
 from qgis._gui import QgsFilterLineEdit
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import contactInlinePanel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tla
-from EditorMetadadosMarswInfobiomares.snimarEditorController.dialogs import contacts_dialog
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import customComboBoxModel as customCombo
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import listRowsValidation as lval
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import contactInlinePanel
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tla
+from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs import contacts_dialog
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import customComboBoxModel as customCombo
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import listRowsValidation as lval
 
-from EditorMetadadosMarswInfobiomares.snimarProfileModel import snimarProfileModel
+from EditorMetadadosMarswInforbiomares.snimarProfileModel import snimarProfileModel
 
 CONTACTFILE = os.path.join(os.path.join(os.path.abspath(os.path.expanduser('~')), '.snimar'), 'contact_list.json')
 validator = lval.InlineContact()
@@ -98,7 +98,7 @@ class InlineContactWidget(QWidget, contactInlinePanel.Ui_contactWidget):
             info.setIcon(qgui.QIcon(':/resourcesFolder/icons/help_icon.svg'))
             info.setText('')
             info.pressed.connect(self.printHelp)
-        f = open(os.path.join(pluginDirectory('EditorMetadadosMarswInfobiomares'), 'resourcesFolder/stylesheet.qtcss'))
+        f = open(os.path.join(pluginDirectory('EditorMetadadosMarswInforbiomares'), 'resourcesFolder/stylesheet.qtcss'))
         self.sytlesheet = f.read()
         for btn in self.findChildren(qwidgets.QPushButton):
             btn.setStyleSheet(self.sytlesheet)

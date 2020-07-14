@@ -33,7 +33,7 @@ from qgis.PyQt import QtGui as qgui
 from qgis.PyQt.QtWidgets import QItemDelegate, QPushButton
 
 from qgis._gui import QgsFilterLineEdit
-from EditorMetadadosMarswInfobiomares import CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares import CONSTANTS as cons
 from .customComboBoxModel import CustomComboBoxModel
 
 

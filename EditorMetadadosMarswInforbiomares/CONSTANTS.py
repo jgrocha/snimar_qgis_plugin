@@ -55,7 +55,7 @@ SNIMAR_PROFILE_VERSION = u'v.0.9.3'
 
 CODELIST_SERVER_URL='http://editor.snimar.pt/CODELISTS/'
 
-RESOURCE_DIR = os.path.join(pluginDirectory('EditorMetadadosMarswInfobiomares'), 'resourcesFolder')
+RESOURCE_DIR = os.path.join(pluginDirectory('EditorMetadadosMarswInforbiomares'), 'resourcesFolder')
 NAMESPACES = {
     'gml': 'http://www.opengis.net/gml/3.2',
     'gmx': 'http://www.isotc211.org/2005/gmx',

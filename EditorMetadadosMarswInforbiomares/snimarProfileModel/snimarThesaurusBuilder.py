@@ -30,8 +30,8 @@ import os
 import textwrap
 from qgis.PyQt.QtCore import QDate, QSize
 from qgis.PyQt.QtGui import QStandardItemModel, QStandardItem
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import customComboBoxModel as customCombo
-from EditorMetadadosMarswInfobiomares import CONSTANTS
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import customComboBoxModel as customCombo
+from EditorMetadadosMarswInforbiomares import CONSTANTS
 
 
 class SnimarThesurusModel(object):

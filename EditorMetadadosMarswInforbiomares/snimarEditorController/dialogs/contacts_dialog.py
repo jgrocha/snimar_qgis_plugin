@@ -33,9 +33,9 @@ from qgis.PyQt.QtCore import QMetaObject, Qt
 from qgis.PyQt.QtWidgets import QWidget, QToolTip, QDateTimeEdit, QDialog
 from qgis.PyQt.QtGui import QCursor, QFont
 
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import contactListManagerWindow
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tla
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import customComboBoxModel as cus
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import contactListManagerWindow
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tla
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import customComboBoxModel as cus
 
 import platform
 

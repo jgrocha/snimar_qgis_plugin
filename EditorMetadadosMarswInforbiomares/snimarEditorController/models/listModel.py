@@ -29,8 +29,8 @@ from qgis.PyQt.QtCore import QModelIndex, Qt, QSize, QAbstractListModel
 from qgis.PyQt.QtWidgets import QDateEdit, QDoubleSpinBox, QLineEdit, QComboBox, QSpinBox, QCheckBox, QLabel, QDateTimeEdit
 from qgis.PyQt.QtGui import QColor
 from qgis.gui import QgsFilterLineEdit
-from EditorMetadadosMarswInfobiomares import CONSTANTS as cons
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.customComboBoxModel import CustomComboBox
+from EditorMetadadosMarswInforbiomares import CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.customComboBoxModel import CustomComboBox
 
 
 class ListModel(QAbstractListModel):

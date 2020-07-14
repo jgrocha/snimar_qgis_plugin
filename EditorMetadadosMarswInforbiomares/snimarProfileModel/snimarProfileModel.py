@@ -33,12 +33,12 @@ import re
 import datetime
 
 # OWSLib imports
-import EditorMetadadosMarswInfobiomares
-from EditorMetadadosMarswInfobiomares.libs.owslib import iso
-from EditorMetadadosMarswInfobiomares.libs.owslib import util
-from EditorMetadadosMarswInfobiomares.libs.owslib import namespaces
-from EditorMetadadosMarswInfobiomares.CONSTANTS import Scopes as SCOPES
-from EditorMetadadosMarswInfobiomares.CONSTANTS import SNIMAR_BASE_DIR
+import EditorMetadadosMarswInforbiomares
+from EditorMetadadosMarswInforbiomares.libs.owslib import iso
+from EditorMetadadosMarswInforbiomares.libs.owslib import util
+from EditorMetadadosMarswInforbiomares.libs.owslib import namespaces
+from EditorMetadadosMarswInforbiomares.CONSTANTS import Scopes as SCOPES
+from EditorMetadadosMarswInforbiomares.CONSTANTS import SNIMAR_BASE_DIR
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -910,7 +910,7 @@ def export_xml(md):
     env.finalize = silent_none
     template = env.get_template('md_metadata.xml')
     md_dict = md.__dict__
-    md_dict['editor_version'] = EditorMetadadosMarswInfobiomares.__version__
+    md_dict['editor_version'] = EditorMetadadosMarswInforbiomares.__version__
     md_dict['editor_date'] = datetime.datetime.now()
     return template.render(md_dict)
 

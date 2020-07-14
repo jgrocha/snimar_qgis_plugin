@@ -28,14 +28,14 @@ import platform
 from qgis.PyQt.QtCore import QDate, QRegExp
 from qgis.PyQt.QtWidgets import QDialog, QToolTip
 from qgis.PyQt.QtGui import QCursor, QFont
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import chooseFreeKeywordDialog
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import chooseFreeKeywordDialog
 from qgis.PyQt import QtGui as qgui
 from qgis.PyQt import QtWidgets as qwidgets
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tla
-from EditorMetadadosMarswInfobiomares import CONSTANTS as cons
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.customComboBoxModel import CustomComboBoxModel
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import keywordsPanel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.null_QDateEdit import NullQDateEditWrapper
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tla
+from EditorMetadadosMarswInforbiomares import CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.customComboBoxModel import CustomComboBoxModel
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import keywordsPanel
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.null_QDateEdit import NullQDateEditWrapper
 
 
 class FreeKeyWordsDialog(QDialog, chooseFreeKeywordDialog.Ui_dialogDate):

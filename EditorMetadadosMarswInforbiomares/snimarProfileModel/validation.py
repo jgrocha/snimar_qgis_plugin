@@ -29,7 +29,7 @@ from __future__ import absolute_import
 import os
 import platform
 from . import snimarProfileModel
-from EditorMetadadosMarswInfobiomares.libs.owslib.etree import etree
+from EditorMetadadosMarswInforbiomares.libs.owslib.etree import etree
 
 
 def validate(filename):

@@ -32,12 +32,12 @@ from qgis.gui import QgsFilterLineEdit
 from qgis.PyQt.QtCore import QDateTime, QObject, QEvent
 from qgis.PyQt.QtWidgets import QLineEdit, QComboBox, QDoubleSpinBox, QAbstractItemView, QPushButton, QSpinBox, QDialog, QHeaderView, QCheckBox, QListView, QPlainTextEdit, QTableView, QDateTimeEdit, QDateEdit
 
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.listModel import ListModel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.tableModel import TableModel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.delegates import DoubleSpinBoxDelegate, SpinBoxDelegate, ComboBoxDelegate, \
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.listModel import ListModel
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.tableModel import TableModel
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.delegates import DoubleSpinBoxDelegate, SpinBoxDelegate, ComboBoxDelegate, \
     DateEditDelegate, CustomComboBoxDelegate, QDateTimeEditDelegate, QgsFilterLineEditDelegate
-from EditorMetadadosMarswInfobiomares import CONSTANTS as cons
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.customComboBoxModel import CustomComboBox, CustomComboBoxModel
+from EditorMetadadosMarswInforbiomares import CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.customComboBoxModel import CustomComboBox, CustomComboBoxModel
 
 
 def addToListView(list, box, format_Date=cons.DATE_TIME_FORMAT, raw=False, combo=False):

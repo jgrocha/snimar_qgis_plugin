@@ -1,5 +1,5 @@
 [general]
-name=EditorMetadadosMarswInfobiomares
+name=EditorMetadadosMarswInforbiomares
 email=suporte.snimar@ipma.pt
 author= Main Developers: Pedro Dias, Eduardo Castanho;
  Contributors: Joana Teixeira , Alexandre Neto
@@ -9,7 +9,7 @@ about= O Editor de Metadados SNIMar foi desenvolvido no âmbito do Projecto SNIM
        com o objectivo de ser a ferramenta destinada à criação dos metadados
        em conformidade com o Perfil de Metadados SNIMar
        email: suporte.snimar@ipma.pt.
-version=3.0.0
+version=3.2.1
 ChangeLog: >1.0.0 - Primeira versão
            >...
            >2.0.0 - Actualização do Perfil

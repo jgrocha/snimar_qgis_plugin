@@ -31,10 +31,10 @@ from qgis.utils import pluginDirectory
 from qgis.PyQt.QtCore import Qt, QSize
 from qgis.PyQt.QtGui import QFont, QColor, QIcon
 from qgis.PyQt.QtWidgets import QWidget, QListWidget, QPushButton, QGridLayout, QListWidgetItem, QStackedWidget
-from EditorMetadadosMarswInfobiomares.CONSTANTS import Scopes as SCOPES
-import EditorMetadadosMarswInfobiomares.CONSTANTS as cons
-from EditorMetadadosMarswInfobiomares import snimarEditorController
-from EditorMetadadosMarswInfobiomares.snimarProfileModel import snimarProfileModel
+from EditorMetadadosMarswInforbiomares.CONSTANTS import Scopes as SCOPES
+import EditorMetadadosMarswInforbiomares.CONSTANTS as cons
+from EditorMetadadosMarswInforbiomares import snimarEditorController
+from EditorMetadadosMarswInforbiomares.snimarProfileModel import snimarProfileModel
 
 
 class MetadadoSNIMar(QWidget):
@@ -87,7 +87,7 @@ class MetadadoSNIMar(QWidget):
         self.codelist = self.parent().codelists
         self.helps = self.parent().helps
         self.orgs = self.parent().orgs
-        f = open(os.path.join(pluginDirectory('EditorMetadadosMarswInfobiomares'), 'resourcesFolder/stylesheet.qtcss'))
+        f = open(os.path.join(pluginDirectory('EditorMetadadosMarswInforbiomares'), 'resourcesFolder/stylesheet.qtcss'))
         self.sytlesheet = f.read()
         for btn in self.findChildren(QPushButton):
             btn.setStyleSheet(self.sytlesheet)

@@ -33,24 +33,24 @@ from qgis.PyQt.QtCore import QModelIndex, Qt
 from qgis.PyQt.QtGui import QCursor
 from qgis.PyQt.QtWidgets import QToolTip, QDateTimeEdit, QWidget
 
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tla
-from EditorMetadadosMarswInfobiomares.snimarEditorController.dialogs.extent_dialog import ExtentDialog
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.customComboBoxModel import CodeListItem, \
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tla
+from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs.extent_dialog import ExtentDialog
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.customComboBoxModel import CodeListItem, \
     CustomComboBox, Reference_System_Item
 
 # UI generated python modules
 
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import \
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import \
     geographicinformationPanel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.dialogs.geo_localization_dialog import \
+from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs.geo_localization_dialog import \
     GeoLocalizationDialog
 from qgis.gui import QgsFilterLineEdit
-from EditorMetadadosMarswInfobiomares.snimarProfileModel import snimarProfileModel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models.table_list_aux import setLabelRed, \
+from EditorMetadadosMarswInforbiomares.snimarProfileModel import snimarProfileModel
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models.table_list_aux import setLabelRed, \
     unsetLabelRed
-from EditorMetadadosMarswInfobiomares.CONSTANTS import Scopes as SCOPES
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import listRowsValidation as lval
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import customComboBoxModel as customCombo
+from EditorMetadadosMarswInforbiomares.CONSTANTS import Scopes as SCOPES
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import listRowsValidation as lval
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import customComboBoxModel as customCombo
 
 NO_VALUE = -999999999.0000
 

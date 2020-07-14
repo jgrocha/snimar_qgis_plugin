@@ -48,16 +48,16 @@ from qgis.PyQt.QtWidgets import QApplication
 from qgis.PyQt.QtGui import QFont
 import datetime
 
-from EditorMetadadosMarswInfobiomares.snimarEditorController.dialogs.about import About
+from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs.about import About
 from .snimarEditorController.metadadoSNIMar import MetadadoSNIMar, vality_msg
 from .snimarEditorController import filemanager
 from .snimarProfileModel import snimarProfileModel, validation
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tableaux
-from EditorMetadadosMarswInfobiomares.snimarEditorController.dialogs.update_dialog import SNIMarThesaurusUpdateDialog
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tableaux
+from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs.update_dialog import SNIMarThesaurusUpdateDialog
 from .snimarQtInterfaceView.pyuic4GeneratedSourceFiles import snimarEditorMainWindow
-from EditorMetadadosMarswInfobiomares.CONSTANTS import Scopes as SCOPES
-from EditorMetadadosMarswInfobiomares import CONSTANTS
-from EditorMetadadosMarswInfobiomares.snimarProfileModel import service
+from EditorMetadadosMarswInforbiomares.CONSTANTS import Scopes as SCOPES
+from EditorMetadadosMarswInforbiomares import CONSTANTS
+from EditorMetadadosMarswInforbiomares.snimarProfileModel import service
 
 from .snimarEditorController.dialogs import contacts_dialog
 from .snimarEditorController.models.delegates import ButtonDelegate
@@ -67,11 +67,11 @@ SAVE_FLAG = 0
 SAVEAS_FLAG = 1
 
 
-class EditorMetadadosMarswInfobiomares(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
+class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
     """SNIMar Editor main window class"""
 
     def __init__(self, iface, parent):
-        super(EditorMetadadosMarswInfobiomares, self).__init__()
+        super(EditorMetadadosMarswInforbiomares, self).__init__()
 
         # Setup the directory that will contain the filelist and the list of contacts
         self.setup_editor_dir()
@@ -94,13 +94,13 @@ class EditorMetadadosMarswInfobiomares(QMainWindow, snimarEditorMainWindow.Ui_ma
         self.last_open_dir = os.path.expanduser('~')
 
         self.setupUi(self)
-        f = open(os.path.join(pluginDirectory('EditorMetadadosMarswInfobiomares'), 'resourcesFolder/stylesheet.qtcss'))
+        f = open(os.path.join(pluginDirectory('EditorMetadadosMarswInforbiomares'), 'resourcesFolder/stylesheet.qtcss'))
         self.sytlesheet = f.read()
         for btn in self.findChildren(QWidget):
             btn.setStyleSheet(self.sytlesheet)
             btn.setFocusPolicy(Qt.NoFocus)
         self.showMaximized()
-        self.setWindowTitle(u'Editor de Metadados Marsw Infobiomares')
+        self.setWindowTitle(u'Editor de Metadados Marsw Inforbiomares')
 
         # Shortcuts
         shortcut_open = qgui.QKeySequence(qcore.Qt.CTRL + qcore.Qt.Key_O)
@@ -230,7 +230,7 @@ class EditorMetadadosMarswInfobiomares(QMainWindow, snimarEditorMainWindow.Ui_ma
         self.mouse_point = None  # dont use this not updated frequentaly only when menucontext is call
 
     # -------------------------------
-    # EditorMetadadosMarswInfobiomares Slots
+    # EditorMetadadosMarswInforbiomares Slots
     # -------------------------------
 
     @qcore.pyqtSlot(QPoint)
@@ -547,7 +547,7 @@ class EditorMetadadosMarswInfobiomares(QMainWindow, snimarEditorMainWindow.Ui_ma
                     continue
 
     # -------------------------------
-    # EditorMetadadosMarswInfobiomares utils
+    # EditorMetadadosMarswInforbiomares utils
     # -------------------------------
     def load_codelists(self):
         with open(os.path.join(os.path.dirname(__file__),

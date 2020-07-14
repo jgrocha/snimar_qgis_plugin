@@ -31,9 +31,9 @@ import datetime
 from qgis.PyQt import QtGui as qgui
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QDialog
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import update_progress_bar
-from EditorMetadadosMarswInfobiomares.snimarProfileModel import service
-from EditorMetadadosMarswInfobiomares import CONSTANTS
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import update_progress_bar
+from EditorMetadadosMarswInforbiomares.snimarProfileModel import service
+from EditorMetadadosMarswInforbiomares import CONSTANTS
 
 
 class SNIMarThesaurusUpdateDialog(QDialog, update_progress_bar.Ui_update_dialog):

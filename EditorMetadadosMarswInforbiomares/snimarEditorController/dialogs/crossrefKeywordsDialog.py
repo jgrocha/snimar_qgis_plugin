@@ -8,10 +8,10 @@ from qgis.PyQt import QtNetwork
 
 from qgis.PyQt.QtWidgets import QAbstractItemView, QSizePolicy, QLabel, QDialog
 
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import TableModel
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import customComboBoxModel as customCombo
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import wormsDialog
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import crossrefDialog
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import TableModel
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import customComboBoxModel as customCombo
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import wormsDialog
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import crossrefDialog
 
 
 def build_author_string(authors):

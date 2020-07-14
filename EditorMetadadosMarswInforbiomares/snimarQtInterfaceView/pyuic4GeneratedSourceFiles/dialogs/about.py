@@ -160,11 +160,11 @@ class Ui_About(object):
 
     def retranslateUi(self, About):
         _translate = QtCore.QCoreApplication.translate
-        About.setWindowTitle(_translate("About", "Editor de metadados SNIMar - Sobre"))
-        self.label.setText(_translate("About", "Editor de metadados Marsw Infobiomares"))
+        About.setWindowTitle(_translate("About", "Editor de metadados - Sobre"))
+        self.label.setText(_translate("About", "Editor de metadados Marsw Inforbiomares"))
         self.pushButton.setText(_translate("About", "Fechar"))
         self.editor_logo.setText(_translate("About", "<img border=\"0\" alt=\"LOGO\" src=\":resourcesFolder/icons/main_icon.png\" width=\"60\" heigth=\"60\">"))
-        self.label_6.setText(_translate("About", "<html><head/><body><p>O Editor de Metadados foi desenvolvido no âmbito dos projetos Marsw e Infobiomares com o objectivo de ser a ferramenta destinada à criação dos metadados em conformidade com o Perfil de Metadados SNIMar.</p></body></html>"))
+        self.label_6.setText(_translate("About", "<html><head/><body><p>O Editor de Metadados foi desenvolvido no âmbito dos projetos Marsw e Inforbiomares com o objectivo de ser a ferramenta destinada à criação dos metadados em conformidade com o Perfil de Metadados SNIMar.</p></body></html>"))
         self.label_3.setText(_translate("About", " <b>Autores:</b><br>\n"
 "- Pedro Dias<br>\n"
 "- Eduardo Castanho<br>\n"

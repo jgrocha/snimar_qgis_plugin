@@ -1,5 +1,5 @@
 from qgis.PyQt.QtWidgets import QDialog
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import wormsDialog
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import wormsDialog
 
 
 class WormsDialog(QDialog, wormsDialog.Ui_worms_dialog):

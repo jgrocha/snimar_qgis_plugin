@@ -37,12 +37,12 @@ import platform
 from qgis.PyQt.QtWidgets import QToolTip, QDialog
 from qgis.PyQt.QtGui import QCursor, QFont
 
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import \
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import \
     chooseGeographicExtentOnMapDialog  as mdextent
-from EditorMetadadosMarswInfobiomares.snimarEditorController.models import table_list_aux as tla
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import \
+from EditorMetadadosMarswInforbiomares.snimarEditorController.models import table_list_aux as tla
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles import \
     geographicinformationPanel
-from EditorMetadadosMarswInfobiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import \
+from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import \
     chooseGeographicExtentFromLayer as ly_extent
 
 
@@ -228,7 +228,7 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         self.resourcebox.setChecked(True)
         self.pan()
 
-        lugin_path = utils.pluginDirectory('EditorMetadadosMarswInfobiomares')
+        lugin_path = utils.pluginDirectory('EditorMetadadosMarswInforbiomares')
 
         # Load Vector
         layerpath = os.path.join(plugin_path, "resourcesFolder/World.shp")

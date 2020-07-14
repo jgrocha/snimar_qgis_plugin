@@ -119,7 +119,7 @@ def make_repository_xml(data):
     """
     Make the repository XML file for the plugin repository.
     """
-    template = load_template('editor_metadados_marsw_infobiomares.template.xml')
+    template = load_template('editor_metadados_marsw_inforbiomares.template.xml')
     return template.render(data)
 
 

@@ -1,0 +1,24 @@
+[general]
+name=EditorMetadadosMarswInfobiomares
+email=suporte.snimar@ipma.pt
+author= Main Developers: Pedro Dias, Eduardo Castanho;
+ Contributors: Joana Teixeira , Alexandre Neto
+qgisMinimumVersion=3.0
+description=Plugin para a criação e edição de metadados segundo o perfil SNIMar
+about= O Editor de Metadados SNIMar foi desenvolvido no âmbito do Projecto SNIMar
+       com o objectivo de ser a ferramenta destinada à criação dos metadados
+       em conformidade com o Perfil de Metadados SNIMar
+       email: suporte.snimar@ipma.pt.
+version=3.0.0
+ChangeLog: >1.0.0 - Primeira versão
+           >...
+           >2.0.0 - Actualização do Perfil
+           >2.0.1 - Correçao Bugs
+            -actualizar palavras-chave SNIMar
+           >2.1.0 - Bugs fix( Contact list corruption,gml versions,...)
+           >3.0.0 - Atualização do plugin para Python3
+tags=Metadata, metadados, SNIMar, EEAgrants, Governo Portugal
+homepage=http://editor.snimar.pt/
+experimental=False
+deprecated=False
+

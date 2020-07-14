@@ -1,0 +1,44 @@
+QPushButton[flat="false"] {
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #e5e5e5, stop:1 #ffffff);
+	border-radius:5px;
+	border:1px outset #8f8f8f;
+	font-family: Arial, serif;
+	font-weight:bold;
+	padding: 4px 4px 4px 4px;
+}
+QPushButton:hover {
+		background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #f5f5f5, stop:1 #ffffff);
+	border:1.2px outset #8f8f8f;;
+}
+QPushButton:pressed {
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #ffffff, stop:1 #e5e5e5);
+	border-top:2px outset #8f8f8f;;
+}
+
+QPushButton:focus {
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #e5e5e5, stop:1 #ffffff);
+}
+
+
+QComboBox {
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #e5e5e5, stop:1 #ffffff);
+	border-radius:5px;
+	border:1px outset #8f8f8f;;
+	font-family: Arial, serif;
+	font-weight:bold;
+	padding: 4px 4px 4px 4px;
+}
+
+QComboBox:hover {
+		background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #f5f5f5, stop:1 #ffffff);
+	border:1px outset #8f8f8f;;
+}
+QComboBox:pressed {
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #ffffff, stop:1 #e5e5e5);
+	border-top:2px outset #8f8f8f;;
+}
+
+QComboBox:focus {
+	background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0.25  #e5e5e5, stop:1 #ffffff);
+}
+

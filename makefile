@@ -1,28 +1,28 @@
-UIDIR = EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/templates/
+UIDIR = EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/templates/
 UIFILES := $(shell find $(UIDIR) -iname '*.ui')
 PYUIFILES := $(patsubst %.ui,%.py,$(UIFILES))
 
 build: build_rcc build_ui
 
-build_rcc: EditorMetadadosMarswInfobiomares/resources.qrc
-	pyrcc5 -o EditorMetadadosMarswInfobiomares/resources.py EditorMetadadosMarswInfobiomares/resources.qrc
+build_rcc: EditorMetadadosMarswInforbiomares/resources.qrc
+	pyrcc5 -o EditorMetadadosMarswInforbiomares/resources.py EditorMetadadosMarswInforbiomares/resources.qrc
 
 build_ui: $(PYUIFILES)
-	mkdir -p EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/
-	touch EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/__init__.py
-	mv EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/templates/*.py EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/
-	mv EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/templates/dialogs/*.py EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/
+	mkdir -p EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/
+	touch EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/__init__.py
+	mv EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/templates/*.py EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/
+	mv EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/templates/dialogs/*.py EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/pyuic4GeneratedSourceFiles/dialogs/
 
-EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/templates/%.py: EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/templates/%.ui
+EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/templates/%.py: EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/templates/%.ui
 	pyuic5 $< -o $@
 
-EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/templates/dialogs%.py: EditorMetadadosMarswInfobiomares/snimarQtInterfaceView/templates/dialogs/%.ui
+EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/templates/dialogs%.py: EditorMetadadosMarswInforbiomares/snimarQtInterfaceView/templates/dialogs/%.ui
 	pyuic5 $< -o $@
 
 cleanUserFiles:
-	rm -f EditorMetadadosMarswInfobiomares/userFiles/*.json
-	echo "[]" >> EditorMetadadosMarswInfobiomares/userFiles/contact_list.json
-	echo "{}" >> EditorMetadadosMarswInfobiomares/userFiles/filelist.json
+	rm -f EditorMetadadosMarswInforbiomares/userFiles/*.json
+	echo "[]" >> EditorMetadadosMarswInforbiomares/userFiles/contact_list.json
+	echo "{}" >> EditorMetadadosMarswInforbiomares/userFiles/filelist.json
 
 clean:
 	find . -iname "*.pyc" -type f -delete

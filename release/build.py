@@ -157,7 +157,7 @@ def make_release_zip():
 if __name__ == '__main__':
     info = make_release_information()
 
-    with open(os.path.join(public_filesystem_location(), 'editormetadadosmarswinfobiomares.xml'), 'w', encoding='utf-8') as fp:
+    with open(os.path.join(public_filesystem_location(), 'editormetadadosmarswinforbiomares.xml'), 'w', encoding='utf-8') as fp:
         fp.write(make_repository_xml(info))
 
     shutil.copytree(source_filesystem_location(), release_filesystem_location(), ignore=get_ignore_file_list)

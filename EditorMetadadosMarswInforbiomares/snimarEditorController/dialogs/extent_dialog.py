@@ -228,7 +228,7 @@ class ExtentDialog(QDialog, mdextent.Ui_MDExtentDialogBase):
         self.resourcebox.setChecked(True)
         self.pan()
 
-        lugin_path = utils.pluginDirectory('EditorMetadadosMarswInforbiomares')
+        plugin_path = utils.pluginDirectory('EditorMetadadosMarswInforbiomares')
 
         # Load Vector
         layerpath = os.path.join(plugin_path, "resourcesFolder/World.shp")

@@ -1,6 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource>
+        <file>resourcesFolder/icons/geonetwork.png</file>
         <file>resourcesFolder/icons/contacts_icon.svg</file>
         <file>resourcesFolder/icons/distribution_icon.svg</file>
         <file>resourcesFolder/icons/geographicinfo_icon.svg</file>

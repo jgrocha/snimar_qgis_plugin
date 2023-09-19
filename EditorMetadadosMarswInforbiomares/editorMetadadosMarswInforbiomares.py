@@ -38,17 +38,22 @@ import json
 import platform
 import traceback
 import urllib.request, urllib.error, urllib.parse
+import tempfile
 
 from qgis.PyQt import QtCore as qcore
 from qgis.PyQt import QtGui as qgui
 from qgis.PyQt import QtWidgets as qwidgets
 from qgis.PyQt.QtCore import Qt, QPoint
-from qgis.PyQt.QtWidgets import QPushButton, QHeaderView, QMenu, QAction, QProgressDialog, QProgressBar, QMessageBox, QAbstractItemView, QMainWindow, QWidget, QLineEdit, QTabBar
+from qgis.PyQt.QtWidgets import QPushButton, QInputDialog, QHeaderView, QMenu, QAction, QProgressDialog, QProgressBar, QMessageBox, QAbstractItemView, QMainWindow, QWidget, QLineEdit, QTabBar
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.PyQt.QtGui import QFont
 import datetime
+import requests
 
 from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs.about import About
+from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs.read_geonetwork import read_Geonetwork
+from EditorMetadadosMarswInforbiomares.snimarEditorController.dialogs.login_geonetwork import login_Geonetwork
+#from EditorMetadadosMarswInforbiomares.snimarQtInterfaceView.pyuic4GeneratedSourceFiles.dialogs import urlGeonetwork
 from .snimarEditorController.metadadoSNIMar import MetadadoSNIMar, vality_msg
 from .snimarEditorController import filemanager
 from .snimarProfileModel import snimarProfileModel, validation
@@ -66,12 +71,32 @@ from .snimarEditorController.models.delegates import ButtonDelegate
 SAVE_FLAG = 0
 SAVEAS_FLAG = 1
 
-
 class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_mainwindow):
     """SNIMar Editor main window class"""
-
     def __init__(self, iface, parent):
         super(EditorMetadadosMarswInforbiomares, self).__init__()
+
+        self.token = None
+        self.username = None
+        self.password = None
+        self.rep = None
+        self.listData = []
+        self.server = None
+        self.userServer = None
+
+        global toSave
+        def toSave(tok, session, username, password):
+            self.token = tok
+            self.username = username
+            self.password = password
+            self.rep = session
+            self.statusbar.clearMessage()
+            self.statusbar.showMessage('A guardar ....', 4000)
+            self.save_metadata_xml_file(SAVE_FLAG, 'Geonetwork')
+
+        global toFile
+        def toFile(fileName): 
+            self.fileLoad(fileName)
 
         # Setup the directory that will contain the filelist and the list of contacts
         self.setup_editor_dir()
@@ -106,8 +131,6 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
         shortcut_open = qgui.QKeySequence(qcore.Qt.CTRL + qcore.Qt.Key_O)
         shortcut_save = qgui.QKeySequence(qcore.Qt.CTRL + qcore.Qt.Key_S)
 
-
-
         # All the connects for the Dialog widget
         self.tabWidget.tabCloseRequested.connect(self.tab_close)
         self.new_dataset.triggered.connect(lambda: self.new_metadata_xml_tab(SCOPES.CDG))
@@ -123,13 +146,25 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
         self.menu_close.triggered.connect(self.close_editor)
         self.menu_codelists.triggered.connect(self.refresh_codelist)
         self.menu_resave.triggered.connect(self.resave_all_in_list)
+        # Alteração dia 30/08/2022 - Adição da trigger ao click link Geonetwork
+        #self.menu_geonetwork.triggered.connect(self.refresh_codelist)
+        self.setServer.clicked.connect(self.setServerToLoad)
+
 
         contact_list = self.menubar.addAction("Lista de Contactos")
         contact_list.triggered.connect(self.open_list_contacts)
         about = self.menubar.addAction("Sobre")
         about.triggered.connect(self.open_about)
+        geonetworkMenu = self.menu_geonetwork
+        geonetworkMenu.triggered.connect(self.open_menUrlGeonetwork)
+        saveGeonetwork = self.save_Geonetwork
+        saveGeonetwork.triggered.connect(self.open_menuLogin)
+        #saveGeonetwork.triggered.connect(lambda: self.save_metadata_xml_file(SAVE_FLAG, 'Geonetwork'))
+        
         self.menubar.setNativeMenuBar(False)
 
+        #Load tab Geonetwork
+        #self.loadRecordsGeonetwork()
         # Load the list of tracked files and load the filetable view
         self.tracked_list.load()
         filetable_data = []
@@ -274,25 +309,14 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
             'id': None,
             'doc_type': SCOPES.get_rich_text_translation(SCOPES.get_string_representation(scope))
         }
-        print('new_metadata_xml_tab')
+        #print('new_metadata_xml_tab')
         self.open_list.track_new_file(**filedict)
         self.tab_files.append(filedict)
         self.tmp_file_index += 1
+    
+    def fileLoad(self, name):
+        doc_names = [name]
 
-    @qcore.pyqtSlot()
-    def open_metadata_xml_file(self, name=None):
-        """Slot to create a new tab using the data retrieved from a XML file."""
-        # Get the filename
-        if name is None:
-            name = [None, None]
-        if name[0] is None:
-            file_dialog = qwidgets.QFileDialog(self)
-            #file_dialog.setFilter(u"XML files (*.xml);;All Files (*.*)")
-            filters = "XML files (*.xml);;All Files (*.*)"
-            doc_names = file_dialog.getOpenFileName(self, u'Abrir ficheiro XML', self.last_open_dir, filters)
-            doc_names = [doc_names[0]]
-        else:
-            doc_names = [name[0]]
         for doc_ in doc_names:
             doc = str(doc_)
             # Check that the string doc is not empty
@@ -362,8 +386,111 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
                         'doc_type': SCOPES.get_rich_text_translation(md.hierarchy),
                         'id': md.identifier
                     }
-                    print('open_metadata_xml_file')
+                    #print('open_metadata_xml_file')
                     self.open_list.track_new_file(**filelist)
+                    self.tabWidget.setCurrentIndex(self.tabWidget.addTab(meta, os.path.basename(doc)))
+
+                # Update tracking info
+                if name[0] is None and doc not in self.tracked_list:
+                    validity = meta.is_doc_Snimar_Valid()
+                    self.filetable.model().addNewRow(
+                        [SCOPES.get_rich_text_translation(md.hierarchy), common.title, doc, md.identifier,
+                         vality_msg(validity), None])
+                    self.tracked_list.track_new_file(**filelist)
+                
+                # Delete File
+                if os.path.exists(name):
+                    os.remove(name)
+                else:
+                    print("The file does not exist") 
+        
+    @qcore.pyqtSlot()
+    def open_metadata_xml_file(self, name=None):
+        """Slot to create a new tab using the data retrieved from a XML file."""
+        # Get the filename
+        if name is None:
+            name = [None, None]
+        if name[0] is None:
+            file_dialog = qwidgets.QFileDialog(self)
+            #file_dialog.setFilter(u"XML files (*.xml);;All Files (*.*)")
+            filters = "XML files (*.xml);;All Files (*.*)"
+            doc_names = file_dialog.getOpenFileName(self, u'Abrir ficheiro XML', self.last_open_dir, filters)
+            doc_names = [doc_names[0]]
+            #print(doc_names)
+        else:
+            doc_names = [name[0]]
+
+        for doc_ in doc_names:
+            doc = str(doc_)
+            # Check that the string doc is not empty
+            if len(doc) < 1:
+                continue
+
+            # Verify that the file is not open already
+            if doc in self.open_list:
+                meta = self.findChild(MetadadoSNIMar, doc)
+                self.tabWidget.setCurrentWidget(meta)
+            else:
+                # Update the last open dir variable
+                if name[0] is None:
+                    self.last_open_dir = os.path.dirname(doc)
+
+                # Open the file
+                index = self.tabWidget.count()
+                try:
+                    open(doc, "r")
+                except IOError as e:
+                    message = QMessageBox(self)
+                    message.setWindowTitle(u'Erro ao abrir o ficheiro')
+                    message.setIcon(QMessageBox.Critical)
+                    message.setText(
+                        u'Ocorreu um erro ao abrir )o ficheiro %s.\nEste não é um ficheiro XML válido ou ja não '
+                        u'existe.\n Por favor seleccione '
+                        u'um '
+                        u'ficheiro '
+                        u'XML.' % doc)
+                    message.show()
+                    self.tracked_list.pop(doc, None)
+                    self.filetable.model().removeSpecificRow(name[1])
+                    return
+
+                md = validation.validate(doc)
+                if md is None:
+                    message = QMessageBox(self)
+                    message.setWindowTitle(u'Erro ao abrir o ficheiro')
+                    message.setIcon(QMessageBox.Critical)
+                    message.setText(
+                        u'Ocorreu um erro ao abrir o ficheiro %s.\nEste não é um ficheiro XML válido. Por favor '
+                        u'seleccione um ficheiro XML.' % doc)
+                    message.show()
+                    return
+                else:
+                    meta = MetadadoSNIMar(self, xml_doc=doc, md=md)
+                    meta.setObjectName(doc)
+
+                    if SCOPES.get_code_representation(md.hierarchy) != SCOPES.SERVICES:
+                        common = md.identification
+                    else:
+                        common = md.serviceidentification
+
+                    if common is None:
+                        message = QMessageBox(self)
+                        message.setWindowTitle(u'Erro ao abrir o ficheiro')
+                        message.setIcon(QMessageBox.Critical)
+                        message.setText(
+                            u'Ocorreu um erro ao abrir o ficheiro %s.\nO metadado está corrupto. Por favor verifique '
+                            u'o conteúdo do ficheiro XML.' % doc)
+                        message.show()
+                        return
+
+                    filelist = {
+                        'path': doc, 'name': doc, 'object': meta, 'title': common.title,
+                        'doc_type': SCOPES.get_rich_text_translation(md.hierarchy),
+                        'id': md.identifier
+                    }
+                    #print('open_metadata_xml_file')
+                    self.open_list.track_new_file(**filelist)
+                    #print(meta)
                     self.tabWidget.setCurrentIndex(self.tabWidget.addTab(meta, os.path.basename(doc)))
 
                 # Update tracking info
@@ -375,7 +502,9 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
                     self.tracked_list.track_new_file(**filelist)
 
     @qcore.pyqtSlot()
-    def save_metadata_xml_file(self, flag):
+    def save_metadata_xml_file(self, flag, server=None):
+        #print(flag)
+
         if self.tabWidget.currentIndex() == 0:
             return
 
@@ -389,13 +518,12 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
             name = self.tabWidget.currentWidget().objectName()
             if name not in self.tracked_list:
                 but_saveas = True
-
-        if flag == SAVEAS_FLAG or but_saveas:
+        
+        if (flag == SAVEAS_FLAG or but_saveas) and server != 'Geonetwork':
             # Open the Save As dialog and get the filename for the new XML document. Then,
             # convert the filename to unicode.
             doc_ = qwidgets.QFileDialog.getSaveFileName(self, u'Guardar ficheiro XML', self.last_open_dir,
                                                     u"XML files (*.xml);;All Files (*.*)")[0]
-
             if doc_.strip() == "":
                 return
 
@@ -431,7 +559,7 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
             popped_fo['name'] = os.path.basename(doc)
             popped_fo['doc_type'] = SCOPES.get_rich_text_translation(SCOPES.get_string_representation(
                 self.tabWidget.currentWidget().scope))
-            print('save_metadata_xml_file')
+            #print('save_metadata_xml_file')
             self.open_list.track_new_file(**popped_fo)
         elif flag == SAVE_FLAG and not but_saveas:
             name = self.tabWidget.currentWidget().objectName()
@@ -443,19 +571,40 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
         # Load data in UI into a buffer md object
         md = snimarProfileModel.MD_Metadata()
         xml_tab = self.tabWidget.currentWidget()
-        xml_tab.get_tab_data(md)
+
+        xml_to_save = None
+        try:
+            xml_tab.get_tab_data(md)
+        except:
+            self.statusbar.clearMessage()
+            return
 
         # Save to file
         try:
             xml_str = snimarProfileModel.export_xml(md)
-
-            with open(doc, 'w') as fp:
-                fp.write(xml_str.encode('utf-8').decode("utf-8"))
-                fp.flush()
-                fp.close()
-                self.statusbar.clearMessage()
-                self.statusbar.showMessage('Guardado', 2000)
-
+            if server != 'Geonetwork':
+                try:
+                    with open(doc, 'w') as fp:
+                        fp.write(xml_str.encode('utf-8').decode("utf-8"))
+                        fp.flush()
+                        fp.close()
+                        self.statusbar.clearMessage()
+                        self.statusbar.showMessage('Guardado', 2000)
+                        xml_to_save=xml_str.encode('utf-8').decode("utf-8")
+                        #print(xml_to_save)
+                except e:
+                    print(xml_str.encode('utf-8').decode("utf-8"))
+                    #xml_to_save=xml_str.encode('utf-8').decode("utf-8")
+                    return
+            else:
+                xml_to_save=xml_str.encode('utf-8').decode("utf-8")
+                #print(xml_to_save)
+                ##### Veriificar o em confirmidade
+                saveFile = self.saveToGeonetwork(xml_to_save)
+                if saveFile:
+                    self.statusbar.clearMessage()
+                    self.statusbar.showMessage('Guardado', 4000)
+                return
 
             # Add to tracking system
             validity = self.tabWidget.currentWidget().is_doc_Snimar_Valid()
@@ -463,6 +612,7 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
                 common = md.identification
             else:
                 common = md.serviceidentification
+
             if doc not in self.tracked_list:
                 # Update the doc in the open_list file list using the md object
                 self.open_list[doc]['id'] = md.identifier
@@ -514,6 +664,10 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
             self.statusbar.clearMessage()
             #self.statusbar.showMessage(e.message + str(type(e)))
             self.statusbar.showMessage(str(e))
+
+        if server == 'Geonetwork':
+            #print(xml_str.encode('utf-8').decode("utf-8"))
+            self.saveToGeonetwork(xml_to_save)
 
         # Save files list,necessary because of the access before
         self.tracked_list.save()
@@ -567,6 +721,34 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
         row_index = self.filetable.selectionModel().selection().indexes()[0].row()
         path = self.filetable.model().matrix[row_index][2]
         return path, row_index
+    
+    def selected_row(self): 
+        if self.filetable_2.model().rowCount() < 1 or not self.filetable_2.selectionModel().hasSelection():
+            return None, -1
+        row_index = self.filetable_2.selectionModel().selection().indexes()[0].row()
+        uuid = self.listData[row_index][4]
+
+        ### Get data from geonetwork by uuid
+        url = 'http://localhost:8080/geonetwork_v4/srv/api/records/'+uuid+'/formatters/xml'
+        response = requests.get(url)
+        xml = response.text
+        #print(response.text)
+
+        fileName = str(uuid)+'.xml'
+
+        checkPath = os.path.isdir('snimar_qgis_plugin')
+        if checkPath:
+            f = open("snimar_qgis_plugin/" +fileName, "w")
+            f.write(xml)
+            f.close()
+        else:
+            path = 'snimar_qgis_plugin'
+            os.mkdir(path)
+            f = open("snimar_qgis_plugin/", "w")
+            f.write(xml)
+            f.close()
+
+        return "snimar_qgis_plugin/" +str(fileName)
 
     def mouse_selected_row(self):
         if self.filetable.model().rowCount() < 1 or not self.filetable.selectionModel().hasSelection():
@@ -584,15 +766,297 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
 
     @qcore.pyqtSlot()
     def open_list_contacts(self):
-        self.dialog = contacts_dialog.ContactsDialog(self, edition_mode=True)
-        self.dialog.btn_add_contact_metadata.clicked.connect(
-            lambda: self.loadContactObject(self.dialog.output_contact()))
-        self.dialog.exec_()
+        if self.server:
+            if self.userServer:
+                response = self.getUserDataFromServer()
+                if response:  
+                    self.dialog = contacts_dialog.ContactsDialog(self, self.userServer,self.rep ,self.token,self.server, self.username, self.password, edition_mode=True)
+                    self.dialog.btn_add_contact_metadata.clicked.connect(lambda: self.loadContactObject(self.dialog.output_contact()))
+                    self.dialog.exec_()
+            else:
+                response = self.getUserDataFromServer()
+                if response:
+                    self.dialog = contacts_dialog.ContactsDialog(self, self.userServer, self.rep ,self.token,self.server, self.username, self.password, edition_mode=True)
+                    self.dialog.btn_add_contact_metadata.clicked.connect(lambda: self.loadContactObject(self.dialog.output_contact()))
+                    self.dialog.exec_()
+        else:
+            serverUrl, ok = QInputDialog.getText(self, 'URL Server', 'Server URL:')
+            if ok and serverUrl:
+                self.server = serverUrl
+                resp = self.checkValidServer()
+
+                if resp:
+                    self.menuLogin = login_Geonetwork(self.server)
+                    self.menuLogin.exec_()
+
+                    response = self.getUserDataFromServer()
+                    if response:
+                        self.dialog = contacts_dialog.ContactsDialog(self, self.userServer,self.rep ,self.token,self.server, self.username, self.password, edition_mode=True)
+                        self.dialog.btn_add_contact_metadata.clicked.connect(lambda: self.loadContactObject(self.dialog.output_contact()))
+                        self.dialog.exec_()
+            else:
+                self.dialog = contacts_dialog.ContactsDialog(self, [], self.rep ,self.token,self.server,self.username, self.password, edition_mode=True)
+                self.dialog.btn_add_contact_metadata.clicked.connect(lambda: self.loadContactObject(self.dialog.output_contact()))
+                self.dialog.exec_()
+
+    @qcore.pyqtSlot()
+    def getUserDataFromServer(self):
+        url = str(self.server) + '/srv/api/users'
+        headers = {'Accept': 'application/json', 'X-XSRF-TOKEN': self.token}
+        #headers = {'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=utf-8'}
+
+        try:
+            ## Get Data
+            session = self.rep
+            response = session.get(url, headers=headers)
+
+            ## lost Token
+            if response.status_code == 403:
+                ## Get new session
+                session = requests.Session() 
+                authenticate_url = str(self.server)+'/srv/eng/info?type=me'
+                response = session.post(authenticate_url)
+                xsrf_token = response.cookies.get("XSRF-TOKEN")
+
+                # Set header for connection
+                headers = {'Accept': 'application/json', 'X-XSRF-TOKEN': xsrf_token}
+                url = str(self.server)+"/signin"
+
+                response = session.post(url,
+                    auth=(self.username, self.password),
+                    headers=headers,
+                )
+
+                ## Get new data
+                url = str(self.server) + '/srv/api/users'
+                response = session.get(url, headers=headers)   
+                data = json.loads(response.text)
+            else:
+                data = json.loads(response.text)
+
+            ##Update token
+            authenticate_url = str(self.server)+'/srv/eng/info?type=me'
+            session = requests.Session()
+            response = session.post(authenticate_url)
+            xsrf_token = response.cookies.get("XSRF-TOKEN")
+
+            ##Update variavel
+            self.token = xsrf_token
+            self.rep = session
+            self.userServer = data
+            return True
+        except requests.exceptions.RequestException as e:
+            self.showAlert('Erro ao carregar do dados do servidor. \n Verifique o endereço fornecido.','Ocorreu um erro',QMessageBox.Critical)
+            self.server = None
+            return 
 
     @qcore.pyqtSlot()
     def open_about(self):
         self.about = About()
         self.about.exec_()
+
+    @qcore.pyqtSlot()
+    def open_menUrlGeonetwork(self):
+        self.menuGeonetwork = read_Geonetwork()
+        self.menuGeonetwork.exec_()
+
+    @qcore.pyqtSlot()
+    def readXMLFromGeonetwork(self, index):
+        print('index')
+
+    @qcore.pyqtSlot()
+    def open_menuLogin(self):
+        #print(self.token)
+        if self.token:
+            #print('existe token')
+            #self.updateToken()
+            self.statusbar.clearMessage()
+            self.statusbar.showMessage('A guardar ....', 4000)
+            self.save_metadata_xml_file(SAVE_FLAG, 'Geonetwork')
+        else:
+            if self.server is None:
+                serverUrl, ok = QInputDialog.getText(self, 'URL Server', 'Server URL:')
+                if ok and serverUrl:
+                    self.server = serverUrl
+                    resp = self.checkValidServer()
+
+                    if resp:
+                        self.menuLogin = login_Geonetwork(self.server)
+                        self.menuLogin.exec_()
+            else:
+                if self.server:
+                    self.menuLogin = login_Geonetwork(self.server)
+                    self.menuLogin.exec_()
+
+            #self.menuLogin = login_Geonetwork(self.server)
+            #self.menuLogin.exec_()
+            #print('Ainda não realizou login')
+    
+    # Função set message
+    @qcore.pyqtSlot()
+    def showAlert(self, texto, title, icon):
+        message = QMessageBox(self)
+        message.setWindowTitle(title)
+        message.setIcon(icon)
+        message.setText(texto)
+        message.show()
+    
+    @qcore.pyqtSlot()
+    def checkValidServer(self):
+        url = str(self.server) + '/srv/api/search/records/_search'
+        headers = {'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=utf-8'}
+        jsonData = {"track_total_hits": 'true'}
+
+        try:
+            response = requests.post(url, headers=headers, json=jsonData)
+            return True
+        except requests.exceptions.RequestException as e:
+            self.showAlert('Erro ao carregar do dados do servidor. \n Verifique o endereço fornecido.','Ocorreu um erro',QMessageBox.Critical)
+            self.server = None
+            return 
+
+    @qcore.pyqtSlot()
+    def loadRecordsGeonetwork(self):
+
+        url = str(self.server) + '/srv/api/search/records/_search'
+        #url = 'http://localhost:8080/geonetwork_v4/srv/api/search/records/_search'
+        headers = {'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=utf-8'}
+        jsonData = {"track_total_hits": 'true'}
+
+        try:
+            response = requests.post(url, headers=headers, json=jsonData)
+            responseJson = json.loads(response.text)
+            self.setServer.setText('Atualizar Lista')
+        except requests.exceptions.RequestException as e:
+            self.showAlert('Erro ao carregar do dados do servidor. \n Verifique o endereço fornecido.','Ocorreu um erro',QMessageBox.Critical)
+            self.server = None
+            return 
+        
+        try:
+            hits = responseJson.get('hits').get('hits')
+            filtable2_data = []
+            filtable_data = []
+
+            for row in hits:
+                template = row.get('_source').get('isTemplate')
+
+                if template == 'n':
+                    rowType = row.get('_source').get('docType')
+                    if rowType == 'metadata':
+                        title = row.get('_source').get('resourceTitleObject').get('default')
+                        server = 'Geonetwork'
+                        if row.get('_source').get('cl_resourceCharacterSet') != None:
+                            resourceCharacterSet = row.get('_source').get('cl_resourceCharacterSet')[0].get('default')
+                        else:
+                            resourceCharacterSet = 'utf-8'
+                        #resourceCharacterSet = row.get('_source').get('cl_resourceCharacterSet')[0].get('default')
+                        createDate = str(row.get('_source').get('createDate'))
+                        uuid = row.get('_source').get('uuid')
+                        userInsert = row.get('_source').get('recordOwner')
+                        userInsert = userInsert.split(" ")
+                        userInsert = userInsert[0]
+                        filtable2_data.append([str(title), resourceCharacterSet, str(userInsert), createDate])
+                        filtable_data.append([title, server, resourceCharacterSet, createDate, uuid])
+            
+            self.listData=filtable_data
+
+            #Set data
+            type_mapping = [QLineEdit, QLineEdit, QLineEdit, QLineEdit]
+            self.filetable_2.setWordWrap(True)
+            self.filetable_2.setTextElideMode(Qt.ElideNone)
+            tableaux.setupTableView(self, self.filetable_2,
+                                    [u'Título', u'Codificação', u'Quem introduziu', u'Data de Criação'],
+                                    type_mapping, None, model_data=filtable2_data)
+            self.filetable_2.horizontalHeader().setMinimumSectionSize(29)
+            self.filetable_2.horizontalHeader().setCascadingSectionResizes(False)
+            self.filetable_2.horizontalHeader().setStretchLastSection(False)
+            self.filetable_2.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+            self.filetable_2.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
+            self.filetable_2.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
+            self.filetable_2.verticalHeader().setMinimumSectionSize(60)
+            self.filetable_2.verticalHeader().setDefaultSectionSize(60)
+            self.filetable_2.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+            self.filetable_2.resizeRowsToContents()
+            self.filetable_2.setSelectionMode(QAbstractItemView.ExtendedSelection)
+
+            #self.filetable_2.doubleClicked.connect(lambda: self.open_metadata_xml_file(self.selected_file_row()))
+            #self.filetable_2.doubleClicked.connect(lambda: self.selected_row())
+            self.filetable_2.doubleClicked.connect(lambda: self.fileLoad(self.selected_row()))
+
+            self.filetable.setContextMenuPolicy(Qt.CustomContextMenu)
+            self.filetable_2.customContextMenuRequested.connect(self.menu_context)
+            self.filetable_2.model().sort(1, Qt.AscendingOrder)
+            self.filetable_2.horizontalHeader().setSortIndicator(1, Qt.AscendingOrder)
+            self.statusbar.clearMessage()
+            self.statusbar.showMessage('Lista Carregada', 2000)
+        except:
+            return 
+            print("An exception occurred")
+    
+    @qcore.pyqtSlot()
+    def updateToken(self):
+        # Set up your server and the authentication URL:
+        server = "http://localhost:8080"
+        authenticate_url = server + '/geonetwork_v4/srv/eng/info?type=me'
+
+        # To generate the XRSF token, send a post request to the following URL: http://localhost:8080/geonetwork/srv/eng/info?type=me
+        session = self.rep
+        response = session.post(authenticate_url)
+
+        # Extract XRSF token
+        xsrf_token = response.cookies.get("XSRF-TOKEN")
+        #print(xsrf_token)
+
+        self.token = xsrf_token
+    
+    @qcore.pyqtSlot()
+    def saveToGeonetwork(self, xml_to_save):
+        #print(xml_to_save)
+        ##Cria temporario file and validate
+        xml = xml_to_save.encode(encoding='utf-8')
+        temp=tempfile.NamedTemporaryFile(mode='w+b', suffix='.xml')
+        temp.write(xml)
+
+        #validate
+        md = validation.validate(temp.name)
+
+        if md is None:
+            self.showAlert('Este XML não é válido, não está em conformidade com o perfil SINMar. \n Por favor Verifique o formulário disponibilizado.','Ocorreu um erro',QMessageBox.Critical)
+            return
+        else:
+            meta = MetadadoSNIMar(self, xml_doc=temp.name, md=md)
+
+        temp.close()
+        if meta.is_doc_Snimar_Valid():
+            #Save to Geonetwork
+            username = self.username
+            passwd = self.password
+            server = self.server
+
+            session = self.rep
+            xsrf_token = self.token
+
+            url = server + '/srv/api/records?metadataType=METADATA&uuidProcessing=OVERWRITE&transformWith=_none_&publishToAll=on&group=2&category='
+            headers = {'Accept': 'application/json, text/plain', 'Content-Type': 'application/xml;charset=UTF-8', 'X-XSRF-TOKEN': xsrf_token}
+            #xml = xml_to_save.encode(encoding='utf-8')
+
+            response = session.put(url, auth=(username, passwd), headers=headers, data=xml)
+
+            ##Update token
+            authenticate_url = str(server)+'/srv/eng/info?type=me'
+            session = requests.Session()
+            response = session.post(authenticate_url)
+            xsrf_token = response.cookies.get("XSRF-TOKEN")
+
+            ##Update variavel
+            self.token = xsrf_token
+            self.rep = session
+            self.loadRecordsGeonetwork()
+
+            return True
+        else:
+            self.showAlert('Este XML não é válido, não está em conformidade com o perfil SINMar. \n Por favor Verifique o formulário disponibilizado.','Ocorreu um erro',QMessageBox.Critical)
+            return False
 
     def check_validity_not_open_file(self, name, index):
         # Get the filename
@@ -627,6 +1091,7 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
                 self.tracked_list.pop(doc, None)
                 self.filetable.model().removeSpecificRow(index - 1)
                 return None
+            #Verificar    
             md = validation.validate(doc)
             if md is None:
                 message = QMessageBox(self)
@@ -666,6 +1131,17 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
             os.remove(os.path.join(os.path.dirname(__file__), "userFiles/.meLock"))
         except OSError:
             pass
+
+    @qcore.pyqtSlot()
+    def setServerToLoad(self):
+        if self.server is None:
+            serverUrl, ok = QInputDialog.getText(self, 'URL Server', 'Server URL:')
+            if ok and serverUrl:
+                self.server = serverUrl
+                self.loadRecordsGeonetwork()
+        else:
+            if self.server:
+                self.loadRecordsGeonetwork()
 
     @qcore.pyqtSlot()
     def launch_update(self):
@@ -759,6 +1235,7 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
         i = 0
         for x in self.filetable.model().matrix:
             validity_index = self.filetable.model().index(i, 4)
+            ## patch to file and validity
             validity = self.check_validity_not_open_file(x[2], x[4])
             if validity is None:
                 return
@@ -869,3 +1346,11 @@ class EditorMetadadosMarswInforbiomares(QMainWindow, snimarEditorMainWindow.Ui_m
                     fp.close()
             except Exception as e:
                 traceback.print_exc()
+
+def connectFile(fileName):
+    toFile(fileName)
+    #print('ola')
+
+def saveGeonet(xsrf_token, session, username, password):
+    #token = xsrf_token
+    toSave(xsrf_token, session, username, password)    

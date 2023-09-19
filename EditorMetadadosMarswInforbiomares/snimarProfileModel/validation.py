@@ -36,7 +36,6 @@ def validate(filename):
     """Validate a xml metadata file. Receives a string with the filename"""
     if not verify_md_metadata(filename):
         return None
-
     md = load_metadata(filename)
     if md.hierarchy not in ["dataset", "series", "service"]:
         md = None

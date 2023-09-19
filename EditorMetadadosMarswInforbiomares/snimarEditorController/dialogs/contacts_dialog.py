@@ -42,13 +42,15 @@ import platform
 import os
 import json
 import qgis
+import uuid
+import secrets
 
 CONTACTFILE = os.path.join(os.path.join(os.path.abspath(os.path.expanduser('~')), '.snimar'), 'contact_list.json')
 OUTRA = "Outra - Especificar Abaixo"
 
 
 class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
-    def __init__(self, parent, edition_mode=True):
+    def __init__(self, parent, serverContact, resp, token, url, usernameGeo, passwordGeo, edition_mode=True):
         super(ContactsDialog, self).__init__(parent)
         if platform.system() != "Linux":
             font = QFont()
@@ -81,11 +83,17 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
             info.pressed.connect(self.printHelp)
 
         # Contact list connections and variables
+        self.username = usernameGeo
+        self.password = passwordGeo
+        self.users = serverContact
+        self.session = resp
         self.contact_array = None
         self.open_contact_array()
         self.current_contact = None
         self.contact_list.clearSelection()
         self.contactPanel.setDisabled(True)
+        self.server = url
+        self.token = token
 
         # SETUP THE DIALOG MODE
         if edition_mode:  # EDITION MODE
@@ -153,6 +161,55 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
         for x in self.findChildren(QDateTimeEdit):
             x.installEventFilter(self.eater)
             x.setFocusPolicy(Qt.StrongFocus)
+        
+    # Função set message
+    @qcore.pyqtSlot()
+    def showAlert(self, texto, title, icon):
+        message = qwidgets.QMessageBox(self)
+        message.setWindowTitle(title)
+        message.setIcon(icon)
+        message.setText(texto)
+        message.show()
+
+    @qcore.pyqtSlot()
+    def mountContactGeo(self, contacto, username, password, email):
+        name = contacto.get('name')
+
+        name = name.split(' ')
+        if len(name) >= 1:
+            nome = name[0] 
+            surname = name[len(name)-1]
+        else:
+            nome = name[0] 
+            surname = ''
+        
+        organisation = contacto.get('organization')
+        emailAddresses = contacto.get('email')
+
+        addresses = [
+            {
+                "address":  contacto.get('delivery_point'),
+                "city": contacto.get('city'),
+                "country": contacto.get('country'),
+                "zip": contacto.get('postalcode')
+            }
+        ]
+
+        jsonUser = {
+            "username": str(username),
+            "password": 'P'+str(password)+'s#',
+            "profile": 'RegisteredUser',
+            "surname": surname,
+            "emailAddresses": emailAddresses,
+            "addresses": addresses,
+            "organisation": organisation,
+            "profile": 'RegisteredUser',
+            "enabled": bool(0),
+            "name":nome
+        }
+        json_object = json.dumps(jsonUser, indent = 4) 
+
+        return json_object
 
     @qcore.pyqtSlot()
     def printHelp(self):
@@ -173,6 +230,19 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
             self.current_contact['postalcode'] = str(self.postalcode.text())
             self.current_contact['country'] = str(self.country.text())
 
+            '''self.current_contact['utilizador'] = str(self.utilizador.text)
+            self.current_contact['password'] = str(self.passwd.text())
+
+            ##Check if utilizador and password is set
+            if len(str(self.utilizador.text())) < 3:
+                self.showAlert('Erro Utilizador inválido. \n Por favor forneça um utilizador válido.','Ocorreu um erro',qwidgets.QMessageBox.Critical)
+                return
+            elif len(str(self.passwd.text())) < 8:
+                self.showAlert('Erro Password inválida. \n A Password deve conter pelo menos 8 caracteres.','Ocorreu um erro',qwidgets.QMessageBox.Critical)
+                return
+            
+            '''
+
             items = [str(self.phone.item(index).text()) for index in range(self.phone.count())]
             self.current_contact['phone'] = items
 
@@ -184,12 +254,103 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
 
             self.current_contact['online'] = str(self.online.text())
             if self.current_contact['index'] == -1:
+                print('Inserir')
+
+                key = uuid.uuid4()
+                key = str(key).split('-')
+                username = 'ipma'+key[0]
+                email = 'visit@test.com'
+
+                password_length = 8
+                password = secrets.token_urlsafe(password_length)
                 self.current_contact['index'] = len(self.contact_array)
+
+                ##Mount Contact Geonetwork
+                contacto = self.mountContactGeo(self.current_contact, username, password, email)
+                #print(contacto)
+
+                #Update Geonetwork
+                session = self.session
+                xsrf_token = self.token
+                if self.server:
+                    url = self.server + '/srv/api/users/'
+                    headers = {'Accept': 'application/json, text/plain', 'Content-Type': 'application/json;charset=UTF-8', 'X-XSRF-TOKEN': xsrf_token}
+
+                    response = session.put(url, auth=(self.username, self.password), headers=headers, data=contacto)
+
+                    ##Get users geonetwork
+                    url = str(self.server) + '/srv/api/users'
+                    headers = {'Accept': 'application/json', 'X-XSRF-TOKEN': xsrf_token}
+
+                    response = session.get(url, auth=(self.username, self.password), headers=headers)
+                    serverUsers = json.loads(response.text)
+
+                    for user in serverUsers:
+                        usernameServer = user.get('username')
+                        if usernameServer == username:
+                            id = user.get('id')
+                            self.current_contact['id'] = id
+                            #print(self.current_contact)
+    
                 self.contact_array.append(self.current_contact)
                 item_label = self.current_contact['name'] + ' - ' + self.current_contact['organization']
                 self.contact_list.addItem(item_label)
                 self.contact_list.setCurrentRow(self.current_contact['index'])
             else:
+                #print('Atualização')
+                try:
+                    contacto = self.contact_array[self.current_contact['index']]
+                    if contacto.get('id'):
+                        #Get Nome Sobrenome, email, Organização, Endereço, Estado, Cidade, Pais 
+                        id = contacto.get('id')
+                        name = contacto.get('name')
+
+                        name = name.split(' ')
+                        if len(name) >= 1:
+                           nome = name[0] 
+                           surname = name[len(name)-1]
+                        else:
+                            nome = name[0] 
+                            surname = ''
+                        organisation = contacto.get('organization')
+                        emailAddresses = contacto.get('email')
+
+                        addresses = [
+                            {
+                                "address":  contacto.get('delivery_point'),
+                                "city": contacto.get('city'),
+                                "country": contacto.get('country'),
+                                "zip": contacto.get('postalcode')
+                            }
+                        ]
+
+                        jsonUser = {
+                            "surname": surname,
+                            "id":id,
+                            "emailAddresses": emailAddresses,
+                            "addresses": addresses,
+                            "organisation": organisation,
+                            "profile": 'RegisteredUser',
+                            "enabled": bool(0),
+                            "name":nome
+                        }
+                        json_object = json.dumps(jsonUser, indent = 4) 
+                        #print(json_object)
+                        
+                        #Update Geonetwork
+                        session = self.session
+                        xsrf_token = self.token
+                        if self.server:
+                            url = self.server + '/srv/api/users/'+str(id)
+                            headers = {'Accept': 'application/json, text/plain', 'Content-Type': 'application/json;charset=UTF-8', 'X-XSRF-TOKEN': xsrf_token}
+
+                            response = session.put(url, auth=(self.username, self.password), headers=headers, data=json_object)
+
+                        #print(self.token)
+                except:
+                    exist = False
+                    #print('Não tem id')
+
                 self.contact_array[self.current_contact['index']] = self.current_contact
                 item_label = self.current_contact['name'] + ' - ' + self.current_contact['organization']
                 self.contact_list.item(self.current_contact['index']).setText(item_label)
@@ -272,18 +433,57 @@ class ContactsDialog(QDialog, contactListManagerWindow.Ui_contacts_dialog):
         self.current_contact = self.contact_array[index]
 
     # CONTACT ARRAY OPERATIONS
-
     def save_contact_array(self):
         """Saves the current contact array to the contact_list.json"""
+        #print(self.contact_array)
         with open(CONTACTFILE, 'w') as fp:
             json.dump(self.contact_array, fp)
 
     def open_contact_array(self):
-        try:
-            with open(CONTACTFILE, 'r') as fp:
-                self.contact_array = json.load(fp)
-        except Exception:
-            self.contact_array = []
+        with open(CONTACTFILE, 'r') as file:
+            self.contact_array = json.loads(file.read())
+        
+        #print(self.contact_array)
+        for user in self.users:
+            if user.get('profile') == 'RegisteredUser' and user.get('name') != 'nobody':
+                userId = user.get('id')
+                igual = 0
+                for contact in self.contact_array:
+                    try:
+                        id = contact.get('id')
+                        if id :
+                            if id == userId:
+                                igual = igual + 1
+                    except:
+                        exist = False
+                
+                if igual == 0:
+                    name = str(user.get('name')) + ' ' + str(user.get('surname'))
+                    organisation = str(user.get('organisation'))
+                    emailAddresses = user.get('emailAddresses')
+                    addresses = user.get('addresses')
+                    city = addresses[0]['city']
+                    postalcode = addresses[0]['zip']
+                    country = addresses[0]['country']
+                    #userId = user.get('id')
+
+                    contact = {
+                        "index": len(self.contact_array),
+                        "name": name,
+                        "organization": organisation,
+                        "delivery_point": '',
+                        "city": city,
+                        "postalcode": postalcode,
+                        "country": country,
+                        "phone": [], 
+                        "fax": [], 
+                        "email": emailAddresses, 
+                        "online": '',
+                        "id": userId
+                    }
+
+                    self.contact_array.append(contact)
+                    
         self.fix_contact_list()
         if self.contact_array is None:
             self.contact_array = []

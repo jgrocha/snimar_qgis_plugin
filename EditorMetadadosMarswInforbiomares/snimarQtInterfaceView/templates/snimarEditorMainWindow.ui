@@ -29,7 +29,7 @@
    <enum>Qt::ToolButtonTextBesideIcon</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <property name="leftMargin">
      <number>3</number>
     </property>
@@ -42,13 +42,13 @@
     <property name="bottomMargin">
      <number>3</number>
     </property>
-    <item row="0" column="0">
+    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="focusPolicy">
        <enum>Qt::ClickFocus</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -61,43 +61,6 @@
         <string>Lista de Ficheiros</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="2" column="3">
-         <widget class="QPushButton" name="btn_conform_all">
-          <property name="maximumSize">
-           <size>
-            <width>110</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Verificar
- Conformidade
- (Todos)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="Line" name="line_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="4">
-         <widget class="QPushButton" name="btn_delete_all">
-          <property name="maximumSize">
-           <size>
-            <width>110</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Apagar
- Lista de
- Ficheiros</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0" colspan="5">
          <widget class="QTableView" name="filetable">
           <property name="editTriggers">
@@ -121,6 +84,21 @@
           <attribute name="horizontalHeaderMinimumSectionSize">
            <number>10</number>
           </attribute>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QPushButton" name="btn_conform_all">
+          <property name="maximumSize">
+           <size>
+            <width>110</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Verificar
+ Conformidade
+ (Todos)</string>
+          </property>
          </widget>
         </item>
         <item row="2" column="0">
@@ -179,6 +157,28 @@
           </layout>
          </widget>
         </item>
+        <item row="2" column="4">
+         <widget class="QPushButton" name="btn_delete_all">
+          <property name="maximumSize">
+           <size>
+            <width>110</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Apagar
+ Lista de
+ Ficheiros</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="1" alignment="Qt::AlignBottom">
          <widget class="QWidget" name="widget" native="true">
           <property name="sizePolicy">
@@ -188,6 +188,57 @@
            </sizepolicy>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout"/>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Lista GeonetWork</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QTableView" name="filetable_2">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="gridStyle">
+              <enum>Qt::SolidLine</enum>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="cornerButtonEnabled">
+              <bool>false</bool>
+             </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>10</number>
+             </attribute>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="setServer">
+             <property name="text">
+              <string>Carregar Lista</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -222,15 +273,18 @@
     </widget>
     <addaction name="menu_new"/>
     <addaction name="menu_open"/>
+    <addaction name="menu_geonetwork"/>
     <addaction name="menu_add_dir"/>
     <addaction name="separator"/>
     <addaction name="menu_save"/>
     <addaction name="menu_saveas"/>
+    <addaction name="save_Geonetwork"/>
     <addaction name="menu_save_all"/>
     <addaction name="separator"/>
     <addaction name="menu_close"/>
     <addaction name="menu_codelists"/>
     <addaction name="menu_resave"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="filemenu"/>
   </widget>
@@ -292,6 +346,16 @@
   <action name="menu_resave">
    <property name="text">
     <string>Atualizar Metadados</string>
+   </property>
+  </action>
+  <action name="menu_geonetwork">
+   <property name="text">
+    <string>Abrir URL</string>
+   </property>
+  </action>
+  <action name="save_Geonetwork">
+   <property name="text">
+    <string>Gravar Geonetwork</string>
    </property>
   </action>
  </widget>
